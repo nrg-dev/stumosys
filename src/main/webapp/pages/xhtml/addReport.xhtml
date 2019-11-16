@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+		<style type="text/css">
+				.ui-datatable-tablewrapper {
+				    overflow-x: hidden;
+				}
+			
+			</style>
+	<p:panel style="min-height:100%;width:100%" header="ADD REPORT" toggleable="false" >
+	<f:facet name="header">
+		<center>
+			<h:outputText  value="ADD REPORT" style="font-size: 25px;"/>
+		</center>
+	</f:facet>
+		<p:panelGrid styleClass="ui-panelgrid-blank" columns="6">
+			<h:panelGroup><h:outputLabel value="Report Type" styleClass="labelTxt" for="reportType"></h:outputLabel>
+			<span style="color: red;">*	</span></h:panelGroup>
+			<h:selectOneMenu value="#{reportMB.reportDataBean.reportType}" valueChangeListener="#{reportMB.reportTypeChange}"
+				id="reportType"  styleClass="selecttext_ui1" style="width: 170px;" rendered="#{reportMB.reportmenuTableflag || reportMB.submitButtonflag}">
+					<f:selectItem itemLabel="Select Report Type..." itemValue="" noSelectionOption="true" />
+					<f:selectItem itemLabel="Teacher Report" itemValue="Teacher"></f:selectItem>
+					<f:selectItem itemLabel="Student Report" itemValue="Student"></f:selectItem>
+					<p:ajax event="valueChange" process="@this" update="XX" immediate="true" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"></p:ajax>
+			</h:selectOneMenu>
+			<h:inputText value="#{reportMB.reportDataBean.reportType}" readonly="true" rendered="#{reportMB.updateButtonflag}" styleClass="inputTxt" style="width: 170px;">
+    		</h:inputText>
+			<h:panelGroup><h:outputLabel value="Report For" styleClass="labelTxt" for="reportFor"></h:outputLabel>
+			<span style="color: red;">*	</span></h:panelGroup>
+			<h:selectOneMenu value="#{reportMB.reportDataBean.reportsubType}" valueChangeListener="#{reportMB.addfilter}"  rendered="#{reportMB.reportmenuTableflag || reportMB.submitButtonflag}"
+			onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+				id="reportFor"  styleClass="selecttext_ui1" style="width: 170px;">
+					<f:selectItem itemLabel="Select Report Type..." itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{reportMB.reportFor}"></f:selectItems>  
+					<p:ajax event="valueChange" process="@this" update="XX" immediate="true"  onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"></p:ajax>
+			</h:selectOneMenu>
+			
+			<h:inputText value="#{reportMB.reportDataBean.reportsubType}"  readonly="true" rendered="#{reportMB.updateButtonflag}" styleClass="inputTxt" style="width: 170px;">
+    		</h:inputText>
+			
+			
+			<h:panelGroup>
+			<h:outputLabel value="Report Name" styleClass="labelTxt" for="reportname"></h:outputLabel>
+			<span style="color: red;">* </span></h:panelGroup>
+			<h:inputText value="#{reportMB.reportDataBean.reportName}" id="reportname" styleClass="inputTxt" style="width: 170px;">
+    			<p:ajax update="reportname" process="@this" immediate="true" ></p:ajax>
+    		</h:inputText>
+			
+			<h:panelGroup>
+			<h:outputLabel value="Report Description" styleClass="labelTxt" for="reportdesc"></h:outputLabel>
+			</h:panelGroup>
+			<h:inputText value="#{reportMB.reportDataBean.reportdescription}" id="reportdesc" styleClass="inputTxt" style="width: 170px;">
+    			<p:ajax update="reportdesc" process="@this" immediate="true" ></p:ajax>
+    		</h:inputText>
+    			<h:outputText></h:outputText>
+				<h:message for="reportType" style="color:red;font-size:11px"></h:message>
+				<h:outputText></h:outputText>
+				<h:message for="reportname" style="color:red;font-size:11px"></h:message>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+			</p:panelGrid>
+			<br></br>
+			<h:panelGroup rendered="#{reportMB.filterTableflag}">
+			<center>
+			<h:message for="addReportTable" style="color:red;font-size:11px"></h:message>
+			<p:dataTable var="reportFilters" value="#{reportMB.reportDataBean.filterlist}" rowIndexVar="rowIndex" rendered="#{reportMB.filterTableflag}" 
+			id="addReportTable" style="width:60%">
+			 <p:column headerText="Filter Name" style="text-align:center" >
+			<h:outputText value="#{reportFilters.filterName}"></h:outputText>
+			</p:column>
+			<p:column headerText="Active Status" style="text-align:center">
+			 <p:selectBooleanCheckbox value="#{reportFilters.activeStatus}">
+			  <p:ajax event="change" ></p:ajax>
+			 <p:ajax process="@this" immediate="true" update="XX" event="change" onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"
+			 listener="#{reportMB.statusValidation(rowIndex)}"></p:ajax>
+			 </p:selectBooleanCheckbox>
+			</p:column>
+			</p:dataTable>
+			<br></br>
+			
+			<p:commandButton value="Save Report" rendered="#{reportMB.submitButtonflag}" actionListener="#{reportMB.saveReport}"  update="XX" process="@this" 
+						onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"></p:commandButton>
+			
+			<p:commandButton value="Update Report" rendered="#{reportMB.updateButtonflag}" actionListener="#{reportMB.updateEditMenu}" update="XX" process="@this" 
+						onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"></p:commandButton>
+			
+			<p:commandButton value="Cancel" rendered="#{reportMB.updateButtonflag}" actionListener="#{reportMB.cancelEditMenu}" update="XX" process="@this" 
+						onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"></p:commandButton>
+			</center>
+			</h:panelGroup>
+			
+			
+			
+			<h:panelGroup rendered="#{reportMB.reportmenuTableflag}">
+			<center>
+			<p:dataTable var="reportmenu" value="#{reportMB.reportDataBean.reportList}" id="reportmenu" style="width:100%" rowIndexVar="rowIndex">
+			 <p:column headerText="Report Name" style="text-align:center" >
+				<h:outputText value="#{reportmenu.reportName}"></h:outputText>
+				<h:inputHidden value="#{reportmenu.reportID}"></h:inputHidden>
+			</p:column>
+			<p:column headerText="Report Type" style="text-align:center">
+				<h:outputText value="#{reportmenu.reportType}"></h:outputText>
+			</p:column>
+			<p:column headerText="Report Sub Type" style="text-align:center">
+				<h:outputText value="#{reportmenu.reportsubType}"></h:outputText>
+			</p:column>
+			<p:column headerText="Report Description" style="text-align:center">
+				<h:outputText value="#{reportmenu.reportdescription}"></h:outputText>
+			</p:column>
+			<p:column headerText="Action" style="text-align:center">
+			
+			<p:commandButton title="Edit" icon="fa fa-pencil" action="#{reportMB.editMenu}" update="@form" process="@this" >
+					<f:setPropertyActionListener value="#{reportmenu.reportID}"
+								target="#{reportMB.reportDataBean.reportID}"></f:setPropertyActionListener>
+					<f:setPropertyActionListener value="#{rowIndex}"
+						target="#{reportMB.reportDataBean.rowindex}"></f:setPropertyActionListener>
+				</p:commandButton>
+			
+				<p:commandButton title="Delete" icon="fa fa-trash" action="#{reportMB.deleteMenu}"  update="@form" process="@this">
+					<f:setPropertyActionListener value="#{reportmenu.reportID}"
+								target="#{reportMB.reportDataBean.reportID}"></f:setPropertyActionListener>
+					<f:setPropertyActionListener value="#{rowIndex}"
+						target="#{reportMB.reportDataBean.rowindex}"></f:setPropertyActionListener>
+						<p:confirm header="CONFORMATION" message="ARE YOU SURE?" icon="fa fa-alert" />
+				</p:commandButton>
+				<p:confirmDialog global="true">
+					<center>
+						<p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+						<p:commandButton value="YES" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+					</center>
+				</p:confirmDialog>
+			</p:column>
+			</p:dataTable>
+			<br></br>
+			</center>
+			</h:panelGroup>
+			
+			<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="menuRegDialog" modal="true" width="40%"
+			height="40%" resizable="false"
+			dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText value="Menu Registered Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true" action="#{reportMB.reportpage}"  
+						process="@this" value="OK" update=":XX"
+						oncomplete="PF('menuRegDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+			
+			<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="menuUpdateDialog" modal="true" width="40%"
+			height="40%" resizable="false"
+			dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText value="Menu Edited Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true" action="#{reportMB.reportpage}"
+						process="@this" value="OK" update=":XX"
+						oncomplete="PF('menuUpdateDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		     <h:panelGrid  columns="2"
+		    style="table-layout:auto;">
+		    <p:graphicImage value="../../images/ajax-loader1.gif" />
+		    <h:outputText value="Please wait, data is being processed..."
+		     style="white-space: nowrap;" />
+		   </h:panelGrid>
+		    </p:dialog>
+	</p:panel>
+	</ui:define>
+	</ui:composition>

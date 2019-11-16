@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	<h:head>
+		<title></title>
+		<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+		<link type="text/css" rel="stylesheet"
+			href="http://fortawesome.github.io/Font-Awesome/" />
+		<link rel="stylesheet" href="../../css/animate.css"></link>
+		<link rel="stylesheet" href="../../css/style1.css"></link>
+		<script name="jquery/jquery.js" library="primefaces"></script>
+	</h:head>
+
+	<h:body>
+		<h:form prependId="false">
+			<div class="container">
+				<div class="top">
+					<h1 id="title" class="hidden">
+						<span id="logo">Student <span style="font-size: 10px">MONITORING</span>
+							System
+						</span>
+					</h1>
+				</div>
+				<div class="login-box animated fadeInUp">
+					<div class="box-header">
+						<h2>Log In</h2>
+					</div>
+
+
+					<br />
+					<center
+						style="width: 200px; padding: 7px 0px 8px 46px; margin-bottom: -46px;">
+						<h:inputHidden value="hi" id="te"></h:inputHidden>
+						<h:message for="te" style="color:red;font-size:10px;"></h:message>
+						<b:inputText id="uName" value="#{loginMB.loginaccess.username}"
+							style="width:200px;padding: 10px 0px 8px 46px;">
+
+							<f:facet name="prepend">
+								<b:icon name="glyphicon-user" />
+							</f:facet>
+						</b:inputText>
+						<p:watermark value="UserName" for="uName"></p:watermark>
+						<h:message for="uName" style="color:red;font-size:10px;" id="un"></h:message>
+					</center>
+					<br /> <br />
+					<center
+						style="width: 200px; padding: 7px 0px 8px 46px; margin-bottom: -21px;">
+						<b:inputSecret id="pwd"
+							value="#{loginMB.loginaccess.userpassword}"
+							style="width:200px;padding: 10px 0px 8px 46px;"
+							placeholder="Password">
+
+							<f:facet name="prepend">
+								<b:iconAwesome name="fa fa-key" />
+							</f:facet>
+						</b:inputSecret>
+						<h:message for="pwd" id="pd" style="color:red;font-size:10px;"></h:message>
+						
+					</center>
+					<center>
+					<br />
+						<p:captcha id="captcha"></p:captcha></center>
+					<br />
+					<p:commandButton value="Login" action="#{loginMB.userLogin}"
+						ajax="false" icon="fa fa-sign-in"></p:commandButton>
+					<br />
+				
+					
+					<p:commandLink value="Forgot your password?"
+						action="#{loginMB.forgot}" ajax="false"></p:commandLink>
+				</div>
+			</div>
+		</h:form>
+	</h:body>
+	<script>
+		$(document).ready(function() {
+			$('#logo').addClass('animated fadeInDown');
+			$("input:text:visible:first").focus();
+		});
+		$('#username').focus(function() {
+			$('label[for="username"]').addClass('selected');
+		});
+		$('#username').blur(function() {
+			$('label[for="username"]').removeClass('selected');
+		});
+		$('#password').focus(function() {
+			$('label[for="password"]').addClass('selected');
+		});
+		$('#password').blur(function() {
+			$('label[for="password"]').removeClass('selected');
+		});
+	</script>
+
+</ui:composition>

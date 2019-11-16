@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+		<p:growl id="messages" severity="info" />
+		<p:panel header="Teacher Educational Registration" toggleable="false"
+			style="min-height:100%;width:100%;" id="teacherregBlock">
+			<p:steps activeIndex="3" styleClass="custom" readonly="true">
+				<p:menuitem value="Personal" />
+				<p:menuitem value="Address" />
+				<p:menuitem value="Other Details" />
+				<p:menuitem value="Education Details" />
+			</p:steps>
+
+			<br />
+			<br />
+			<br />
+			<table width="100%">
+				<tr>
+					<td width="25%"><br></br> <h:outputLabel
+							value="Educational Qualification" styleClass="labelTxt"
+							for="TQualification"></h:outputLabel><span style="color: red;">
+							* </span></td>
+					<td width="75%" height="50px"><br></br> <h:inputText
+							value="#{teacherMB.teacherDataBean.teaEduQualification}"
+							id="TQualification" styleClass="inputTxt" tabindex="1"
+							maxlength="25"></h:inputText> <br></br> <h:message
+							for="TQualification" style="color:red;font-size:10px"></h:message>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Percentage"
+							styleClass="labelTxt" for="TPercentage"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%" height="50px"><h:inputText
+							value="#{teacherMB.teacherDataBean.teaPercentage}"
+							id="TPercentage" styleClass="inputTxt" maxlength="5" tabindex="2">
+						</h:inputText> <br></br>
+					<h:message for="TPercentage" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Year of Passing" styleClass="labelTxt" for="TPassing"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><h:inputText
+							value="#{teacherMB.teacherDataBean.teaYearOfPassing}"
+							id="TPassing" styleClass="inputTxt" tabindex="3" maxlength="4"></h:inputText>
+						<br></br>
+					<h:message for="TPassing" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top"><h:outputLabel value="Teacher's Photo"
+							for="TPhoto" styleClass="labelTxt" /> 
+					</td>
+					<td><p:fileUpload update="messages" mode="advanced"
+							value="#{teacherMB.teacherDataBean.teaFile}" id="TPhoto"
+							fileUploadListener="#{teacherMB.dummyAction}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> <br></br> <h:message
+							for="TPhoto" style="color:red;font-size:11px"></h:message><br></br>
+
+					</td>
+
+				</tr>
+				<!-- <tr>
+	<td></td>
+	<td><p:graphicImage id="pimage" value="#{teacherMB.chart}" ></p:graphicImage></td>
+	</tr> -->
+				<tr align="center">
+					<td colspan="2"><p:commandButton id="reset" value="Back"
+							icon="fa fa-arrow-circle-o-left"
+							action="TeacherReg2.xhtml?faces-redirect=true;" /> <p:commandButton
+							id="save" value="Submit" icon="fa fa-database"
+							action="#{teacherMB.submitConfirm}" update="@form" /></td>
+				</tr>
+
+			</table>
+
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="teacherRegDialog" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{teacherMB.boxflag}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{teacherMB.teacherDataBean.teaUsername} is Saved Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{teacherMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('teacherRegDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="teacherblockUI" block="teacherregBlock">
+
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{teacherMB.submitConfirm1}"
+			name="teacherRemote"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

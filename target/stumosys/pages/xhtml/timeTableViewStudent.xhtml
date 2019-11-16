@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+<f:loadBundle var="pathBundle" basename="com.sms.paths"></f:loadBundle>
+		<p:panel  toggleable="false" style="min-height:100%;">
+		<f:facet name="header">
+			 	<center>
+				<h:outputText  value="EXAM TIME TABLE INFORMATION" style="font-size: 25px;"/>
+			</center>
+			</f:facet>
+			<br></br>
+			<p:panelGrid styleClass="ui-panelgrid-blank" columns="6">
+			<h:panelGroup><h:outputLabel value="Student Name " styleClass="labelTxt" for="studentID"
+				rendered="#{timeTableViewMB.stuflag}"></h:outputLabel><span style="color: red; display: #{timeTableViewMB.stuflag1}">
+			</span></h:panelGroup>
+			<h:selectOneMenu value="#{timeTableViewMB.timeTableDataBean.studentID}"
+				id="studentID"  styleClass="selecttext_ui1" valueChangeListener="#{timeTableViewMB.classExam}"
+					rendered="#{timeTableViewMB.stuflag}">
+					<f:selectItem itemLabel="Select Student Name..." itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{timeTableViewMB.studentList}"></f:selectItems>
+					<p:ajax event="valueChange" process="@this" update=":XX" immediate="true"></p:ajax>
+			</h:selectOneMenu>
+			<h:panelGroup><h:outputLabel value="Exam Title " styleClass="labelTxt"
+							for="TimeViewTitle"></h:outputLabel><span style="color: red;">
+							* </span></h:panelGroup>
+			<h:selectOneMenu
+							value="#{timeTableViewMB.timeTableDataBean.examTitle}"
+							id="TimeViewTitle" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Exam Title" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{timeTableViewMB.examList}"></f:selectItems>
+							<p:ajax process="@this" update=":XX" event="valueChange"
+								immediate="true"></p:ajax>
+						</h:selectOneMenu>
+				<h:outputText></h:outputText>
+				<p:commandButton value="Search" icon="fa fa-search" actionListener="#{timeTableViewMB.submit}" update="XX" process="@this" 
+				onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"></p:commandButton>
+				<h:outputText></h:outputText>
+				<h:message for="studentID" style="color:red;font-size:11px"></h:message>
+				<h:outputText></h:outputText>
+				 <h:message for="TimeViewTitle" style="color:red;font-size:11px"></h:message>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+			</p:panelGrid>
+			<br></br>
+			<p:dataTable id="dt1" var="tableinfo"
+				value="#{timeTableViewMB.timeTableDataBean.tablelist}"
+				widgetVar="examInfo" rendered="#{timeTableViewMB.flag}"
+				reflow="true"
+				emptyMessage="No information found with given criteria"
+				paginator="true" rows="10"
+				filteredValue="#{timeTableViewMB.filteredExam}"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				resizableColumns="true" pageLinks="5">
+
+				<f:facet name="header">
+					<p:outputPanel style="text-align:right">
+						<h:inputText id="globalFilter" onkeyup="PF('examInfo').filter()"
+							style="width:20%;height:25px;" placeholder="Enter keyword" />
+					</p:outputPanel>
+				</f:facet>
+				<p:column headerText="Exam Title" width="130"
+					filterBy="#{tableinfo.examTitle}" filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examTitle}"></h:outputText>
+				</p:column>
+				<p:column headerText="Exam Class"
+					filterBy="#{tableinfo.examClass}" filterMatchMode="contains"
+					filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examClass}">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Exam Date"
+					filterBy="#{tableinfo.examStartDate}" filterMatchMode="contains"
+					filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examStartDate}">
+						<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Day" filterBy="#{tableinfo.examDay}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examDay}" />
+				</p:column>
+				<p:column headerText="Subject" filterBy="#{tableinfo.examSubject}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examSubject}" />
+				</p:column>
+				<p:column headerText="Start Time" filterBy="#{tableinfo.stime}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.stime}" />
+				</p:column>
+				<p:column headerText="End Time" filterBy="#{tableinfo.etime}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.etime}" />
+				</p:column>
+				<p:column headerText="Total Time" filterBy="#{tableinfo.examtTotalTime}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examtTotalTime}" />
+				</p:column>
+				<p:column headerText="Room No" filterBy="#{tableinfo.examRoomNo}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examRoomNo}" />
+				</p:column>
+				<p:column headerText="Marks and Grade" width="130" rendered="#{sessionScope.schoolID !=pathBundle['MALAYSIA.SCHOOLID']}">
+					<p:commandLink value="Marks and Grade" style="color:#005292;" oncomplete="PF('marksDialog').show()"
+					update=":XX:examMarks" action="#{timeTableViewMB.examMarkEdit(tableinfo)}" process="@this" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+					</p:commandLink>
+				</p:column>
+				<p:column headerText="Actions" width="10%" exportable="false">
+					<p:commandButton title="View" icon="ui-icon-search"
+						update=":XX:examRecord" action="#{timeTableViewMB.examView(tableinfo)}"
+						oncomplete="PF('ExamDialog').show()">
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+		<p:dialog header="Marks And Grade Edit" appendTo="@(body)"
+			widgetVar="marksDialog" modal="true"
+			width="60%" resizable="false" dynamic="true" >
+           <p:outputPanel id="examMarks">
+           <h:form>
+				<p:dataTable var="gradeinfo" value="#{timeTableViewMB.marksList}"
+				widgetVar="gradeinfo"  reflow="false" >
+				<p:column headerText="From Mark">
+				<h:inputHidden value="#{gradeinfo.gradedetailId}"></h:inputHidden>
+        			 <h:outputText value="#{gradeinfo.examFromMark}" />
+           		</p:column>
+				<p:column  headerText="To Mark">
+        			<h:outputText value="#{gradeinfo.examToMark}" />
+				</p:column>
+				<p:column  headerText="Grade">
+        			<h:outputText value="#{gradeinfo.examGrade}" />
+				</p:column>
+			</p:dataTable>
+			<br></br>
+			<center>
+					<p:commandButton immediate="true"
+						 process="@this" value="OK"
+						oncomplete="PF('marksDialog').hide()"></p:commandButton>&nbsp;
+						</center>
+							</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		<p:dialog header="Exam Details" appendTo="@(body)"
+			widgetVar="ExamDialog" modal="true" width="45%" resizable="false">
+			<p:outputPanel id="examRecord" style="text-align:center;">
+
+				<br></br>
+				<center>
+					<p:panelGrid columns="4" style="text-align:left;width:100%" 
+						columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3">
+						<h:outputText value="Exam Title"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examTitle}"></h:outputText>
+
+						<h:outputText value="Exam Class"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examClass}"></h:outputText>
+
+						<h:outputText value="Exam Date"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examStartDate}">
+							<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+						</h:outputText>
+
+						<h:outputText value="Exam Day"></h:outputText>
+						<h:outputText value="#{timeTableViewMB.timeTableDataBean.examDay}"></h:outputText>
+
+						<h:outputText value="Subject"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examSubject}"></h:outputText>
+
+						<h:outputText value="Subject Code"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examSubjectCode}"></h:outputText>
+						<h:outputText value="Room Number"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examRoomNo}"></h:outputText>
+
+						<h:outputText value="Start Time"></h:outputText>
+						<h:outputText value="#{timeTableViewMB.timeTableDataBean.stime}"></h:outputText>
+
+						<h:outputText value="End Time"></h:outputText>
+						<h:outputText value="#{timeTableViewMB.timeTableDataBean.etime}"></h:outputText>
+						<h:outputText value="Total Time"></h:outputText>
+						<h:outputText
+							value="#{timeTableViewMB.timeTableDataBean.examtTotalTime}"></h:outputText>
+					</p:panelGrid>
+					<br></br>
+				</center>
+			</p:outputPanel>
+			<center><p:commandButton icon="ui-icon-print" value="Print">
+						<p:printer target="examRecord"></p:printer>
+					</p:commandButton></center>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

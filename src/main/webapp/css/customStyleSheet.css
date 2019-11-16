@@ -1,0 +1,198 @@
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+        line-height: 18px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #000000;
+    font-weight: normal;
+    background-color: rgb(255, 255, 255);
+    border: 0px none;
+    font-size: 16px;
+}
+.input,select,textarea,button,keygen,isindex,legend,a {
+	font-size: 15px ;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	font-family: arial,sans-serif !important;
+}
+body .fc{
+	font-family: arial,sans-serif !important;
+	font-size: 11px;
+}
+
+.ui-timepicker-table td a{
+	display: block;
+    padding: .2em 1.3em .2em .5em !important;
+    width: 1.2em;
+    cursor: pointer;
+    text-align: right;
+    text-decoration: none;
+}
+.ui-steps .ui-steps-title{
+	    font-weight: bold;
+    font-family: arial,sans-serif;
+        color: #292627;
+    font-size: 10px;
+}
+
+.labelTxt{
+	font-family: arial,sans-serif ;
+ color: black;
+ margin-left:38px;
+    font-size: 12px;
+}
+
+
+
+.ui-steps .ui-steps-item {
+    width: 24%;
+}
+ 
+.ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+.ui-steps.custom {
+    margin-bottom: 30px;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -4px;
+    margin-bottom: 10px;
+}
+.inputTxt{
+	width:208px;
+	font-size:12px !important;
+	height:25px !important;
+	border-radius: 0px !important;
+}
+.table_UI{
+width: 950px; 
+	
+}
+.table_td{
+width: 200px; 
+	
+}
+
+textarea, input[type="text"], input[type="password"], select {
+	
+	font-family: arial,sans-serif ;
+	border-radius: 0px ! important;
+	font-size: :12px !important;
+	}
+	.ui-datepicker {
+    width: 20em;
+	}
+	
+	.ui-datepickerMy {
+    width: 10em !important;
+	}
+	.selecttext_ui
+{
+width:208px;
+font-size:12px !important;
+height:25px  !important;
+}
+.selecttext_ui1
+{
+width:208px;
+font-size:12px !important;
+height:25px  !important;
+}
+.txtarea
+{
+height:64px !important;
+width: 100%; 
+font-size: 15px;
+}
+
+
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    font-family: arial,sans-serif !important;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    font-family: arial,sans-serif !important;
+    font-size: 12px;
+}
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 3px;
+}
+.ui-selectonemenu{
+	    padding-right: 1em;
+}
+
+.ui-panel .ui-panel-titlebar{
+	  font-family: arial,sans-serif !important;
+}
+.pe-layout-pane-header{
+		  font-family: arial,sans-serif !important;
+	
+}
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th{
+	  font-family: arial,sans-serif !important;
+}
+
+ .goog-tooltip {
+    display: none !important;
+}
+.goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important; 
+    box-shadow: none !important;
+}
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th{
+	text-align:-webkit-left;
+}
+.ui-datatable tbody td.wrap {
+    white-space: normal;
+}
+.ui-selectoneradio label {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px !important;  
+}
+
+.dateTimeField input {
+	width:208px;
+	border-style: double;
+	border-width: 1px;
+	border-color: rgba(21, 57, 73, 0.45);
+}
+.outlabel{
+	font-size: 16px !important;
+	font-family: Times New Roman;
+	color: #1578c9;
+}
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {
+    	margin-top: 3px;
+    	margin-left: -3px;
+	}
+.without-selectall .ui-selectcheckboxmenu-header .ui-chkbox {
+    /* display: none;  */
+}
+.without-selectall .ui-selectcheckboxmenu-header:before{
+	content: "ALL";
+}

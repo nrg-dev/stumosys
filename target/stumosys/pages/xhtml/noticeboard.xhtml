@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet" 	href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+	<f:loadBundle var="pathBundle" basename="com.sms.paths"></f:loadBundle>
+		<p:panel header="Notice Board" toggleable="false" id="noticeBlock" style="min-height:100%;">
+			<table>
+				<tr>
+					<td>
+						<h:outputLabel for="noticeBoardSubject" value="Subject " styleClass="labelTxt"><span style="color: red">*</span></h:outputLabel>
+					</td>					
+					<td>
+						<h:outputLabel value="From Date" styleClass="labelTxt" for="frmDate" style="margin-left: 66px;"><span style="color: red">*</span></h:outputLabel>
+					</td>
+					<td>
+						<h:outputLabel value="To Date" styleClass="labelTxt" for="toDate" style="margin-left:80px;"><span style="color: red">*</span></h:outputLabel>
+					</td>
+				</tr>							
+				<tr>
+					<td>
+						<h:inputText value="#{noticeBoardMB.noticeBoardDataBean.noticeSubject}" id="noticeBoardSubject" styleClass="inputTxt" placeholder="First Name*" tabindex="2" maxlength="25" style="width:208px;font-size:12px;margin-left:38px;height:25px"/>
+						
+					</td>
+					<td>
+						<p:calendar id="frmDate" value="#{noticeBoardMB.noticeBoardDataBean.fromdate}" pattern="dd-MM-yyyy" style="margin-left:66px;" styleClass="dateTimeField"></p:calendar>
+						
+					</td>
+					<td>
+						<p:calendar id="toDate" value="#{noticeBoardMB.noticeBoardDataBean.todate}" pattern="dd-MM-yyyy" style="margin-left:79px;" styleClass="dateTimeField"></p:calendar>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h:message for="noticeBoardSubject" style="color:red;font-size:10px;margin-left:38px;"></h:message>
+					</td>					
+					<td>
+						<h:message for="frmDate" style="color:red;font-size:10px;margin-left:65px;"></h:message>
+					</td>
+					<td>
+						<h:message for="toDate" style="color:red;font-size:10px;margin-left:79px;"></h:message>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<h:outputLabel for="noticeBoardFollow" value="Notice Follower " styleClass="labelTxt" style="margin-top: 12px;"><span style="color: red">*</span></h:outputLabel>
+					</td>
+					<td>
+						<h:outputLabel for="noticeBoardClass" value="Class Name " styleClass="labelTxt" style="margin-top: 12px;margin-left: 65px;"><span style="color: red">*</span></h:outputLabel>
+					</td>
+					<td>
+					<h:panelGroup rendered="#{sessionScope.schoolID==pathBundle['SCMS.SCHOOLID']}">
+						<h:outputLabel for="noticeBoardstudent" value="Student Name " styleClass="labelTxt" style="margin-top: 12px;margin-left: 77px;"><span style="color: red">*</span></h:outputLabel>
+					</h:panelGroup>
+					</td>
+				</tr>						
+				<tr>
+					<td>				
+						<h:selectOneMenu value="#{noticeBoardMB.noticeBoardDataBean.noticeFollower}" id="noticeBoardFollow" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-left:39px;font-size: 10px;">	
+							<f:selectItem itemLabel="Please Choose Notice Follower" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItem itemLabel="External" itemValue="External"></f:selectItem>
+							<f:selectItem itemLabel="Internal" itemValue="Internal"></f:selectItem>	
+							<p:ajax update="noticeBoardFollow" process="@this"></p:ajax>	
+						</h:selectOneMenu>													
+					</td>
+					<td>
+						<h:selectOneMenu value="#{noticeBoardMB.noticeBoardDataBean.noticeClass}" id="noticeBoardClass" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-left:65px;font-size: 10px;">
+							<f:selectItem itemLabel="Please Choose Notice Follower Class" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItems value="#{noticeBoardMB.classList}"></f:selectItems>
+							<p:ajax listener="#{noticeBoardMB.classChange}" update="noticeBoardstudent" process="@this" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+						</h:selectOneMenu>						
+					</td>
+					<td>
+					<h:panelGroup rendered="#{sessionScope.schoolID==pathBundle['SCMS.SCHOOLID']}">
+					<p:selectCheckboxMenu id="noticeBoardstudent" value="#{noticeBoardMB.noticeBoardDataBean.studentnameList}" label="Choose student"  panelStyleClass="without-selectall"
+    						 panelStyle="width:250px" style="margin-left: 78px;font-size: 11px;font-weight: normal;
+    						width: 208px; height: 25px; background: white;">
+    						<f:selectItems value="#{noticeBoardMB.studentList}" />
+    						<p:ajax event="toggleSelect"  update="noticeBoardstudent" process="@this" ></p:ajax>
+           			 		<p:ajax></p:ajax>
+					 </p:selectCheckboxMenu>
+					 </h:panelGroup>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h:message for="noticeBoardFollow" style="color:red;font-size:10px;margin-left:39px;"></h:message>
+					</td>
+					<td>
+						<h:message for="noticeBoardClass" style="color:red;font-size:10px;margin-left: 63px;"></h:message>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<h:outputLabel for="noticeBoardId" value="Notice " styleClass="labelTxt" style="margin-top: 10px;"><span style="color: red">*</span></h:outputLabel>
+					</td>				
+				</tr>				
+				<tr>
+					<td>
+						<p:editor value="#{noticeBoardMB.noticeBoardDataBean.noticeID}" id="noticeBoardId" style="margin-left: 35px;" ></p:editor>						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h:message for="noticeBoardId" style="color:red;font-size:10px;margin-left: 39px;"></h:message>
+					</td>				
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<p:commandButton value="Submit" action="#{noticeBoardMB.submit}" ajax="false" oncomplete="PF('NoticeDialog').show();PF('NoticeAlertDialog').show()" style="margin-left: 335px;margin-top: 13px;font-size: 13px;"></p:commandButton>
+					</td>
+					<td>
+						<p:commandButton value="Reset" ajax="false" action="#{noticeBoardMB.reset}" style="margin-top: 13px;font-size: 13px;"></p:commandButton>
+					</td>
+				</tr>
+			</table>
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)" closable="false" widgetVar="NoticeDialog" modal="true" width="40%" height="40%" resizable="false" visible="#{noticeBoardMB.boxflag}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{noticeBoardMB.noticeBoardDataBean.noticeSubjects} is Saved Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{noticeBoardMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('NoticeDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Alert Box" appendTo="@(body)" closable="false" widgetVar="NoticeAlertDialog" modal="true" width="40%" height="40%" resizable="false" visible="#{noticeBoardMB.boxflag1}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText value="Not a Valid Login"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{noticeBoardMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('NoticeAlertDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="noticeblockUI" block="noticeBlock">
+
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{noticeBoardMB.submitConfirm}"
+			name="noticeRemote" update=":XX"></p:remoteCommand>
+			
+	<style>
+		.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+    font-weight: normal;
+    height: 25px;
+}
+
+	</style>
+			
+			
+	</ui:define>
+</ui:composition>

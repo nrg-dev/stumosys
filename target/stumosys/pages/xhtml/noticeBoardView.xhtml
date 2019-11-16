@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel toggleable="false" header="Notice Board Information" style="min-height:100%;">
+			<p:dataTable var="NoteInfo" id="aa" widgetVar="noticeInfo"
+				reflow="true" value="#{noticeBoardViewMB.noticeList}"
+				filteredValue="#{noticeBoardViewMB.filteredNotice}"
+				emptyMessage="No information found with given criteria">
+
+				<f:facet name="header">
+					<p:outputPanel style="text-align:right">
+
+						<h:inputText id="globalFilter" onkeyup="PF('noticeInfo').filter()"
+							style="width:20%;height:25px;" placeholder="Enter keyword" />
+					</p:outputPanel>
+				</f:facet>
+				<p:column width="30%" filterBy="#{NoteInfo.noticeDate}"
+					headerText="Date" filterMatchMode="contains"
+					filterStyle="display:none">
+					<h:outputText value="#{NoteInfo.fromdate}">
+						<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+					</h:outputText>
+					<h:outputLabel value="&nbsp;&nbsp; to &nbsp;&nbsp;"></h:outputLabel>
+					<h:outputText value="#{NoteInfo.todate}">
+						<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				<p:column width="17%" filterBy="#{NoteInfo.noticeFollower}"
+					headerText="Notice Follower" filterMatchMode="contains"
+					filterStyle="display:none" >
+					<h:outputText value="#{NoteInfo.noticeFollower}" />
+				</p:column>
+				<p:column width="17%" filterBy="#{NoteInfo.noticeClass}"
+					headerText="Notice Class" filterMatchMode="contains"
+					filterStyle="display:none" >
+					<h:outputText value="#{NoteInfo.noticeClass}" />
+				</p:column>
+				<p:column filterBy="#{NoteInfo.noticeSubject}" width="30%"
+					headerText="Subject" filterMatchMode="contains"
+					filterStyle="display:none" >
+					<h:outputText value="#{NoteInfo.noticeSubject}" />
+				</p:column>
+				<p:column filterBy="#{NoteInfo.noticeID}" width="36%" styleClass="wrap"
+					headerText="Notice" filterMatchMode="contains"
+					filterStyle="display:none" style="width: 163px;">
+					<h:outputText value="#{NoteInfo.noticeID}" escape="false" />
+				</p:column>
+				<p:column width="12%" exportable="false" headerText="Actions"
+					rendered="#{noticeBoardViewMB.hideFlag}" >
+					<p:commandButton icon="ui-icon-pencil"
+						action="#{noticeBoardViewMB.edit}"
+						rendered="#{noticeBoardViewMB.hideFlag}">
+						<f:setPropertyActionListener value="#{NoteInfo.noticeFollower}"
+							target="#{noticeBoardViewMB.noticeBoardDataBean.noticeFollower}"></f:setPropertyActionListener>
+						<f:setPropertyActionListener value="#{NoteInfo.noticeSubject}"
+							target="#{noticeBoardViewMB.noticeBoardDataBean.noticeSubject}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash"
+						oncomplete="PF('deleteConfirmDlg').show()"
+						rendered="#{noticeBoardViewMB.hideFlag}">
+						<f:setPropertyActionListener value="#{NoteInfo.noticeFollower}"
+							target="#{noticeBoardViewMB.noticeBoardDataBean.noticeFollower}"></f:setPropertyActionListener>
+						<f:setPropertyActionListener value="#{NoteInfo.noticeSubject}"
+							target="#{noticeBoardViewMB.noticeBoardDataBean.noticeSubject}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+		<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			severity="alert" header="Delete Notice" global="true"
+			widgetVar="deleteConfirmDlg">
+			<center>
+				<p:commandButton id="confirmDelete" value="Yes"
+					oncomplete="PF('deleteConfirmDlg').hide();PF('NoticeDialog').show();"
+					immediate="true" process="@this"
+					action="#{noticeBoardViewMB.delete}" />
+				<p:commandButton id="declineDelete" value="No"
+					onclick="PF('deleteConfirmDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="NoticeDialog" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{noticeBoardViewMB.delBoxflag}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{noticeBoardViewMB.noticeBoardDataBean.noticeSubject} is Deleted Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{noticeBoardViewMB.noticeView1}" process="@this"
+						value="OK" oncomplete="PF('NoticeDialog').hide()"></p:commandButton>
+				</center>
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

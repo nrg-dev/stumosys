@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+	<p:panel style="min-height:100%;width:100%" header="Student Attendance Report" toggleable="false" >
+	<table style="width:100%" >
+	<tr><td width="25%" height="50px"><h:outputText value="School Name" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="schoolname" styleClass="inputTxt" 
+	 value="#{attendancePreviewMB.attendanceDataBean.schoolName}" >
+	<f:selectItem itemLabel=" Select the SchoolName" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItems value="#{attendancePreviewMB.schoollist}"></f:selectItems>
+	</h:selectOneMenu><br></br>
+	<h:message for="schoolname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<tr><td width="25%" height="50px"><h:outputText value="Class Name" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="classname" styleClass="inputTxt" 
+	valueChangeListener="#{attendancePreviewMB.classChange}" value="#{attendancePreviewMB.attendanceDataBean.classname}" >
+	<f:selectItem itemLabel=" Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItems value="#{attendancePreviewMB.classList}"></f:selectItems>
+	<p:ajax event="valueChange" update="XX:studentname" process="@this" immediate="true"></p:ajax>
+	</h:selectOneMenu><br></br>
+	<h:message for="classname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<tr><td width="25%" height="50px"><h:outputText value="Student Name" styleClass="labelTxt"></h:outputText></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="studentname" styleClass="inputTxt"  value="#{attendancePreviewMB.attendanceDataBean.studentName}">
+	<f:selectItem itemLabel="Select the Student" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItems value="#{attendancePreviewMB.studentList}"></f:selectItems>
+	</h:selectOneMenu><br></br>
+	<h:message for="studentname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<tr><td width="25%" height="50px"><h:outputText value="Report Type" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="repfrom" styleClass="inputTxt"  value="#{attendancePreviewMB.attendanceDataBean.category}">
+	<f:selectItem itemLabel="Please Select One" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItem itemLabel="Monthly" itemValue="Monthly"></f:selectItem>
+	<f:selectItem itemLabel="Half Yearly" itemValue="Half Yearly"></f:selectItem>
+	<f:selectItem itemLabel="Yearly" itemValue="Yearly"></f:selectItem>
+	</h:selectOneMenu><br></br>
+	<h:message for="repfrom" style="color:red;font-size:10px;"></h:message><br></br>
+	</td></tr>
+	<tr><td width="25%" height="50px"></td>
+	<td width="75%" height="50px"><p:commandButton  icon="fa fa-search" value="Search" action="#{attendancePreviewMB.attendanceSearch}" update="@form"></p:commandButton></td></tr>
+	</table>
+	<br></br>
+	<p:dataTable var="att" rendered="#{attendancePreviewMB.flag2}" value="#{attendancePreviewMB.attendancelist}"
+	 id="datatable">
+	 <p:column headerText="Student ID" >
+	<h:outputText value="#{att.studentID}"></h:outputText>
+	</p:column>
+	<p:column headerText="Student Name" >
+	<h:outputText value="#{att.studentName}"></h:outputText>
+	</p:column> 
+	<p:column headerText="Date">
+	<h:outputText value="#{att.date}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></h:outputText>
+	</p:column>
+	<p:column headerText="Percentage">
+	<h:outputText value="#{att.percentage}"></h:outputText>
+	</p:column>
+	<p:column headerText="Period">
+	<h:outputText value="#{att.period}"></h:outputText>
+	</p:column>
+	<p:column headerText="status">
+	<h:outputText value="#{att.status}"></h:outputText>
+	</p:column>
+	<f:facet name="footer">
+            <h:commandLink>
+                <p:graphicImage value="/images/excel.png" width="24" height="25"/>
+                <p:dataExporter type="xls" target="datatable" fileName="AttendanceDetails" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage value="/images/pdf.png" width="24" height="25"/>
+                <p:dataExporter type="pdf" target="datatable" fileName="AttendanceDetails"/>
+            </h:commandLink>
+ 			<p:commandLink actionListener="#{attendancePreviewMB.createBarModel}" update="@form" process="@this">
+                <p:graphicImage value="/images/barchart.png" width="28" height="28" />
+            </p:commandLink>
+        </f:facet>
+	</p:dataTable>
+	<br></br>
+	<p:panel rendered="#{attendancePreviewMB.chartFlag}" id="chartpanel" >
+	 <p:chart type="bar" model="#{attendancePreviewMB.barchart}" responsive="true" style="width:100%;height:300;color:blue" widgetVar="chart"/>
+	</p:panel>
+	<br></br>
+	</p:panel>
+	</ui:define>
+	</ui:composition>

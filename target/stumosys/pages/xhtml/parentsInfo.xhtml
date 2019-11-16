@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel header="Parent Information" toggleable="false"
+			style="min-height:100%;width:100%;">
+			<h:form id="par">
+				<table width="100%">
+					<tr>
+						<td height="50px" width="25%"><h:outputLabel
+								for="parViewClass" value="Class &amp; Section "
+								rendered="#{parentsViewMB.flag1}" styleClass="labelTxt"></h:outputLabel>
+						</td>
+						<td height="50px" width="75%"><h:selectOneMenu
+								id="parViewClass"
+								value="#{parentsViewMB.parentsDataBean.parStuClass}"
+								valueChangeListener="#{parentsViewMB.classChange}"
+								rendered="#{parentsViewMB.flag1}" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel=" Select the Class" itemValue=""
+									noSelectionOption="true"></f:selectItem>
+								<f:selectItem itemLabel="ALL" itemValue="all" ></f:selectItem>
+								<f:selectItems value="#{parentsViewMB.classSectionList}"></f:selectItems>
+								<p:ajax event="valueChange"  process="@this"
+									update="XX" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+							</h:selectOneMenu> <br></br> <h:message for="parViewClass"
+								style="color:red;font-size:12px;"></h:message><br></br></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td width="25%" height="50px"><h:outputLabel
+								value="Class &amp; Section  " styleClass="labelTxt" for="sClass"
+								rendered="#{parentsViewMB.flag2}"></h:outputLabel></td>
+						
+						<td width="75%" height="50px"><h:inputText
+								value="#{parentsViewMB.parentsDataBean.parStuClass}"
+								style="width:220%" rendered="#{parentsViewMB.flag2}"
+								readonly="true" /> <br></br></td>
+					</tr>
+				</table>
+				<p:dataTable id="parent" var="parInfo"
+					value="#{parentsViewMB.patentTableList}" widgetVar="teacherInfo"
+					reflow="true" rendered="#{parentsViewMB.tableflag}"
+					emptyMessage="No information found with given criteria"
+					resizableColumns="true" >
+
+					<f:facet name="header">
+						<p:outputPanel style="text-align:right">
+
+							<h:inputText id="globalFilter"
+								onkeyup="PF('teacherInfo').filter()"
+								style="width:20%;height:25px;" placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+					<p:column filterBy="#{parInfo.parParentID}" headerText="Parent ID"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{parInfo.parParentID}" />
+					</p:column>
+					
+					<p:column filterBy="#{parInfo.parStudID}" headerText="Student Name"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{parInfo.parStudID}" />
+					</p:column>
+					<p:column filterBy="#{parInfo.name}" headerText="Name"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{parInfo.name}" />
+					</p:column>
+					<p:column filterBy="#{parInfo.parEmail}" headerText="Email ID"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{parInfo.parEmail}" />
+					</p:column>
+					<p:column filterBy="#{parInfo.parPhoneNo}"
+						headerText="Phone Number" filterMatchMode="contains"
+						filterStyle="display:none">
+						<h:outputText value="#{parInfo.countryCode}#{parInfo.parPhoneNo}" />
+					</p:column>
+					<p:column headerText="Actions" exportable="false">
+						<p:commandButton title="Tag" icon="ui-icon-tag"
+							action="#{parentsViewMB.view}" update=":XX:parentIdCard"
+							oncomplete="PF('parentIdDialog').show()">
+							<f:setPropertyActionListener value="#{parInfo.parParentID}"
+								target="#{parentsViewMB.parentsDataBean.parParentID}"></f:setPropertyActionListener>
+						</p:commandButton>
+						<p:commandButton title="View" icon="ui-icon-search"
+							action="#{parentsViewMB.view}" update=":XX:parentIn"
+							oncomplete="PF('ParentsInfoDialog').show()">
+							<f:setPropertyActionListener value="#{parInfo.parParentID}"
+								target="#{parentsViewMB.parentsDataBean.parParentID}"></f:setPropertyActionListener>
+						</p:commandButton>
+						<p:commandButton title="Edit" icon="ui-icon-pencil"
+							action="#{parentsViewMB.edit}" rendered="#{parentsViewMB.flag}">
+							<f:setPropertyActionListener value="#{parInfo.parParentID}"
+								target="#{parentsViewMB.parentsDataBean.parParentID}"></f:setPropertyActionListener>
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-trash"
+							onclick="PF('deleteConfirmDlg').show()" title="Delete"
+							rendered="#{parentsViewMB.flag}">
+							<f:setPropertyActionListener value="#{parInfo.parParentID}"
+								target="#{parentsViewMB.parentsDataBean.parParentID}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<br></br>
+			</h:form>
+
+		 
+ 
+ </p:panel>
+		<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			header="Delete user" severity="alert" global="true"
+			widgetVar="deleteConfirmDlg">
+			<center>
+				<p:commandButton id="confirmDelete" value="Yes"
+					oncomplete="PF('deleteConfirmDlg').hide();PF('parentDeleteDialog').show();"
+					immediate="true" process="@this" action="#{parentsViewMB.delete}" />
+				<p:commandButton id="declineDelete" value="No"
+					onclick="PF('deleteConfirmDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		<p:dialog header="Parent Tag View" appendTo="@(body)"
+			widgetVar="parentIdDialog" modal="true" width="300" resizable="false">
+			<p:outputPanel id="parentIdCard" style="text-align:center;">
+
+				<div class="ui-fluid">
+					<center>
+						<p:panelGrid columns="2" style="text-align:left">
+							<f:facet name="header">
+								<a4j:mediaOutput style="width:250px;height:250px;" element="img"
+									cacheable="false" session="true" rendered="#{parentsViewMB.parentsDataBean.parfilePath!=''}"
+									createContent="#{parentsViewMB.imageview}" mimeType="image/png" />
+							</f:facet>
+							<h:outputText value="Parent ID"></h:outputText>
+							<h:outputText
+								value="#{parentsViewMB.parentsDataBean.parParentID}"></h:outputText>
+							<h:outputText value="Name"></h:outputText>
+							<h:outputText value="#{parentsViewMB.parentsDataBean.name}"></h:outputText>
+							<h:outputText value="Student Name"></h:outputText>
+							<h:outputText value="#{parentsViewMB.parentsDataBean.parStudID}"></h:outputText>
+							<h:outputText value="Relation"></h:outputText>
+							<h:outputText
+								value="#{parentsViewMB.parentsDataBean.parentRelation}"></h:outputText>
+							<h:outputText value="Phone"></h:outputText>
+							<h:outputText value="#{parentsViewMB.parentsDataBean.countryCode}#{parentsViewMB.parentsDataBean.parPhoneNo}"></h:outputText>
+							<h:outputText value="Email"></h:outputText>
+							<h:outputText value="#{parentsViewMB.parentsDataBean.parEmail}"></h:outputText>
+
+						</p:panelGrid>
+					</center>
+				</div>
+
+			</p:outputPanel>
+			<br></br>
+			<center>
+				<p:commandButton icon="ui-icon-print" value="Print">
+					<p:printer target="parentIdCard"></p:printer>
+				</p:commandButton>
+			</center>
+		</p:dialog>
+		<p:dialog header="Parent Information" appendTo="@(body)"
+			widgetVar="ParentsInfoDialog" modal="true" width="45%"
+			resizable="false">
+			<p:outputPanel id="parentIn" style="text-align:center;">
+
+				<a4j:mediaOutput style="width:200px;height:200px;" element="img"
+					cacheable="false" session="true" rendered="#{parentsViewMB.parentsDataBean.parfilePath!=''}"
+					createContent="#{parentsViewMB.imageview}" mimeType="image/png" />
+				<br></br>
+				<br></br>
+				<center>
+					<p:panelGrid columns="4" style="text-align:left">
+						<h:outputText value="Parent ID"></h:outputText>
+						<h:outputText value="#{parentsViewMB.parentsDataBean.parParentID}"></h:outputText>
+						<h:outputText value="Name"></h:outputText>
+						<h:outputText value="#{parentsViewMB.parentsDataBean.name}"></h:outputText>
+						<h:outputText value="Student Name"></h:outputText>
+						<h:outputText value="#{parentsViewMB.parentsDataBean.parStudID}"></h:outputText>
+						<h:outputText value="Relation"></h:outputText>
+						<h:outputText
+							value="#{parentsViewMB.parentsDataBean.parentRelation}"></h:outputText>
+						<h:outputText value="Phone"></h:outputText>
+						<h:outputText value="#{parentsViewMB.parentsDataBean.countryCode}#{parentsViewMB.parentsDataBean.parPhoneNo}"></h:outputText>
+						<h:outputText value="Email"></h:outputText>
+						<h:outputText value="#{parentsViewMB.parentsDataBean.parEmail}"></h:outputText>
+
+					</p:panelGrid>
+				</center>
+			</p:outputPanel>
+			<br> </br>
+			<center>
+				<p:commandButton icon="ui-icon-print" value="Print">
+					<p:printer target="parentIn"></p:printer>
+				</p:commandButton>
+			</center>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="parentDeleteDialog" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{parentsViewMB.delBoxflag}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{parentsViewMB.parentsDataBean.parParentID} is Deleted Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{parentsViewMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('parentDeleteDialog').hide()" update=":XX"></p:commandButton>
+				</center>
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

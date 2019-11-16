@@ -1,0 +1,867 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:define name="content">
+	<style type="text/css">
+	.labelvalue{
+		font-size: 18px;
+		font-family: Times New Roman;
+	}
+	th {
+		border: 1.5px solid;
+		text-align: center;
+	}
+	
+	</style>
+	<p:panel header="Transfer Certificate" style="min-height:100%;">
+	<p:panelGrid columns="4" styleClass="ui-panelgrid-blank" id="panelgridid">
+	<h:outputLabel value="EMIS No" ></h:outputLabel>
+	<h:outputLabel value=":" ></h:outputLabel>
+    			<h:inputText value="#{staffViewMB.staffDataBean.emisNo}" id="emisno" maxlength="16" styleClass="inputTxt">
+    			<p:ajax update="emisno" ></p:ajax>
+    			</h:inputText>
+    			<p:commandButton value="Search" icon="fa fa-search" action="#{staffViewMB.emisnoSearch}" update="XX" process="@this" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"></p:commandButton>
+    			<h:outputText></h:outputText><h:outputText></h:outputText>
+    			<h:panelGroup>
+    			<span id="error" style="color:red;font-size: 10px"></span>
+    			<h:message for="panelgridid" style="color:red;font-size: 10px"></h:message>
+    			</h:panelGroup>
+	</p:panelGrid>
+	<br></br>
+	<!-- 12th -->
+	<p:outputPanel rendered="#{staffViewMB.twelethFlag}" id="twelethpanel" style="width:100%;min-height:100%">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:40%" columns="2"  >
+	<h:outputLabel styleClass="labelvalue" value="Certificate No."></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.code}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" value="TMR Code No and Date"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.code1}"></h:inputText>
+	</p:panelGrid>
+	<div class="ui-g">
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px">GOVERNMENT OF TAMILNADU (DEPARTMENT OF SCHOOL EDUCATION)</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 26px;font-weight: 700;font-family: Times New Roman;margin-top:-15px">TRANSFER CERTIFICATE</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 15px;margin-top:-15px">(Recognised by the Director of School Education)</label>
+	</div>
+	<div class="ui-g-3" align="center"><h:outputLabel styleClass="labelvalue" value="Serial No."></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.sno}" style="margin-left:15px"></h:outputText> </div>
+	<div class="ui-g-9" align="center"><h:outputLabel styleClass="labelvalue" value="Admission No."></h:outputLabel>
+	<h:inputText styleClass="inputTxt" style="margin-left:20px" value="#{staffViewMB.staffDataBean.referenceNo}"></h:inputText>
+	</div>
+	</div>
+	<div class="ui-g" align="center">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  >
+	<h:outputLabel styleClass="labelvalue" value="1. a) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">S.M.R.V. HIGHER SECONDARY SCHOOL,</label>
+	<br></br>
+	<label class="labelvalue" style="font-size: 18px">Vadasery, Nagercoil.(Recognised under M.E.R)</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="b) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">NAGERCOIL</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="c) Name of the Revenue District"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">KANYAKUMARI</label>
+	<h:outputLabel styleClass="labelvalue"  value="2. Name of the Pupil (in Block Letters)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.studentName}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="3. Name of the Father or Mother"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.parentName}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="4. Nationality and Religion"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.religion}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="5. Community"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Whether He / She belongs to"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.caste}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="a)Adi Dravidar (S.C. or S.T.)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.classification}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="b)Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.communityCertificateNo}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="C)Most Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.approvestatus}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="D)Converted to Christianity from "></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Scheduled Caste or"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.aadharCardNo}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="e)Denotified Tribes"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="If the Pupil belongs to any one of the"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Five Categories mentioned above write"></h:outputLabel>
+	<br></br><label class="labelvalue" style="margin-left:30px" >"Yes" against the relevant column</label>
+	</h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.academicToyear}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="6. Sex"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.stuGender}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="7. Date of Birth as entered in the Addmission"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Register in figures and words"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.dateofBirth}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime> </h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="8. Personal marks of Identification"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="a)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:inputTextarea styleClass="inputTxt" value="#{staffViewMB.staffDataBean.bankAccNo}"></h:inputTextarea>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="b)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:inputTextarea styleClass="inputTxt" value="#{staffViewMB.staffDataBean.bankName}"></h:inputTextarea>
+	<h:outputLabel  styleClass="labelvalue" value="9. Date of Admission and Std.in which"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="admitted (the year to be entered in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.branchCode}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="10. a)Standard in which the pupil was studying"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="at the time of leaving (in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.branchName}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="b)The Course offered i.e., General/Vocational"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Education"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel  styleClass="labelvalue" value="GENERAL / VOCATIONAL EDUCATION"></h:outputLabel>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="c)In the case of General Education the subjects"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="offered under part III Group A and Medium"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="and the related subject offered red under"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Part III Group A"></h:outputLabel>
+	</h:panelGroup>
+	<h:outputLabel></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.busPassNo}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="e)Language offered under Part I"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.conduct}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="f)Meddium of study"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.designation}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="d)In the case of Vocational Education the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Vocational subjects under Part III Group B "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="of Instruction"></h:outputLabel>
+	</h:panelGroup>
+	<h:outputLabel></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.employmentCardNo}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="11. Whether the Pupil was receipt of any "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="Std under Hr. Sec. Education Rules"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.examfees}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="12. Whether the Pupil has paid all the fees "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="due to the school"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.fees}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="13. Whether the Pupil was in recepit of any"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Scholarship (nature of the Scholarship)"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="to be specified or any Edl.concessions"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.ifscCode}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="14. Whether the Pupil has undergone Medical"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Inspection, if any during the academic year"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="(first or repeat to be specified)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.issuedAuthority}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="15. Date of which the Pupil actually left the "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="school "></h:outputLabel>
+	</h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.micrNo}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" value="16. The Pupil's conduct and character"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.name}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="17. Date on which application for Transfer"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Certificate was made on behalf of the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Pubil by this Parent or Gardian"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.nameofDuty}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" value="18. Date of the Transfer Certificate"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<p:calendar styleClass="dateTimeField" pattern="dd-MM-yyyy" value="#{staffViewMB.staffDataBean.createDate}"></p:calendar>
+	<h:outputLabel styleClass="labelvalue" value="19. (Course of Study)"></h:outputLabel><h:outputLabel></h:outputLabel><h:outputLabel></h:outputLabel>
+	</p:panelGrid>
+	<div class="ui-g-9" >
+	<table width="100%" style="margin-left: 90px;border:1px solid">
+	<tr><th style="font-weight: 100;"><label class="labelvalue">Name of the School</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Academic Year(s)</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Standard(s) Studied</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">First Language</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Medium of instruction</label></th>
+	</tr>
+	<tr><th style="font-weight: 100;"><label class="labelvalue">S.M.R.V.HR.SEC.SCHOOL </label>
+	<br></br><label class="labelvalue">Vadasery Nagercoil</label>
+	</th>
+	<th style="font-weight: 100;"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.names}"></h:inputText></th>
+	<th style="font-weight: 100;"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.paidAmount}"></h:inputText></th>
+	<th style="font-weight: 100;"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.balanceAmount}"></h:inputText></th>
+	<th style="font-weight: 100;"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.placeofDuty}"></h:inputText></th>
+	</tr>
+	</table>
+	</div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-6,ui-g-1,ui-g-5">
+	<h:outputLabel styleClass="labelvalue" value="19. EMIS No"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.emisNo}" readonly="true"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="20. Signature of the HeadMaster with "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Date and School Seal"></h:outputLabel></h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" ></h:outputLabel>
+	</p:panelGrid>
+	<div style="height:120px"></div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-1,ui-g-1,ui-g-10">
+	<h:outputLabel styleClass="labelvalue" value="NOTE"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="1)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Schools Under Private Management shall have the words "Recognised by the"</label><br></br>
+	<label class="labelvalue">Director of School Education, Madras" pointed in the Transfer Certificate to be</label><br></br>
+	<label class="labelvalue">issued by them.</label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="2)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Transfer Certificate issued by the Higher Secondary Schools under Private</label><br></br>
+	<label class="labelvalue">Management without the words "Recognised by the Director of School</label><br></br>
+	<label class="labelvalue">Education, Madras" shall not be considered valid </label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="3)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Ensures the unauthenticated or Fraudulent alteration in the Cerificate will lead</label><br></br>
+	<label class="labelvalue">to its cancellation</label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="3)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Should be signed in ink by the head of institution who will be held</label><br></br>
+	<label class="labelvalue">responsiable for the correctness of the entries</label>
+	</h:panelGroup>
+	</p:panelGrid>
+	<br />
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 22px;font-family: Times New Roman">DECLARATION BY THR PARENT OF GUARDIAN</label><br></br>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:100px">I hereby declare that the particulars records against items 2 to 7 are correct and that no change will </label><br></br>
+	<label class="labelvalue" style="margin-left:60px">be demanded by me in future.</label>
+	</div>
+	<br></br>
+	<div class="ui-g-12" align="center">
+	<label class="labelvalue" style="margin-left:100px;font-weight: 600">Signature of the Parent or Guardian</label>
+	</div>
+	</div>
+	<br></br>
+	<center><p:commandButton value="Submit" icon="fa fa-check"  action="#{staffViewMB.saveTC}" ajax="false"></p:commandButton></center>
+	</p:outputPanel>
+	
+	
+	<!-- 12th print-->
+	
+	<p:outputPanel rendered="#{staffViewMB.showFlag}" id="twelethprintpanel" style="width:100%;min-height:100%">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:40%" columns="2"  >
+	<h:outputLabel styleClass="labelvalue" value="Certificate No."></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.code}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" value="TMR Code No and Date"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.code1}"></h:outputLabel>
+	</p:panelGrid>
+	<div class="ui-g">
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px">GOVERNMENT OF TAMILNADU (DEPARTMENT OF SCHOOL EDUCATION)</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 26px;font-weight: 700;font-family: Times New Roman;margin-top:-15px">TRANSFER CERTIFICATE</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 15px;margin-top:-15px">(Recognised by the Director of School Education)</label>
+	</div>
+	<div class="ui-g-3" align="center"><h:outputLabel styleClass="labelvalue" value="Serial No."></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.sno}" style="margin-left:15px"></h:outputText> </div>
+	<div class="ui-g-9" align="center"><h:outputLabel styleClass="labelvalue" value="Admission No."></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="#{staffViewMB.staffDataBean.referenceNo}"></h:outputLabel>
+	</div>
+	</div>
+	<div class="ui-g" align="center">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  >
+	<h:outputLabel styleClass="labelvalue" value="1. a) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">S.M.R.V. HIGHER SECONDARY SCHOOL,</label>
+	<br></br>
+	<label class="labelvalue" style="font-size: 18px">Vadasery, Nagercoil.(Recognised under M.E.R)</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="b) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">NAGERCOIL</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="c) Name of the Revenue District"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">KANYAKUMARI</label>
+	<h:outputLabel styleClass="labelvalue"  value="2. Name of the Pupil (in Block Letters)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.studentName}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="3. Name of the Father or Mother"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.parentName}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="4. Nationality and Religion"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.religion}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="5. Community"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Whether He / She belongs to"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"   value="#{staffViewMB.staffDataBean.caste}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="a)Adi Dravidar (S.C. or S.T.)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.classification}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="b)Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.communityCertificateNo}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="C)Most Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.approvestatus}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="D)Converted to Christianity from "></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Scheduled Caste or"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.aadharCardNo}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="e)Denotified Tribes"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="If the Pupil belongs to any one of the"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Five Categories mentioned above write"></h:outputLabel>
+	<br></br><label class="labelvalue" style="margin-left:30px" >"Yes" against the relevant column</label>
+	</h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.academicToyear}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="6. Sex"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.stuGender}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="7. Date of Birth as entered in the Addmission"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Register in figures and words"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.dateofBirth}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime> </h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="8. Personal marks of Identification"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="a)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.bankAccNo}"></h:outputText>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="b)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.bankName}"></h:outputText>
+	<h:outputLabel  styleClass="labelvalue" value="9. Date of Admission and Std.in which"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="admitted (the year to be entered in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.branchCode}"></h:outputText>
+	<h:outputLabel  styleClass="labelvalue" value="10. a)Standard in which the pupil was studying"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="at the time of leaving (in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.branchName}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="b)The Course offered i.e., General/Vocational"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Education"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel  styleClass="labelvalue" value="GENERAL / VOCATIONAL EDUCATION"></h:outputLabel>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="c)In the case of General Education the subjects"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="offered under part III Group A and Medium"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="and the related subject offered red under"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Part III Group A"></h:outputLabel>
+	</h:panelGroup>
+	<h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.busPassNo}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="e)Language offered under Part I"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.conduct}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="f)Meddium of study"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.designation}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="d)In the case of Vocational Education the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Vocational subjects under Part III Group B "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="of Instruction"></h:outputLabel>
+	</h:panelGroup>
+	<h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.employmentCardNo}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="11. Whether the Pupil was receipt of any "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="Std under Hr. Sec. Education Rules"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.examfees}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="12. Whether the Pupil has paid all the fees "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="due to the school"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.fees}"></h:outputText>
+	<h:outputLabel  styleClass="labelvalue" value="13. Whether the Pupil was in recepit of any"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Scholarship (nature of the Scholarship)"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="to be specified or any Edl.concessions"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.ifscCode}"></h:outputText>
+	<h:outputLabel  styleClass="labelvalue" value="14. Whether the Pupil has undergone Medical"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Inspection, if any during the academic year"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="(first or repeat to be specified)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.issuedAuthority}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="15. Date of which the Pupil actually left the "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="school "></h:outputLabel>
+	</h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.micrNo}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" value="16. The Pupil's conduct and character"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.name}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="17. Date on which application for Transfer"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Certificate was made on behalf of the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Pubil by this Parent or Gardian"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.nameofDuty}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" value="18. Date of the Transfer Certificate"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputLabel styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.createDate}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="19. (Course of Study)"></h:outputLabel><h:outputLabel></h:outputLabel><h:outputLabel></h:outputLabel>
+	</p:panelGrid>
+	<div class="ui-g-9" >
+	<table width="100%" style="margin-left: 90px;border:1px solid">
+	<tr><td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Name of the School</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Academic Year(s)</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Standard(s) Studied</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">First Language</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Medium of instruction</label></td>
+	</tr>
+	<tr><td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">S.M.R.V.HR.SEC.SCHOOL </label>
+	<br></br><label class="labelvalue">Vadasery Nagercoil</label>
+	</td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText styleClass="labelvalue"  style="width:120px" value="#{staffViewMB.staffDataBean.names}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText styleClass="labelvalue"  style="width:120px" value="#{staffViewMB.staffDataBean.paidAmount}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText styleClass="labelvalue"  style="width:120px" value="#{staffViewMB.staffDataBean.balanceAmount}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText styleClass="labelvalue"  style="width:120px" value="#{staffViewMB.staffDataBean.placeofDuty}"></h:outputText></td>
+	</tr>
+	</table>
+	</div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-6,ui-g-1,ui-g-5">
+	<h:outputLabel styleClass="labelvalue" value="19. EMIS No"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -10px;" value=":"></h:outputLabel>
+	<h:outputText styleClass="labelvalue"  style="margin-left: -45px;" value="#{staffViewMB.staffDataBean.emisNo}" readonly="true"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="20. Signature of the HeadMaster with "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Date and School Seal"></h:outputLabel></h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -10px;" value=":"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" ></h:outputLabel>
+	</p:panelGrid>
+	<div style="height:120px"></div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-1,ui-g-1,ui-g-10">
+	<h:outputLabel styleClass="labelvalue" value="NOTE"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="1)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Schools Under Private Management shall have the words "Recognised by the"</label><br></br>
+	<label class="labelvalue">Director of School Education, Madras" pointed in the Transfer Certificate to be</label><br></br>
+	<label class="labelvalue">issued by them.</label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="2)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Transfer Certificate issued by the Higher Secondary Schools under Private</label><br></br>
+	<label class="labelvalue">Management without the words "Recognised by the Director of School</label><br></br>
+	<label class="labelvalue">Education, Madras" shall not be considered valid </label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="3)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Ensures the unauthenticated or Fraudulent alteration in the Cerificate will lead</label><br></br>
+	<label class="labelvalue">to its cancellation</label>
+	</h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value=""></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" value="3)"></h:outputLabel>
+	<h:panelGroup>
+	<label class="labelvalue">Should be signed in ink by the head of institution who will be held</label><br></br>
+	<label class="labelvalue">responsiable for the correctness of the entries</label>
+	</h:panelGroup>
+	</p:panelGrid>
+	<br />
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 22px;font-family: Times New Roman">DECLARATION BY THR PARENT OF GUARDIAN</label><br></br>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:100px">I hereby declare that the particulars records against items 2 to 7 are correct and that no change will </label><br></br>
+	<label class="labelvalue" style="margin-left:60px">be demanded by me in future.</label>
+	</div>
+	<br></br>
+	<div class="ui-g-12" align="center">
+	<label class="labelvalue" style="margin-left:100px;font-weight: 600">Signature of the Parent or Guardian</label>
+	</div>
+	</div>
+	</p:outputPanel>
+
+
+	<!-- 10th -->
+
+	<p:outputPanel rendered="#{staffViewMB.tenthFlag}" id="tenthpanel" style="width:100%;min-height:100%">
+	<div class="ui-g">
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px">GOVERNMENT OF TAMILNADU (DEPARTMENT OF SCHOOL EDUCATION)</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 26px;font-weight: 700;font-family: Times New Roman;margin-top:-15px">TRANSFER CERTIFICATE</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 15px;margin-top:-15px">(Recognised by the Director of School Education)</label>
+	</div>
+	<div class="ui-g-3" align="center"><h:outputLabel styleClass="labelvalue" value="Serial No."></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.sno}" style="margin-left:15px"></h:outputText> </div>
+	<div class="ui-g-9" align="center"><h:outputLabel styleClass="labelvalue" value="Admission No."></h:outputLabel>
+	<h:inputText styleClass="inputTxt" style="margin-left:20px" value="#{staffViewMB.staffDataBean.referenceNo}"></h:inputText>
+	</div>
+	</div>
+	<div class="ui-g" align="center">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  >
+	<h:outputLabel styleClass="labelvalue" value="1. a) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">S.M.R.V. HIGHER SECONDARY SCHOOL,</label>
+	<br></br>
+	<label class="labelvalue" style="font-size: 18px">Vadasery, Nagercoil.(Recognised under M.E.R)</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="b) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">NAGERCOIL</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="c) Name of the Revenue District"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">KANYAKUMARI</label>
+	<h:outputLabel styleClass="labelvalue"  value="2. Name of the Pupil (in Block Letters)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.studentName}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="3. Name of the Father or Mother"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.parentName}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="4. Nationality and Religion"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.religion}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="5. Community"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Whether He / She belongs to"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.caste}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="a)Adi Dravidar (S.C. or S.T.)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.classification}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="b)Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.aadharCardNo}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="C)Most Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.academicFromyear}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="D)Converted to Christianity from "></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Scheduled Caste or"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.academicToyear}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="e)Denotified Tribes"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="If the Pupil belongs to any one of the"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Five Categories mentioned above write"></h:outputLabel>
+	<br></br><label class="labelvalue" style="margin-left:30px" >"Yes" against the relevant column</label>
+	</h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.addActivity}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="6. Sex"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.stuGender}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="7. Date of Birth as entered in the Addmission"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Register in figures and words"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.dateofBirth}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime> </h:inputText>
+	<h:outputLabel styleClass="labelvalue"  value="8. Personal marks of Identification"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="a)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:inputTextarea styleClass="inputTxt" value="#{staffViewMB.staffDataBean.amount}"></h:inputTextarea>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="b)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:inputTextarea styleClass="inputTxt" value="#{staffViewMB.staffDataBean.approvestatus}"></h:inputTextarea>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="c) Blood Group"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.balanceAmount}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="9. Date of Admission and Std.in which"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="admitted (the year to be entered in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.code}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="10. Standard in which the pupil was studying"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="at the time of leaving (in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.code1}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="11. Whether the Pupil was receipt of any "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="Std "></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.bankName}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="12. Whether the Pupil was in recepit of any"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Scholarship (nature of the Scholarship)"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="to be specified or any Edl.concessions"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.bankAccNo}"></h:inputText>
+	<h:outputLabel  styleClass="labelvalue" value="13. Whether the Pupil has undergone Medical"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Inspection, if any during the academic year"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="(first or repeat to be specified)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.branchCode}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="14. Date of which the Pupil actually left the "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="school "></h:outputLabel>
+	</h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.branchName}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" value="15. The Pupil's conduct and character"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.conduct}"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="16. Date on which application for Transfer"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Certificate was made on behalf of the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Pubil by this Parent or Gardian"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:inputText styleClass="inputTxt" value="#{staffViewMB.staffDataBean.busPassNo}"></h:inputText>
+	<h:outputLabel styleClass="labelvalue" value="17. Date of the Transfer Certificate"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<p:calendar styleClass="dateTimeField" pattern="dd-MM-yyyy" value="#{staffViewMB.staffDataBean.createDate}"></p:calendar>
+	<h:outputLabel styleClass="labelvalue" value="18. (Course of Study)"></h:outputLabel><h:outputLabel></h:outputLabel><h:outputLabel></h:outputLabel>
+	</p:panelGrid>
+	<div class="ui-g-9" >
+	<table width="100%" style="margin-left: 90px;border:1px solid">
+	<tr><th style="font-weight: 100;"><label class="labelvalue">Name of the School</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Academic Year(s)</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Standard(s) Studied</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">First Language</label></th>
+	<th style="font-weight: 100;"><label class="labelvalue">Medium of instruction</label></th>
+	</tr>
+	<tr><td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">S.M.R.V.HR.SEC.SCHOOL </label>
+	<br></br><label class="labelvalue">Vadasery Nagercoil</label>
+	</td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.communityCertificateNo}"></h:inputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.designation}"></h:inputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.fees}"></h:inputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:inputText styleClass="inputTxt" style="width:120px" value="#{staffViewMB.staffDataBean.ifscCode}"></h:inputText></td>
+	</tr>
+	</table>
+	</div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-6,ui-g-1,ui-g-5">
+	<h:outputLabel styleClass="labelvalue" value="19. EMIS No"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	<h:inputText styleClass="inputTxt"  value="#{staffViewMB.staffDataBean.emisNo}" readonly="true"></h:inputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="20. Signature of the HeadMaster with "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Date and School Seal"></h:outputLabel></h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	</p:panelGrid>
+	<div style="height:120px"></div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px;font-family: Times New Roman">DECLARATION BY THR PARENT OF GUARDIAN</label><br></br>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:100px">I hereby declare that the particulars records against items 2 to 7 are correct and that no change will </label><br></br>
+	<label class="labelvalue" style="margin-left:60px">be demanded by me in future.</label>
+	</div>
+	<br></br>
+	<div class="ui-g-3"></div>
+	<div class="ui-g-9" align="center">
+	<label class="labelvalue" style="margin-left:100px;font-weight: 600">Signature of the Parent or Guardian</label>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:60px">Note:Erasures and unauthenticated or Fraudulent alteration in the Certificate will end lead to its cancellation. </label>
+	</div>
+	</div>
+	<br></br>
+	<center><p:commandButton value="Submit" icon="fa fa-check"  action="#{staffViewMB.saveTC}" ajax="false"></p:commandButton></center>
+	</p:outputPanel>
+	
+	
+	<!-- 10th print -->
+	
+	<p:outputPanel rendered="#{staffViewMB.hideFlag}" id="tenthprintpanel" style="width:100%;min-height:100%">
+	<div class="ui-g">
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px">GOVERNMENT OF TAMILNADU (DEPARTMENT OF SCHOOL EDUCATION)</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 26px;font-weight: 700;font-family: Times New Roman;margin-top:-15px">TRANSFER CERTIFICATE</label>
+	</div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 15px;margin-top:-15px">(Recognised by the Director of School Education)</label>
+	</div>
+	<div class="ui-g-3" align="center"><h:outputLabel styleClass="labelvalue" value="Serial No."></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.sno}" style="margin-left:15px"></h:outputText> </div>
+	<div class="ui-g-9" align="center"><h:outputLabel styleClass="labelvalue" value="Admission No."></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" style="margin-left:20px" value="#{staffViewMB.staffDataBean.referenceNo}"></h:outputText>
+	</div>
+	</div>
+	<div class="ui-g" align="center">
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  >
+	<h:outputLabel styleClass="labelvalue" value="1. a) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">S.M.R.V. HIGHER SECONDARY SCHOOL,</label>
+	<br></br>
+	<label class="labelvalue" style="font-size: 18px">Vadasery, Nagercoil.(Recognised under M.E.R)</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="b) Name of the school"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">NAGERCOIL</label>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: 20px;" value="c) Name of the Revenue District"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<label style="font-size: 18px;font-weight: 600;font-family: Times New Roman">KANYAKUMARI</label>
+	<h:outputLabel styleClass="labelvalue"  value="2. Name of the Pupil (in Block Letters)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.studentName}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="3. Name of the Father or Mother"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.parentName}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="4. Nationality and Religion"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.religion}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="5. Community"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Whether He / She belongs to"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.caste}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="a)Adi Dravidar (S.C. or S.T.)"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.classification}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="b)Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.aadharCardNo}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="C)Most Backward Class"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.academicFromyear}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="D)Converted to Christianity from "></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Scheduled Caste or"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.academicToyear}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="e)Denotified Tribes"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="If the Pupil belongs to any one of the"></h:outputLabel>
+	<br></br><h:outputLabel styleClass="labelvalue" style="margin-left:30px" value="Five Categories mentioned above write"></h:outputLabel>
+	<br></br><label class="labelvalue" style="margin-left:30px" >"Yes" against the relevant column</label>
+	</h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.addActivity}"></h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="6. Sex"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.stuGender}"></h:outputText>
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue"  value="7. Date of Birth as entered in the Addmission"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:20px" value="Register in figures and words"></h:outputLabel></h:panelGroup>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.dateofBirth}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime> </h:outputText>
+	<h:outputLabel styleClass="labelvalue"  value="8. Personal marks of Identification"></h:outputLabel>
+	<h:outputLabel value=":"></h:outputLabel>
+	<h:outputLabel value=""></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="a)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.amount}"></h:outputText>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="b)"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:outputText styleClass="labelvalue" value="#{staffViewMB.staffDataBean.approvestatus}"></h:outputText>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="c) Blood Group"></h:outputLabel><h:outputLabel></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.balanceAmount}"></h:outputText  >
+	<h:outputLabel  styleClass="labelvalue" value="9. Date of Admission and Std.in which"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:20px" styleClass="labelvalue" value="admitted (the year to be entered in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.code}"></h:outputText  >
+	<h:outputLabel  styleClass="labelvalue" value="10. Standard in which the pupil was studying"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="at the time of leaving (in words)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.code1}"></h:outputText  >
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="11. Whether the Pupil was receipt of any "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="Std "></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.bankName}"></h:outputText  >
+	<h:outputLabel  styleClass="labelvalue" value="12. Whether the Pupil was in recepit of any"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Scholarship (nature of the Scholarship)"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="to be specified or any Edl.concessions"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.bankAccNo}"></h:outputText  >
+	<h:outputLabel  styleClass="labelvalue" value="13. Whether the Pupil has undergone Medical"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="Inspection, if any during the academic year"></h:outputLabel><h:outputLabel ></h:outputLabel><h:outputLabel ></h:outputLabel>
+	<h:outputLabel style="margin-left:25px" styleClass="labelvalue" value="(first or repeat to be specified)"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.branchCode}"></h:outputText  >
+	<h:panelGroup>
+	<h:outputLabel  styleClass="labelvalue" value="14. Date of which the Pupil actually left the "></h:outputLabel><br></br>
+	<h:outputLabel  styleClass="labelvalue" style="margin-left:25px" value="school "></h:outputLabel>
+	</h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.branchName}"></h:outputText  >
+	<h:outputLabel styleClass="labelvalue" value="15. The Pupil's conduct and character"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.conduct}"></h:outputText  >
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="16. Date on which application for Transfer"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Certificate was made on behalf of the"></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Pubil by this Parent or Gardian"></h:outputLabel></h:panelGroup>
+	<label class="labelvalue">:</label>
+	<h:outputText  styleClass="labelvalue" value="#{staffViewMB.staffDataBean.busPassNo}"></h:outputText  >
+	<h:outputLabel styleClass="labelvalue" value="17. Date of the Transfer Certificate"></h:outputLabel>
+	<label class="labelvalue">:</label>
+	<h:outputText styleClass="labelvalue"  value="#{staffViewMB.staffDataBean.createDate}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></h:outputText>
+	<h:outputLabel styleClass="labelvalue" value="18. (Course of Study)"></h:outputLabel><h:outputLabel></h:outputLabel><h:outputLabel></h:outputLabel>
+	</p:panelGrid>
+	<div class="ui-g-9" >
+	<table width="100%" style="margin-left: 90px;border:1px solid">
+	<tr><td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Name of the School</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Academic Year(s)</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Standard(s) Studied</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">First Language</label></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">Medium of instruction</label></td>
+	</tr>
+	<tr><td style="font-weight: 100;border: 1.5px solid;text-align: center"><label class="labelvalue">S.M.R.V.HR.SEC.SCHOOL </label>
+	<br></br><label class="labelvalue">Vadasery Nagercoil</label>
+	</td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText  styleClass="labelvalue" style="width:120px;" value="#{staffViewMB.staffDataBean.communityCertificateNo}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText  styleClass="labelvalue" style="width:120px" value="#{staffViewMB.staffDataBean.designation}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText  styleClass="labelvalue" style="width:120px" value="#{staffViewMB.staffDataBean.fees}"></h:outputText></td>
+	<td style="font-weight: 100;border: 1.5px solid;text-align: center"><h:outputText  styleClass="labelvalue" style="width:120px" value="#{staffViewMB.staffDataBean.ifscCode}"></h:outputText></td>
+	</tr>
+	</table>
+	</div>
+	<p:panelGrid styleClass="ui-panelgrid-blank" style="width:90%" columns="3"  columnClasses="ui-g-6,ui-g-1,ui-g-5">
+	<h:outputLabel styleClass="labelvalue" value="19. EMIS No"></h:outputLabel>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	<h:outputText  styleClass="labelvalue" style="margin-left: -60px;" value="#{staffViewMB.staffDataBean.emisNo}" readonly="true"></h:outputText >
+	<h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" value="20. Signature of the HeadMaster with "></h:outputLabel><br></br>
+	<h:outputLabel styleClass="labelvalue" style="margin-left:25px" value="Date and School Seal"></h:outputLabel></h:panelGroup>
+	<h:outputLabel styleClass="labelvalue" style="margin-left: -20px;" value=":"></h:outputLabel>
+	</p:panelGrid>
+	<div style="height:120px"></div>
+	<div class="ui-g-12" align="center">
+	<label style="font-size: 20px;font-family: Times New Roman">DECLARATION BY THR PARENT OF GUARDIAN</label><br></br>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:100px">I hereby declare that the particulars records against items 2 to 7 are correct and that no change will </label><br></br>
+	<label class="labelvalue" style="margin-left:60px">be demanded by me in future.</label>
+	</div>
+	<br></br>
+	<div class="ui-g-3"></div>
+	<div class="ui-g-9" align="center">
+	<label class="labelvalue" style="margin-left:100px;font-weight: 600">Signature of the Parent or Guardian</label>
+	</div>
+	<div class="ui-g-12" align="left">
+	<label class="labelvalue" style="margin-left:60px">Note:Erasures and unauthenticated or Fraudulent alteration in the Certificate will end lead to its cancellation. </label>
+	</div>
+	</div>
+	</p:outputPanel>
+	<br></br>
+	<center><p:commandButton value="Print" icon="fa fa-print" rendered="#{staffViewMB.hideFlag}" >
+	<p:printer target="tenthprintpanel"></p:printer></p:commandButton>
+	<p:commandButton value="Print" icon="fa fa-print" rendered="#{staffViewMB.showFlag}" >
+	<p:printer target="twelethprintpanel"></p:printer></p:commandButton>
+	 </center>
+	</p:panel>
+	</ui:define>
+</ui:composition>	

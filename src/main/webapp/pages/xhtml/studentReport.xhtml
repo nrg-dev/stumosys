@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+	<style type="text/css">
+  .menu {
+	width: 570px;
+	margin: 30px auto;
+	margin-top: 170px;
+	}
+	
+  .menu a {
+	width: 150px;
+	line-height: 150px;
+	display: block;
+	margin: 4px;
+	text-align: center;
+	float:left;
+	color:white;
+	}
+	
+  .blue {
+   	background: #009fe3;
+    }
+	</style>
+	<div class="menu">
+		<p:commandLink action="#{reportCardViewMB.markreportpage}" ajax="false" styleClass="blue" value="Mark"></p:commandLink>
+		<p:commandLink action="#{studentPerformanceViewMB.performancereportpage}" ajax="false" styleClass="blue" value="Behaviour"></p:commandLink>
+		<p:commandLink action="#{attendancePreviewMB.attendanceReport}" ajax="false" styleClass="blue" value="Attendance"></p:commandLink>
+	</div>
+	</ui:define>
+	</ui:composition>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<html>
+<h:head>
+	<title>STUMOSYS</title>
+	<link rel="SHORTCUT ICON" href="../../images/nrg2.png"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link rel="stylesheet" href="../../css/demo.css"></link>
+<link rel="stylesheet" href="../../css/sky-forms.css"></link>
+	<style type="text/css">
+	.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th {
+		text-align:center;
+	}
+	</style>
+</h:head>
+ <body  > 
+	<h:form >
+			<center>
+		<br/><br/>
+		<h:outputLabel value="REGISTERED SCHOOLS NAME" style="font-size:20px;"></h:outputLabel>
+		<div align="right">
+			<p:commandButton value="Logout" action="#{loginMB.logout}" icon="fa fa-sign-out" ajax="false" />
+		</div>
+		<br></br>
+		<div style="margin-left:10px;margin-right:10px;">
+	<p:dataTable pageLinks="10" paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="10" paginator="true" var="school" value="#{loginMB.addschoollist}">
+	<p:column headerText="School Name">
+	<h:outputText value="#{school.schoolName}"></h:outputText>
+	</p:column>
+	<p:column headerText="Phone Number"><h:outputText value="#{school.schoolPhone}"></h:outputText></p:column>
+	<p:column headerText="Email"><h:outputText value="#{school.schoolEmail}"></h:outputText></p:column>
+	<p:column headerText="Address"><h:outputText value="#{school.schoolAddress}"></h:outputText></p:column>
+	<p:column headerText="Status" width="10%"><h:outputText value="#{school.userStatus}"></h:outputText></p:column>
+	<p:column headerText="Action" width="10%">
+	<center>
+	<p:commandButton icon="fa fa-pencil" title="Edit" action="#{loginMB.schooledit}" update="schoolpanel" process="@this" oncomplete="PF('reg').show()">
+	<f:setPropertyActionListener value="#{school.schoolName}" target="#{loginMB.loginaccess.schoolName}"></f:setPropertyActionListener>
+	</p:commandButton>
+	<p:commandButton icon="fa fa-check" title="Approve" action="#{loginMB.newschoolapproval}" update="@form" rendered="#{school.userStatus!='Active'}">
+	<f:setPropertyActionListener value="#{school.schoolName}" target="#{loginMB.loginaccess.schoolName}"></f:setPropertyActionListener>
+	</p:commandButton>
+	<h:panelGroup rendered="#{school.userStatus!='Rejected'}">
+	<p:commandButton icon="fa fa-times" title="Reject" action="#{loginMB.newschoolreject}" rendered="#{school.userStatus!='Deactive'}">
+	<f:setPropertyActionListener value="#{school.schoolName}" target="#{loginMB.loginaccess.schoolName}"></f:setPropertyActionListener>
+	<p:confirm header="CONFORMATION" message="ARE YOU SURE?" icon="ui-icon-alert" />
+	</p:commandButton></h:panelGroup></center>
+		<p:confirmDialog global="true">
+			<center>
+				<p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="YES" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			</center>
+		</p:confirmDialog>
+	</p:column>
+	<p:column headerText="User Details" width="12%">
+		<p:commandButton value="View UserDetails" action="#{loginMB.viewUserpage}" process="@this" update="@form" immediate="true">
+		<f:setPropertyActionListener value="#{school.schoolName}" target="#{loginMB.loginaccess.schoolName}"></f:setPropertyActionListener>
+		</p:commandButton>
+	</p:column>
+	</p:dataTable></div>	</center>
+	</h:form>
+	<p:dialog widgetVar="confirm" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="false">
+  <h:form>			
+  	<center>
+		<p style="font-size: 16px"> Approved Successfully</p>
+		<p:commandButton value="OK" oncomplete="PF('confirm').hide()" ajax="false"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>
+<p:dialog widgetVar="reject" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="false">
+  <h:form>			
+  	<center>
+		<p style="font-size: 16px"> Rejected Successfully</p>
+		<p:commandButton value="OK" oncomplete="PF('reject').hide()"  ajax="false"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>
+<p:dialog widgetVar="reg" width="700" height="500" header="School Edit Form" appendTo="@(body)" modal="true" position="center" resizable="false" responsive="true" draggable="false">
+<p:outputPanel id="schoolpanel">
+	<p:growl id="msg"></p:growl>	
+			<h:form  class="sky-form" style="width:100%;padding-top: 0px;padding-bottom: 0px;background:gray">
+				<fieldset>	
+				<section>				
+						<label class="input">
+				<h:inputText placeholder="School Name" value="#{loginMB.loginaccess.schoolName}" styleClass="input" id="name"> </h:inputText>
+						</label>
+						<h:message for="name" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Contact Person Name" value="#{loginMB.loginaccess.username}" styleClass="input" id="username"> </h:inputText>
+						</label>
+						<h:message for="username" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Email " value="#{loginMB.loginaccess.schoolEmail}" styleClass="input" id="email"> </h:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for Email Id</b>
+						</label>
+					<h:message for="email" style="font-size:12px;color:red"></h:message>	
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Alternative Email" value="#{loginMB.loginaccess.alternativeemail}" styleClass="input" id="alteremail"></h:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for Email Id</b>
+						</label>
+						<h:message for="alteremail" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Landline Number" value="#{loginMB.loginaccess.landlinenumber}" styleClass="input" id="landline"></h:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="landline" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Mobile Number" value="#{loginMB.loginaccess.schoolPhone}" styleClass="input" id="phone"> </h:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="phone" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Address" value="#{loginMB.loginaccess.schoolAddress}" styleClass="input" id="address"> </h:inputText>
+						</label>
+						<h:message for="address" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="School Person Contact Number" value="#{loginMB.loginaccess.contactnumber}" styleClass="input" id="contact"> </h:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="contact" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="Country" styleClass="input" value="#{loginMB.loginaccess.country}" id="country"> </h:inputText>
+				</label>
+				<h:message for="country" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<h:inputText placeholder="State" styleClass="input" value="#{loginMB.loginaccess.state}" id="state"> </h:inputText>
+						</label>
+						<h:message for="state" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>
+					<section>
+					<h:outputLabel value="Uploaded Photo"
+							 styleClass="labelTxt" />
+					<a4j:mediaOutput style="width:100px;height:100px;"
+							element="img" cacheable="false" session="true"
+							createContent="#{loginMB.imageview}" mimeType="image/png" />
+							</section>
+					<label>School Logo</label>
+					<p:fileUpload  mode="advanced" update="msg"
+							value="#{loginMB.loginaccess.schoollogo}" id="logo"
+							fileUploadListener="#{loginMB.fileupload}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> 
+					<h:message for="logo" style="font-size:12px;color:red"></h:message>
+					</section>
+					<p:commandButton value="Cancel"  style="background:#0287CC;margin-right: 150px;" styleClass="button" onclick="PF('reg').hide()" ></p:commandButton>
+					<p:commandButton value="Submit"  style="background:#0287CC" styleClass="button" action="#{loginMB.schoolupdate}" update="@form" ></p:commandButton>
+				</fieldset>
+			</h:form>
+		</p:outputPanel>
+</p:dialog>
+<p:dialog widgetVar="editconfirm" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<p style="font-size: 16px">Successfully Edited</p>
+		<p:commandButton value="OK" oncomplete="PF('editconfirm').hide()" ></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+</body>
+	</html>
+</ui:composition>

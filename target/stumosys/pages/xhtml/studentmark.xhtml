@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+		<p:panel header="Add Report Card" toggleable="false"
+			style="min-height:100%;">
+			<h:form>
+				<table width="100%">
+					<tr>
+						<td width="25%"><h:outputLabel value="Class &amp; Section "
+								styleClass="labelTxt" for="studentMarkClass"></h:outputLabel><span
+							style="color: red;"> * </span></td>
+						<td width="75%"><h:selectOneMenu
+								value="#{reportCardMB.reportCardDataBean.studMarkClass}"
+								id="studentMarkClass"
+								valueChangeListener="#{reportCardMB.classChange}"
+								styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Select the Class" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{reportCardMB.classList}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+							</h:selectOneMenu> <br></br>
+						<h:message for="studentMarkClass" style="color:red;font-size:11px"></h:message><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td width="25%"><h:outputLabel value="Exam Title "
+								styleClass="labelTxt" for="markExamTitle"></h:outputLabel><span
+							style="color: red;"> * </span></td>
+						<td width="75%"><h:selectOneMenu
+								value="#{reportCardMB.reportCardDataBean.examMarkTitle}"
+								id="markExamTitle" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Select Exam Title..." itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{reportCardMB.examtitle}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+
+							</h:selectOneMenu> <br></br> <h:message for="markExamTitle"
+								style="color:red;font-size:11px"></h:message><br></br></td>
+					</tr>
+
+
+					<tr>
+						<td><h:outputLabel value="Subject Name &amp; Code "
+								styleClass="labelTxt" for="markSubjectTitle"></h:outputLabel><span
+							style="color: red;"> * </span></td>
+						<td><h:selectOneMenu
+								value="#{reportCardMB.reportCardDataBean.markSubTitle}"
+								id="markSubjectTitle" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Select Subject..." itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{reportCardMB.subjectList}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+
+							</h:selectOneMenu> <br></br> <h:message for="markSubjectTitle"
+								style="color:red;font-size:11px"></h:message><br></br></td>
+					</tr>
+				</table>
+			</h:form>
+			<table width="100%">
+				<tr>
+					<td  width="25%"></td><td width="75%"><p:commandButton value="Submit Result"
+							ajax="false" action="#{reportCardMB.submit}" /> <p:commandButton
+							value="Reset" action="#{reportCardMB.reset}" ajax="false" /></td>
+				</tr>
+			</table>
+		</p:panel>
+	</ui:define>
+</ui:composition>

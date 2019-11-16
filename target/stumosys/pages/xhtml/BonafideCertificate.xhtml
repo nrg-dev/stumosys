@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:define name="content">
+	<style>
+ .autoclass .ui-state-default{
+    font-family: arial,sans-serif !important;
+    width: 208px;
+    height:25px;
+	}
+</style>
+	<p:panel  header="Bonafide Certificate" style="min-height:100%;">
+		<center><p:outputPanel id="bonafideform" style="width:90%;min-height:100%">
+		<div class="ui-g">
+		<div class="ui-g-12" align="right">
+		<p:outputLabel value="Phone:272751" style="color:#1578c9;margin-right: 55px;"></p:outputLabel>
+		</div>
+		</div>
+		<div class="ui-g">
+		<div class="ui-g-2">
+           <a4j:mediaOutput style="width:100px;height:100px;" element="img" cacheable="false" session="true" 
+			createContent="#{loginMB.imageview1}" mimeType="image/png" />
+         </div>
+         <div class="ui-g-10">
+         <p:outputLabel style="font-size: 28px; font-family: Times New Roman;color:#1578c9;font-weight:600" value="S.M.R.V HIGHER SECONDARY SCHOOL,"></p:outputLabel>
+        <br></br> 
+         <center><p:outputLabel style="font-size: 24px;color:#1578c9; margin-right: 30px; " value="VADASERY, NAGERCOIL - 629 001"></p:outputLabel></center>
+         </div>
+         </div>
+         <div class="ui-g">
+          <div class="ui-g-6" ></div>
+         <div class="ui-g-6" align="center">
+         <p:outputLabel value="Date :" styleClass="outlabel" rendered="#{staffViewMB.hideFlag}"></p:outputLabel>
+         <p:calendar styleClass="dateTimeField" id="createdate" pattern="dd-MM-yyyy" style="margin-left:15px" value="#{staffViewMB.staffDataBean.createDate}" rendered="#{staffViewMB.hideFlag}">
+         <p:ajax event="dateSelect" update="createdate"></p:ajax> </p:calendar>
+         <p:outputLabel value="Date :" styleClass="outlabel" rendered="#{staffViewMB.showFlag}"></p:outputLabel>
+         <p:outputLabel styleClass="outlabel" value="#{staffViewMB.staffDataBean.createDate}" rendered="#{staffViewMB.showFlag}" style="margin-left:10px">
+		<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime> </p:outputLabel>
+         </div>
+         </div>
+         <div class="ui-g">
+		 <div class="ui-g-12">
+		 <center><p:outputLabel value="BONAFIDE CERTIFICATE" style="font-size:22px;font-weight:600;color:#1578c9;text-decoration: underline;"></p:outputLabel></center>
+		 </div>
+		 </div>
+		 <br></br><br></br>
+		 <p:outputPanel rendered="#{staffViewMB.hideFlag}" id="outpanel">
+		 <div class="ui-g">
+		  <div class="ui-g-12 autoclass" align="center">
+		<label class="outlabel"> This is to certify that</label> 
+		<p:autoComplete  style="margin-left: 15px;"  completeMethod="#{staffViewMB.studentnameAutocomplete}" valueChangeListener="#{staffViewMB.nameValueChange}">
+		<p:ajax event="itemSelect" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide();" update="outpanel" process="@this"></p:ajax> </p:autoComplete>
+		<label style="margin-left:15px" class="outlabel"> son/daughter of</label>
+		 </div>
+		  <div class="ui-g-12" align="center">
+		<label  class="outlabel" style="margin-left:10px"> Sri</label> <h:inputText styleClass="inputTxt" style="margin-left: 10px;" value="#{staffViewMB.staffDataBean.parentName}"></h:inputText>
+		<label style="margin-left:15px" class="outlabel"> is studying in Std </label> <h:inputText styleClass="inputTxt" style="margin-left: 15px;" value="#{staffViewMB.staffDataBean.className}"></h:inputText>
+		<label style="margin-left:15px" class="outlabel"> in</label>
+		 </div>
+		 <div class="ui-g-12" align="center">
+		 <label style="margin-left:10px" class="outlabel">  S.M.R.V. Hr. Sec.School, Vadasery, during the academic year </label>
+		 <h:inputText styleClass="inputTxt" style="margin-left: 15px;" value="#{staffViewMB.staffDataBean.academicFromyear}"></h:inputText> 
+		 </div>
+		 <div class="ui-g-12" align="center">	
+		 <label style="margin-left:10px" class="outlabel"> to </label><h:inputText styleClass="inputTxt" style="margin-left: 15px;" value="#{staffViewMB.staffDataBean.academicToyear}"></h:inputText> 
+		 <label style="margin-left:10px" class="outlabel">  his / her date of birth is</label><p:calendar styleClass="dateTimeField" style="margin-left: 15px;" value="#{staffViewMB.staffDataBean.dateofBirth}" pattern="dd-MM-yyyy"></p:calendar>
+		 </div>
+		 
+		  <div class="ui-g-6" >
+		  <label class="outlabel" style="margin-left: 15px"> as per the School records. </label>
+		  </div>
+		 </div>
+		 </p:outputPanel>
+		  <p:outputPanel rendered="#{staffViewMB.showFlag}">
+		 <div class="ui-g">
+		  <div class="ui-g-12 autoclass" align="center">
+		<label class="outlabel" style="margin-left: 60px"> This is to certify that 
+		#{staffViewMB.staffDataBean.studentName} son/daughter of Sri #{staffViewMB.staffDataBean.parentName}  is studying</label>
+		 </div>
+		 <div class="ui-g-12" align="center">
+		<label  class="outlabel" >   in Std, #{staffViewMB.staffDataBean.className}   in
+		 S.M.R.V. Hr. Sec.School, Vadasery, during the academic year #{staffViewMB.staffDataBean.academicFromyear}</label>
+		 </div>
+		 <div class="ui-g-12" align="center">	
+		 <label style="margin-right:110px" class="outlabel"> to #{staffViewMB.staffDataBean.academicToyear}
+		  his / her date of birth is  <p:outputLabel styleClass="outlabel"  value="#{staffViewMB.staffDataBean.dateofBirth}" >
+		 <f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></p:outputLabel>
+		  as per the School records. </label>
+		  </div>
+		 </div>
+		 </p:outputPanel>
+		 <div style="height:60px"></div>
+		 <div class="ui-g">
+		 <div class="ui-g-12" align="right">
+		<p:outputLabel value="Signature of the Headmistress." styleClass="outlabel" style="margin-right:100px;"></p:outputLabel>
+		</div>
+		 </div>
+		</p:outputPanel>
+		<br></br>
+		<p:commandButton value="Submit" icon="fa fa-check" action="#{staffViewMB.printingForm}" ajax="false" rendered="#{staffViewMB.hideFlag}">
+		</p:commandButton>
+		<p:commandButton value="Print" icon="fa fa-print" rendered="#{staffViewMB.showFlag}">
+		<p:printer target="bonafideform"></p:printer></p:commandButton>
+		</center>
+		</p:panel>
+	</ui:define>
+	</ui:composition>

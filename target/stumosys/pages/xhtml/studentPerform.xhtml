@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	 xmlns:b="http://bootsfaces.net/ui">
+	 
+<link type="text/css" rel="stylesheet" href="../../css/myStyles.css" ></link>
+<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css" ></link>
+<ui:define name="content">
+	<style>
+		.ui-tabs.ui-tabs-top .ui-tabs-nav.ui-widget-header li.ui-state-active 
+		{
+	    margin-bottom: -1px;
+	    background-color: #dddddd;
+		} 
+	 </style>
+		<p:panel toggleable="false"  id="studentperformBlockUI" style="min-height:100%;">
+		<f:facet name="header">
+			<center>
+				<h:outputText  value="Mark Student performance" style="font-size: 25px;"/>
+			</center>
+		</f:facet>
+			<h:form>
+				<table>
+					<tr>
+						<td>
+							<h:outputLabel for="perClass" value="Class &amp; Section " styleClass="labelTxt"><span style="color: red">*</span></h:outputLabel>
+						</td>
+						<td>
+							<h:outputLabel value="Student Name" styleClass="labelTxt" for="perStudentID" style="margin-left: 66px;"><span style="color: red">*</span></h:outputLabel>
+						</td>
+						<td>
+							<h:outputLabel value="Date" styleClass="labelTxt" for="TDob" style="margin-left:80px;"><span style="color: red">*</span></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:selectOneMenu value="#{studentPerformanceMB.studentPerformanceDataBean.perClassSection}" id="perClass" valueChangeListener="#{studentPerformanceMB.classSection}" rendered="#{studentPerformanceMB.classdropflag}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-left:39px;font-size: 10px;">	
+								<f:selectItem itemLabel="Select One" itemValue="select" />
+								<f:selectItems value="#{studentPerformanceMB.sRoll}" />		
+								<p:ajax event="valueChange" immediate="true" process="@this" update=":XX"></p:ajax>
+							</h:selectOneMenu>
+							<h:outputLabel for="perClass" value="#{studentPerformanceMB.studentPerformanceDataBean.classname}" styleClass="labelTxt" rendered="#{studentPerformanceMB.classlabelflag}"></h:outputLabel>
+						</td>
+						<td>
+							<h:selectOneMenu value="#{studentPerformanceMB.studentPerformanceDataBean.performStudID}" id="perStudentID" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-left:66px;font-size: 10px;">	
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItems value="#{studentPerformanceMB.sRoll1}" />
+								<p:ajax event="valueChange" immediate="true" process="@this" update=":XX"></p:ajax>
+							</h:selectOneMenu>
+							
+						</td>
+						<td>
+							<p:calendar id="TDob" value="#{studentPerformanceMB.studentPerformanceDataBean.teaDob}" pattern="dd-MM-yyyy" style="margin-left:79px;"></p:calendar>
+							
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:message for="perClass" style="color:red;font-size:10px;margin-left:38px;"></h:message>
+						</td>					
+						<td>
+							<h:message for="perStudentID" style="color:red;font-size:10px;margin-left:65px;"></h:message>
+						</td>
+						<td>
+							<h:message for="TDob" style="color:red;font-size:10px;margin-left:79px;"></h:message>
+						</td>
+					</tr>
+				</table>
+			</h:form>
+				<table>
+					<tr>
+						<td>
+							<h:outputLabel for="perAppearance" value="Appearance " styleClass="labelTxt" style="margin-top:20px"><span style="color: red">*</span></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:selectManyCheckbox layout="custom" columns="1" id="perAppearance" value="#{studentPerformanceMB.studentPerformanceDataBean.studentAppearance}">
+							<p:ajax event="click" />
+								<f:selectItem itemLabel="Long Hair/Dyed Hair " itemValue="Long Hair/Dyed Hair "></f:selectItem>
+								<f:selectItem itemLabel="Long/Colored Nail " itemValue="Long/Colored Nail "></f:selectItem>
+								<f:selectItem itemLabel="No School Batch/Nametag " itemValue="No School Batch/Nametag "></f:selectItem>
+								<f:selectItem itemLabel="No Socks/Dirty Shoes/Color Shoe " itemValue="No Socks/Dirty Shoes/Color Shoe "></f:selectItem>
+								<f:selectItem itemLabel="Wearing Jewelry/Make up " itemValue="Wearing Jewelry/Make up "></f:selectItem>
+								<f:selectItem itemLabel="Tattoo " itemValue="Tattoo "></f:selectItem>
+								<f:selectItem itemLabel="Non Standard Uniform " itemValue="Non Standard Uniform "></f:selectItem>
+							</p:selectManyCheckbox><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:checkbox id="check0" for="perAppearance" itemIndex="0" style="margin-left: 37px;"/>
+							<h:outputLabel for="check0" value="Long Hair/Dyed Hair" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check1" for="perAppearance" itemIndex="1" style="margin-left: 37px;"/>
+							<h:outputLabel for="check1" value="Long/Colored Nail" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check2" for="perAppearance" itemIndex="2" style="margin-left: 37px;"/>
+							<h:outputLabel for="check2" value="No School Batch/Nametag" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check3" for="perAppearance" itemIndex="3" style="margin-left: 37px;"/>
+							<h:outputLabel for="check3" value="No Socks/Dirty Shoes/Color Shoe" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>	
+							<p:checkbox id="check4" for="perAppearance" itemIndex="4" style="margin-left: 37px;"/>
+							<h:outputLabel for="check4" value="Wearing Jewelry/Make up" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check5" for="perAppearance" itemIndex="5" style="margin-left: 37px;"/>
+							<h:outputLabel for="check5" value="Tattoo " styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check6" for="perAppearance" itemIndex="6" style="margin-left: 37px;"/>
+							<h:outputLabel for="check6" value="Non Standard Uniform " styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:selectBooleanCheckbox value="#{studentPerformanceMB.check}" valueChangeListener="#{studentPerformanceMB.valueChangeHandler1}" style="margin-left: 37px;">
+							<p:ajax process="@this" update="@form" immediate="true"></p:ajax>
+							</p:selectBooleanCheckbox>
+							<h:outputLabel value="Others &nbsp;" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					</table>
+					<table>
+						<tr>
+							<td>
+								<h:panelGroup>
+										<h:inputText id="checkOther" value="#{studentPerformanceMB.studentPerformanceDataBean.appOthers}" placeholder="please mention other reason here" rendered="#{!studentPerformanceMB.flag}" style="width:392px;margin-left:36px;font-size: 11px;" >
+										<p:ajax event="valueChange" process="@this" update=":XX"></p:ajax>
+										</h:inputText>
+										<br />
+										<h:message for="checkOther" style="color:red;font-size:10px"></h:message>
+								</h:panelGroup>
+							</td>
+						</tr>
+					</table>
+					<table>
+					<tr>
+						<td>
+							<h:outputLabel for="perAttitude" value="Attitude " styleClass="labelTxt" style="margin-top:30px"><span style="color: red">*</span></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:selectManyCheckbox layout="custom" columns="1" id="perAttitude" value="#{studentPerformanceMB.studentPerformanceDataBean.studentAttitude}">
+								<p:ajax event="click" />
+								<f:selectItem itemLabel="Didn’t do Homework " itemValue="Didnt do Homework"></f:selectItem>
+								<f:selectItem itemLabel="Didn’t bring books " itemValue="Didnt bring books"></f:selectItem>
+								<f:selectItem itemLabel="No concentration on studies" itemValue="No concentration on studies"></f:selectItem>
+								<f:selectItem itemLabel="Rude/No Discipline" itemValue="Rude/No Discipline"></f:selectItem>
+								<f:selectItem itemLabel="Intimate relationship" itemValue="Intimate relationship"></f:selectItem>
+								<f:selectItem itemLabel="Smoking/Alcohol/Drugs Influence" itemValue="Smoking/Alcohol/Drugs Influence"></f:selectItem>
+								<f:selectItem itemLabel="Pornography" itemValue="Pornography"></f:selectItem>
+								<f:selectItem itemLabel="Gangsterism" itemValue="Gangsterism"></f:selectItem>
+								<f:selectItem itemLabel="Vandalism" itemValue="Vandalism"></f:selectItem>
+								<f:selectItem itemLabel="Carry dangerous items" itemValue="Carry dangerous items"></f:selectItem>
+								<f:selectItem itemLabel="Carry Hand phone" itemValue="Carry Hand phone"></f:selectItem>
+								<f:selectItem itemLabel="Cheating in Exam" itemValue="Cheating in Exam"></f:selectItem>
+								<f:selectItem itemLabel="Stealing" itemValue="Stealing"></f:selectItem>
+								<f:selectItem itemLabel="Racism" itemValue="Racism"></f:selectItem>
+								<f:selectItem itemLabel="Get bullied" itemValue="Get bullied"></f:selectItem>
+								<f:selectItem itemLabel="Scared" itemValue="Scared"></f:selectItem>
+								<f:selectItem itemLabel="Phobia" itemValue="Phobia"></f:selectItem>
+								<f:selectItem itemLabel="Isolated" itemValue="Isolated"></f:selectItem>
+								<f:selectItem itemLabel="Health Issue" itemValue="Health Issue"></f:selectItem>
+							</p:selectManyCheckbox><br></br>
+							<h:message for="perAttitude" style="color:red;font-size:10px"></h:message><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:checkbox id="check01" for="perAttitude" itemIndex="0" style="margin-left: 37px;"/>
+							<h:outputLabel for="check01" value="Didn’t do Homework" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check02" for="perAttitude" itemIndex="1" style="margin-left: 37px;"/>
+							<h:outputLabel for="check02" value="Didn’t bring books" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check03" for="perAttitude" itemIndex="2" style="margin-left: 37px;"/>
+							<h:outputLabel for="check03" value="No concentration on studies" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check04" for="perAttitude" itemIndex="3" style="margin-left: 37px;"/>
+							<h:outputLabel for="check04" value="Rude/No Discipline" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check05" for="perAttitude" 	itemIndex="4" style="margin-left: 37px;"/>
+							<h:outputLabel for="check05" value="Intimate relationship" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:checkbox id="check06" for="perAttitude" itemIndex="5" style="margin-left: 37px;"/>
+							<h:outputLabel for="check06" value="Smoking/Alcohol/Drugs Influence" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check07" for="perAttitude" itemIndex="6" style="margin-left: 37px;"/>
+							<h:outputLabel for="check07" value="Pornography" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check08" for="perAttitude" itemIndex="7" style="margin-left: 37px;"/>
+							<h:outputLabel for="check08" value="Gangsterism" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check09" for="perAttitude" 	itemIndex="8" style="margin-left: 37px;"/>
+							<h:outputLabel for="check09" value="Vandalism" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check10" for="perAttitude" itemIndex="9" style="margin-left: 37px;"/>
+							<h:outputLabel for="check10" value="Carry dangerous items" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:checkbox id="check11" for="perAttitude" 	itemIndex="10" style="margin-left: 37px;"/>
+							<h:outputLabel for="check11" value="Carry Hand phone" 	styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check12" for="perAttitude" itemIndex="11" style="margin-left: 37px;"/>
+							<h:outputLabel for="check12" value="Cheating in Exam" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check13" for="perAttitude" 	itemIndex="12" style="margin-left: 37px;"/>
+							<h:outputLabel for="check13" value="Stealing" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check14" for="perAttitude" itemIndex="13" style="margin-left: 37px;"/>
+							<h:outputLabel for="check14" value="Racism" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check15" for="perAttitude" itemIndex="14" style="margin-left: 37px;"/>
+							<h:outputLabel for="check15" value="Get bullied" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:checkbox id="check16" for="perAttitude" itemIndex="15" style="margin-left: 37px;"/>
+							<h:outputLabel for="check16" value="Scared" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>
+							<p:checkbox id="check17" for="perAttitude" 	itemIndex="16" style="margin-left: 37px;"/>
+							<h:outputLabel for="check17" value="Phobia" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check18" for="perAttitude" itemIndex="17" style="margin-left: 37px;"/>
+							<h:outputLabel for="check18" value="Isolated" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:checkbox id="check19" for="perAttitude" itemIndex="18" style="margin-left: 37px;"/>
+							<h:outputLabel for="check19" value="Health Issue" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+						<td>	
+							<p:selectBooleanCheckbox value="#{studentPerformanceMB.check2}" valueChangeListener="#{studentPerformanceMB.valueChangeHandler3}" style="margin-left: 37px;">
+							<p:ajax process="@this" update="@form" immediate="true"></p:ajax>
+							</p:selectBooleanCheckbox>
+							<h:outputLabel value="Urgent" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>	
+							<p:selectBooleanCheckbox value="#{studentPerformanceMB.check1}" valueChangeListener="#{studentPerformanceMB.valueChangeHandler2}" style="margin-left: 37px;">
+							<p:ajax process="@this" update="@form" immediate="true"></p:ajax>
+							</p:selectBooleanCheckbox>
+							<h:outputLabel value="Others &nbsp;" styleClass="labelTxt" style="margin-left: 10px;"></h:outputLabel>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td>
+							<h:panelGroup>
+								<h:inputText id="checkAttOther" value="#{studentPerformanceMB.studentPerformanceDataBean.attOthers}" placeholder="please mention other reason here" rendered="#{!studentPerformanceMB.flag1}" style="width:392px;margin-left:36px;font-size: 11px;">
+								<p:ajax event="valueChange" process="@this" update=":XX"></p:ajax>
+								</h:inputText>
+								<br />
+								<h:message for="checkAttOther" style="color:red;font-size:10px"></h:message>
+							</h:panelGroup>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td style="width:305px"></td>
+						<td>
+							<h:message for="perAppearance" style="color:red;font-size:10px"></h:message><br></br>
+						</td>
+					</tr>
+				</table>
+				<table>
+				<tr>
+					<td>
+						<p:commandButton value="Save" action="#{studentPerformanceMB.loading}" ajax="false" icon="ui-icon-triangle-1-e" rendered="#{studentPerformanceMB.sflag}"
+						oncomplete="PF('studentRegDialogteacherRegDialog').show()" style="margin-left: 335px;margin-top: 33px;font-size: 13px;"></p:commandButton>
+					</td>
+					<td>
+						<p:commandButton value="Reset" ajax="false" action="#{studentPerformanceMB.reset}" icon="ui-icon-triangle-1-e" rendered="#{studentPerformanceMB.sflag}" style="margin-top:33px;font-size: 13px;"></p:commandButton>
+					</td>
+				</tr>
+			</table>
+			</p:panel>
+
+
+		<p:dialog appendTo="@(body)" closable="false" widgetVar="studentRegDialog1"  modal="true"  width="40%" height="40%" resizable="false" visible="#{studentPerformanceMB.boxflag}" dynamic="true">
+	
+      <h:form>
+  <center><h:outputText value="#{StudentPerformanceDataBean.performStudIDs} performance details successfully saved"></h:outputText>
+  <br></br>
+  <p:commandButton immediate="true" action="#{studentPerformanceMB.returnToHome2}" process="@this" value="OK" oncomplete="PF('studentRegDialog1').hide()"></p:commandButton>
+ </center>
+  </h:form>
+   </p:dialog>
+   <p:dialog appendTo="@(body)" closable="false" widgetVar="studentRegDialog2"  modal="true"  width="40%" height="40%" resizable="false" visible="#{studentPerformanceMB.boxflag1}" dynamic="true">
+	
+      <h:form>
+  <center><h:outputText value="#{StudentPerformanceDataBean.performStudID} performance details already exists"></h:outputText>
+  <br></br>
+  <p:commandButton immediate="true" action="#{studentPerformanceMB.returnToHome2}" process="@this" value="OK" oncomplete="PF('studentRegDialog2').hide()"></p:commandButton>
+ </center>
+  </h:form>
+   </p:dialog>
+   
+   <p:dialog appendTo="@(body)" closable="false" widgetVar="studentRegDialog3"  modal="true"  width="40%" height="40%" resizable="false" visible="#{studentPerformanceMB.boxflag2}" dynamic="true">
+	
+   <h:form>
+  <center><h:outputText value="#{StudentPerformanceDataBean.performStudID} urgent performance details are send Successfully"></h:outputText>
+  <br></br>
+  <p:commandButton immediate="true" action="#{studentPerformanceMB.returnToHome2}" process="@this" value="OK" oncomplete="PF('studentRegDialog3').hide()"></p:commandButton>
+ </center>
+  </h:form>
+   </p:dialog>
+    <p:dialog  appendTo="@(body)" closable="false" widgetVar="studentRegDialog4"  modal="true"  width="40%" height="40%" resizable="false" visible="#{studentPerformanceMB.boxflag3}" dynamic="true">
+	
+      <h:form>
+  <center><h:outputText value="Teacher has no time table at this time"></h:outputText>
+  <br></br>
+  <p:commandButton immediate="true" action="#{studentPerformanceMB.returnToHome2}" process="@this" value="OK" oncomplete="PF('studentRegDialog4').hide()"></p:commandButton>
+ </center>
+  </h:form>
+   </p:dialog>
+    <p:blockUI widgetVar="studentperformUI"  block="studentperformBlockUI">
+	<h:panelGrid id="blockUIContent" columns="2" style="table-layout:auto;">  
+    <p:graphicImage value="../../images/ajax-loader1.gif" />  
+    <h:outputText value="Please wait, data is being processed..." style="white-space: nowrap;"/>  
+    </h:panelGrid>
+	</p:blockUI>
+	<p:remoteCommand action="#{studentPerformanceMB.submit}" name="studentperform" ></p:remoteCommand>
+	</ui:define>
+	</ui:composition>

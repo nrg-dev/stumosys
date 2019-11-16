@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<style type="text/css">
+.ui-widget-header .ui-inputfield,.ui-widget-content .ui-inputfield {
+	height: 30px !important;
+}
+.ui-icon-check {
+    background-position: -64px -145px !important;
+    background-color: #1565C0 !important;
+	}
+	.fontsize{
+		font-size: 5px !important;
+	}
+</style>
+	<ui:define name="content">
+		<p:panel toggleable="false" header="Teacher Information" id="teacherinfo"
+			style="min-height:100%;">
+			
+			<table style="width: 100%">
+				<tr>
+					<td width="20%" height="50px"><h:outputLabel
+							value="Class &amp; Section  " styleClass="labelTxt" for="sClass"
+							rendered="#{teacherViewMB.classflag}"></h:outputLabel>
+							<h:outputLabel
+							value="Class &amp; Section  " styleClass="labelTxt" for="sClass"
+							rendered="#{teacherViewMB.flag11}"></h:outputLabel></td>
+							<td width="5%"></td>
+					<td width="75%" height="50px">
+					<p:inputText
+							value="#{teacherViewMB.teacherDataBean.teaclsSection}"
+							style="width:100%" rendered="#{teacherViewMB.classflag}"
+							readonly="true" />
+							
+							<h:selectOneMenu id="classid" value="#{teacherViewMB.teacherDataBean.teaclsSection}"
+							            	styleClass="selecttext_ui1"	rendered="#{teacherViewMB.flag11}" 
+							            		valueChangeListener="#{teacherViewMB.classChange}">
+							<f:selectItem itemLabel="select" itemValue=""></f:selectItem>
+							<f:selectItems value="#{teacherViewMB.parclassList}"></f:selectItems>
+							<p:ajax immediate="true" process="@this" event="valueChange"
+									update=":XX"></p:ajax>
+							</h:selectOneMenu>
+							 <br></br>
+							</td>
+				</tr>
+			</table>
+			
+			
+			<p:dataTable var="TeaInfo" value="#{teacherViewMB.teacherList}" selection="#{teacherViewMB.selectedteachers}" rowKey="#{TeaInfo.teaID}"
+				widgetVar="teacherInfo" reflow="true" id="teacher" 
+				emptyMessage="No information found with given criteria"
+			 rendered="#{teacherViewMB.tableflag}">
+
+				<f:facet name="header">
+					<p:outputPanel style="text-align:right">
+						<p:inputText id="globalFilter"
+							onkeyup="PF('teacherInfo').filter()"
+							style="width:20%;height:25px;" placeholder="Enter keyword" />
+					</p:outputPanel>
+				</f:facet>
+				<p:column style="width:4%" exportable="false">
+           			 <p:rowToggler />
+       			</p:column>
+				<p:column filterBy="#{TeaInfo.names}" headerText="Name" 
+					filterMatchMode="contains" filterStyle="display:none">
+					<p:commandLink value="#{TeaInfo.names}" style="color:#005292;" update="XX" process="@this"  
+						action="#{teacherViewMB.edit}" rendered="#{!teacherViewMB.flag1}" oncomplete="PF('studentDialog').show()"
+						 onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+			      <f:setPropertyActionListener value="#{TeaInfo.teaID}" target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+					</p:commandLink>
+					
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaID}" headerText="Teacher ID" width="8%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaID}" />
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaPhoneNo}" headerText="Mobile No" width="11%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.code}"  rendered="#{TeaInfo.teaPhoneNo!='' and TeaInfo.teaPhoneNo!=null}"/>
+					<h:outputText value="#{TeaInfo.teaPhoneNo}"  rendered="#{TeaInfo.teaPhoneNo!='' and TeaInfo.teaPhoneNo!=null}"/>
+					<h:outputText value="None" rendered="#{TeaInfo.teaPhoneNo=='' or TeaInfo.teaPhoneNo==null}" />
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaEmail}" headerText="Email Id" 
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaEmail}" rendered="#{TeaInfo.teaEmail!='' and TeaInfo.teaEmail!=null}" />
+					<h:outputText value="None"  rendered="#{TeaInfo.teaEmail=='' or TeaInfo.teaEmail==null}"/>
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaGender}" headerText="Gender" width="6%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaGender}" rendered="#{TeaInfo.teaGender!='' and TeaInfo.teaGender!=null}"/>
+					<h:outputText value="None" rendered="#{TeaInfo.teaGender=='' or TeaInfo.teaGender==null}" />
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaWorkingHour}" headerText="Working Hour"  width="8%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaWorkingHour}"  rendered="#{TeaInfo.teaWorkingHour!='' and TeaInfo.teaWorkingHour!=null}" />
+					<h:outputText value="None" rendered="#{TeaInfo.teaWorkingHour=='' or TeaInfo.teaWorkingHour==null}" />
+				</p:column>
+				<p:column filterBy="#{TeaInfo.teaEduQualification}" headerText="Qualification" width="10%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaEduQualification}" rendered="#{TeaInfo.teaEduQualification!='' and TeaInfo.teaEduQualification!=null}"/>
+					<h:outputText value="None" rendered="#{TeaInfo.teaEduQualification=='' or TeaInfo.teaEduQualification==null}" />
+				</p:column>
+				<!-- <p:column filterBy="#{TeaInfo.teaYearOfPassing}" headerText="Year Of Passing"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaYearOfPassing}" />
+				</p:column> -->
+				<!-- <p:column filterBy="#{TeaInfo.teaPercentage}" headerText="Percentage" width="8%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaPercentage}" rendered="#{TeaInfo.teaPercentage!='' and TeaInfo.teaPercentage!=null}" />
+					<h:outputText value="None" rendered="#{TeaInfo.teaPercentage=='' or TeaInfo.teaPercentage==null}" />
+				</p:column> -->
+				
+				<p:column filterBy="#{TeaInfo.teaPosition}" headerText="Position" width="9%"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{TeaInfo.teaPosition}" rendered="#{TeaInfo.teaPosition!='' and TeaInfo.teaPosition!=null}" />
+					<h:outputText value="None" rendered="#{TeaInfo.teaPosition=='' or TeaInfo.teaPosition==null}" />
+				</p:column>
+			<!-- 	<p:column headerText="Actions" width="175" exportable="false">
+					<p:commandButton title="Tag" icon="ui-icon-tag" update=":XX:teacherIdCard" action="#{teacherViewMB.view}" oncomplete="PF('teacherIdDialog').show()">
+						<f:setPropertyActionListener value="#{TeaInfo.teaID}" target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<p:commandButton title="View" icon="ui-icon-search"  action="#{teacherViewMB.view1}" rendered="#{!teacherViewMB.flag1}">
+						<f:setPropertyActionListener value="#{TeaInfo.teaID}" target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<p:commandButton title="Edit" icon="ui-icon-pencil" action="#{teacherViewMB.edit}" rendered="#{!teacherViewMB.flag1}">
+						<f:setPropertyActionListener value="#{TeaInfo.teaID}" target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash"
+						onclick="PF('deleteConfirmDlg').show()"
+						rendered="#{!teacherViewMB.flag1}" title="Delete">
+						<f:setPropertyActionListener value="#{TeaInfo.teaID}"
+							target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+
+					</p:commandButton>
+
+				</p:column> -->
+				<!-- <p:column headerText="Actions"  exportable="false"  width="14%" style="font-size: 11px"> 
+			     <p:commandButton  value="View register" icon=" ui-icon-arrowreturnthick-1-w" 
+			      action="#{teacherViewMB.edit}" rendered="#{!teacherViewMB.flag1}" oncomplete="PF('studentDialog').show()">
+			      <f:setPropertyActionListener value="#{TeaInfo.teaID}" target="#{teacherViewMB.teacherDataBean.teaID}"></f:setPropertyActionListener>
+			     </p:commandButton>
+			    </p:column> -->
+			    <p:column  width="5%" selectionMode="multiple" rendered="#{!teacherViewMB.flag1}" style="width:10px;text-align:center" exportable="false">
+			    <f:facet name="header" >
+			            <p:commandButton icon="ui-icon-trash" title="Delete" onclick="PF('deleteConfirmDlg').show()" rendered="#{!teacherViewMB.flag1}"
+			                 onstart="PF('teacheredblockUIW').show();" onsuccess="PF('teacheredblockUIW').hide();"></p:commandButton>
+			        </f:facet>
+			      <!-- <p:selectBooleanCheckbox rendered="#{!teacherViewMB.flag1}"  /> -->
+			    </p:column>
+			    <p:rowExpansion >
+		            <p:panelGrid  columns="4" style="width:100%">
+		            
+		             	<h:outputText value="Qualification" />
+		            	<h:panelGroup>
+			                <h:outputText value="#{TeaInfo.teaEduQualification}"  rendered="#{TeaInfo.teaEduQualification!='' and TeaInfo.teaEduQualification!=null}"/>
+			                <h:outputText value="None" rendered="#{TeaInfo.teaEduQualification=='' or TeaInfo.teaEduQualification==null}" />
+		            	</h:panelGroup>
+		               	<h:outputText value="Year of Passing" />
+		               	<h:panelGroup>
+		                <h:outputText value="#{TeaInfo.teaYearOfPassing}" rendered="#{TeaInfo.teaYearOfPassing!='' and TeaInfo.teaYearOfPassing!=null}"/>
+		 				 <h:outputText value="None" rendered="#{TeaInfo.teaYearOfPassing=='' or TeaInfo.teaYearOfPassing==null}" />
+		 				</h:panelGroup>
+		                <h:outputText value="Percentage" />
+		                	<h:panelGroup>
+				                <h:outputText value="#{TeaInfo.teaPercentage}" rendered="#{TeaInfo.teaPercentage!='' and TeaInfo.teaPercentage!=null}"/>
+								<h:outputText value="None" rendered="#{TeaInfo.teaPercentage=='' or TeaInfo.teaPercentage==null}" />
+							</h:panelGroup>
+		                <h:outputText value="Address" />
+		                <h:outputText value="#{TeaInfo.teaPresentAddress}"/>
+		 
+		                <h:outputText value="Present State" />
+		                <h:panelGroup>
+			                <h:outputText value="#{TeaInfo.teaPresentState}" rendered="#{TeaInfo.teaPresentState!='' and TeaInfo.teaPresentState!=null}"/>
+			                <h:outputText value="None" rendered="#{TeaInfo.teaPresentState=='' or TeaInfo.teaPresentState==null}" />
+		                </h:panelGroup>
+		                 <h:outputText value="Present Country" />
+		                 <h:panelGroup>
+		                <h:outputText value="#{TeaInfo.teaCountry}" rendered="#{TeaInfo.teaCountry!='' and TeaInfo.teaCountry!=null}" />
+		                 <h:outputText value="None" rendered="#{TeaInfo.teaCountry=='' or TeaInfo.teaCountry==null}" />
+		                </h:panelGroup>
+		            </p:panelGrid>
+		        </p:rowExpansion>
+			   <f:facet name="footer">
+            <h:commandLink>
+                <p:graphicImage value="/images/excel.png" width="24" height="25"/>
+                <p:dataExporter type="xls" target="teacher" fileName="Teacher Detail List" />
+            </h:commandLink>
+				</f:facet>
+			</p:dataTable>
+			
+
+
+		</p:panel>
+
+		<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			severity="alert" header="Delete user" global="true"
+			widgetVar="deleteConfirmDlg">
+
+			<center>
+				<p:commandButton id="declineDelete" value="No" onclick="PF('deleteConfirmDlg').hide()" type="button" />
+					<p:commandButton id="confirmDelete" value="Yes" 
+				onclick="PF('deleteConfirmDlg').hide();"
+					oncomplete="PF('teacherDeleteDialog').show();"
+					 onstart="PF('teacheredblockUIW').show();" onsuccess="PF('teacheredblockUIW').hide();"
+					immediate="true" process="@this" action="#{teacherViewMB.multiDelete}" />
+			</center>
+
+		</p:confirmDialog>
+
+		
+		<p:dialog header="Teacher Tag View" appendTo="@(body)"
+			widgetVar="teacherIdDialog" modal="true" width="300"
+			resizable="false">
+			<p:outputPanel id="teacherIdCard" style="text-align:center;">
+
+				<div class="ui-fluid">
+					<center>
+						<p:panelGrid columns="2">
+							<h:outputText value="Teacher ID"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.teaID}"></h:outputText>
+							<h:outputText value="Name"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.names}"></h:outputText>
+							<h:outputText value="Father Name"></h:outputText>
+							<h:outputText
+								value="#{teacherViewMB.teacherDataBean.teaFatherName}"></h:outputText>
+							<h:outputText value="Date of Birth"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.teaDob}">
+								<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+							</h:outputText>
+							<h:outputText value="Gender"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.teaGender}"></h:outputText>
+							<h:outputText value="Phone"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.teaPhoneNo}"></h:outputText>
+							<h:outputText value="Email"></h:outputText>
+							<h:outputText value="#{teacherViewMB.teacherDataBean.teaEmail}"></h:outputText>
+
+						</p:panelGrid>
+					</center>
+				</div>
+
+			</p:outputPanel>
+			<center>
+				<p:commandButton icon="ui-icon-print" value="Print">
+					<p:printer target="teacherIdCard"></p:printer>
+				</p:commandButton>
+			</center>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="teacherDeleteDialog" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{teacherViewMB.delBoxflag}" dynamic="true">
+			<h:form>
+				<center>
+				<ui:repeat value="#{teacherViewMB.selectedteachers}" var="teachers">
+					<h:outputText
+						value="#{teachers.teaID} is Deleted Successfully" style="display:block">
+					</h:outputText>
+					 </ui:repeat>
+					<br></br>
+					<p:commandButton action="#{teacherViewMB.teacherInfo}"  process="@this" value="OK" 
+					 onstart="PF('teacheredblockUIW').show();" onsuccess="PF('teacheredblockUIW').hide();"
+						onclick="PF('teacherDeleteDialog').hide()" update=":XX:teacher"></p:commandButton>
+				</center>
+
+			</h:form>
+		</p:dialog>
+			<p:blockUI widgetVar="teacheredblockUIW" block="teacherinfo">
+						<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+	</ui:define>
+
+</ui:composition>

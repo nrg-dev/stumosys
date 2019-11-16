@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+	<h:head>
+	<link rel="stylesheet" href="../../css/loading.css"></link> 
+	<link rel="stylesheet" href="../../css/login.css"></link>
+	<link rel="stylesheet" href="../../css/demo.css"></link>
+	<link rel="stylesheet" href="../../css/sky-forms.css"></link>
+	</h:head>
+	<body >
+		<table width="100%">
+			<tr>
+				<td align="right">
+					<h:form>
+	       				<p:commandLink  action="#{loginMB.schoolregister}" update="schoolpanel" process="@this" oncomplete="PF('reg').show()">
+	       				<p:graphicImage value="../../images/bookadd.png" width="50" height="40" />
+	       				</p:commandLink>  
+	   				</h:form>
+				</td>
+			</tr>
+		</table>
+	<div class="ui-g">
+		<div class="ui-g-2">
+		  <p:scrollPanel mode="native" id="schoolpanel1" style="height:540px;background :#e1e8ea;overflow-x:hidden;">
+			<!-- <p:growl id="msg1"></p:growl>	 -->
+			<h:form  class="sky-form" style="width:45%;padding-top: 0px;padding-bottom: 0px;background: white;margin-left: 10%;overflow:scroll;">
+				<fieldset style="width:100%;height:100%;">	
+					<section>				
+						<b><h:outputText value="Enquiry Form" style="font-size: 20px;margin-left: 35%;"></h:outputText></b>
+					</section>
+					<section>				
+						<h:outputText value="Complete this Enquiry Form to obtain additional information about our services or send personal complaints.We will analyze your enquiry and return to you shortly by email or phone." style="font-size: 13px;"></h:outputText>
+					</section>
+					<section>				
+						<label class="input">
+						<p:inputText placeholder="Organization Name" value="#{loginMB.loginaccess.organizationName}" styleClass="input" id="name"><p:ajax  immediate="true" process="@this" update="@form"></p:ajax> </p:inputText>
+						<b class="tooltip tooltip-bottom-right">Only for Organization name</b>
+						</label>
+						<h:message for="name" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+						<p:inputText placeholder="Email " value="#{loginMB.loginaccess.orgEmail}" styleClass="input" id="email"> </p:inputText>
+						<b class="tooltip tooltip-bottom-right">Only for Email Id</b>
+						</label>
+						<h:message for="email" style="font-size:12px;color:red"></h:message>	
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="User Name" value="#{loginMB.loginaccess.loginusername}" styleClass="input" id="loginname"> </p:inputText>
+						</label>
+						<h:message for="loginname" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+						    <p:inputText placeholder="Country" value="#{loginMB.loginaccess.countryName}" styleClass="input" id="country"> </p:inputText>
+						    <b class="tooltip tooltip-bottom-right">Only for Country Name</b>
+						</label>
+						<h:message for="country" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<h:outputText value="Please be specific of the enquiry you want to submit in this Enquiry Form,so we can return to you fast with the information you are looking for.Thank you!" style="font-size: 13px;"></h:outputText>
+					</section>
+					<section>				
+						<h:selectOneMenu value="#{loginMB.loginaccess.options}" style=" width: 100%; height:37px; font-size:12px;"
+								 id="option" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Enquiry Type" noSelectionOption="true" />
+								<f:selectItem itemLabel="Pricing Levels" itemValue="Pricing Levels"></f:selectItem>
+								<f:selectItem itemLabel="Maintanance" itemValue="Maintanance"></f:selectItem>
+								<f:selectItem itemLabel="Testing" itemValue="Testing"></f:selectItem>
+								<f:selectItem itemLabel="Complaints" itemValue="Complaints"></f:selectItem>
+								<f:selectItem itemLabel="Others" itemValue="Others"></f:selectItem>
+            				    <p:ajax  immediate="true" process="@this"></p:ajax>
+						</h:selectOneMenu><h:message for="option" style="color:red;font-size:10px"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+						    <p:inputText placeholder="Details " value="#{loginMB.loginaccess.orgDetail}" styleClass="input" id="details"> </p:inputText>
+						    <b class="tooltip tooltip-bottom-right">Enter your Details here.</b>
+						</label>
+						<h:message for="details" style="font-size:12px;color:red"></h:message>	
+					</section>
+					<table>
+					  <tr>
+					      <td><h:outputLabel
+							  value="Do you want to be contacted by phone?" styleClass="labelTxt" for="lContact" style="margin-left:8px;margin-top: 10px; font-size: 14px"></h:outputLabel>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						  </td>
+						  <td> <p:selectOneRadio
+						    	value="#{loginMB.loginaccess.contact}" id="lcontact"
+						    	widgetVar="radiowv" style="width:120px;margin-left: 10px;margin-top: 10px;">
+						    	<f:selectItem itemLabel="YES" itemValue="YES" />
+							    <f:selectItem itemLabel="NO" itemValue="NO" />
+						       </p:selectOneRadio> <h:message for="lcontact" style="color:red;font-size:10px"></h:message>
+					   	 </td>
+					 </tr>
+				  </table><br/>
+				   <section>				
+						<label class="input">
+						    <p:inputText placeholder="Phone" value="#{loginMB.loginaccess.orgPhone}" styleClass="input" id="phone" > </p:inputText>
+						    <b class="tooltip tooltip-bottom-right">Enter Your Phone number here.</b>
+						</label>
+						<h:message for="phone" style="font-size:12px;color:red"></h:message>	
+					</section>
+					<section><center>
+					<p:commandButton value="Submit Your Enquiry Form"  style="background:#0287CC;margin-right:180px;" styleClass="button" action="#{loginMB.enquiryforminsertion}" update="schoolpanel1"></p:commandButton>
+					</center></section>
+				</fieldset>
+			</h:form>
+		</p:scrollPanel>
+     
+  	 </div>
+  
+   <div class="ui-g-2"></div>
+   <div class="ui-g-2"></div>
+   <div class="ui-g-2"></div>
+   <div class="ui-g-2"></div>
+   <div class="ui-g-2">
+       <div class="content" id="loginBox" align="center">
+    		<h:form>
+    			<h:inputHidden value="hi" id="te"></h:inputHidden>
+    			<section>				
+					<b><h:outputText value="SIGN IN" style="font-size: 20px;"></h:outputText></b>
+				</section><br/>
+				<h:message for="te" style="color:red;font-size:10px;"></h:message>
+      			<div class="mat-in">
+      			<b:inputText id="uName" value="#{loginMB.loginaccess.username}">
+				<f:facet name="prepend">
+				<b:icon name="glyphicon-user" />
+				</f:facet>
+				</b:inputText>
+				<p:watermark value="UserName" for="uName"></p:watermark>
+				<h:message for="uName" style="color:red;font-size:10px;" id="un"></h:message>
+       			</div>
+      			<div class="mat-in">
+       			<b:inputSecret id="pwd" value="#{loginMB.loginaccess.userpassword}" placeholder="Password">
+				<f:facet name="prepend">
+				<b:iconAwesome name="fa fa-key" />
+				</f:facet>
+				</b:inputSecret>
+				<h:message for="pwd" id="pd" style="color:red;font-size:10px;"></h:message>
+      			</div>
+      			<p:commandButton id="login" value="Login" action="#{loginMB.userLogin}" styleClass="login" ajax="false"/>
+       			<p:commandButton id="forgot" value="Forgot Password ?" actionListener="#{loginMB.forgot}" styleClass="forgotbtn" />
+    		</h:form>
+  		</div>
+	 </div>
+	 </div>
+   <p:dialog widgetVar="reg" width="700" height="500" header="School Registration Form" appendTo="@(body)" modal="true" position="center" resizable="false" responsive="true" draggable="false">
+  <p:outputPanel id="schoolpanel">
+	<p:growl id="msg"></p:growl>	
+			<h:form  class="sky-form" style="width:100%;padding-top: 0px;padding-bottom: 0px;background:gray">
+				<fieldset>	
+				<section>				
+						<label class="input">
+			              	<p:inputText placeholder="School Name" value="#{loginMB.loginaccess.schoolName}" styleClass="input" id="schoolname"> </p:inputText>
+						</label>
+						<h:message for="schoolname" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+			              	<p:inputText placeholder="User Name" value="#{loginMB.loginaccess.loginusername}" styleClass="input" id="loginusername"> </p:inputText>
+						</label>
+						<h:message for="loginusername" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				          <p:inputText placeholder="School Contact Person Name" value="#{loginMB.loginaccess.username}" styleClass="input" id="username"> </p:inputText>
+						</label>
+						<h:message for="username" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Email " value="#{loginMB.loginaccess.schoolEmail}" styleClass="input" id="schoolemail"> </p:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for Email Id</b>
+						</label>
+					<h:message for="schoolemail" style="font-size:12px;color:red"></h:message>	
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Alternative Email" value="#{loginMB.loginaccess.alternativeemail}" styleClass="input" id="alteremail"></p:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for Email Id</b>
+						</label>
+						<h:message for="alteremail" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Landline Number" value="#{loginMB.loginaccess.landlinenumber}" styleClass="input" id="landline"></p:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="landline" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Mobile Number" value="#{loginMB.loginaccess.schoolPhone}" styleClass="input" id="schoolphone"> </p:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="schoolphone" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Address" value="#{loginMB.loginaccess.schoolAddress}" styleClass="input" id="address"> </p:inputText>
+						</label>
+						<h:message for="address" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="School Person Contact Number" value="#{loginMB.loginaccess.contactnumber}" styleClass="input" id="contact"> </p:inputText>
+				<b class="tooltip tooltip-bottom-right">Only for numbers</b>
+						</label>
+						<h:message for="contact" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="Country" styleClass="input" value="#{loginMB.loginaccess.country}" id="schoolcountry"> </p:inputText>
+				</label>
+				<h:message for="schoolcountry" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>				
+						<label class="input">
+				<p:inputText placeholder="State" styleClass="input" value="#{loginMB.loginaccess.state}" id="state"> </p:inputText>
+						</label>
+						<h:message for="state" style="font-size:12px;color:red"></h:message>
+					</section>
+					<section>
+					<label>School Logo</label>
+					<p:fileUpload  mode="advanced" update="msg"
+							value="#{loginMB.loginaccess.schoollogo}" id="logo"
+							fileUploadListener="#{loginMB.fileupload}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> 
+					<h:message for="logo" style="font-size:12px;color:red"></h:message>
+					</section>
+					<p:commandButton value="Reset"  style="background:#0287CC;margin-right: 150px;" styleClass="button" action="#{loginMB.cancel}" update="@form" process="@this" ></p:commandButton>
+					<p:commandButton value="Submit"  style="background:#0287CC" styleClass="button" action="#{loginMB.addschool}" update="@form"  ></p:commandButton>
+				</fieldset>
+			</h:form>
+		</p:outputPanel>
+</p:dialog>
+<p:dialog widgetVar="confirm" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<p style="font-size: 16px">Successfully Saved Waiting for Approval</p>
+		<p:commandButton value="OK" oncomplete="PF('confirm').hide()" ></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+<p:dialog widgetVar="confirm1" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<p style="font-size: 16px">Successfully Registered Your Enquiry</p>
+		<p:commandButton value="OK" action="#{loginMB.userLogin}" oncomplete="PF('confirm1').hide()" ></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+</body>
+</ui:composition>

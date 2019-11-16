@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+	<p:growl id="messages" showDetail="true" />
+	<p:panel style="min-height:100%;width:100%" header="Class and Subject Information" toggleable="false" >
+	<p:tabView >
+	  <p:ajax event="tabChange" listener="#{librarianViewMB.onTabChange}" update=":XX"/>
+	<p:tab title="Class Information" >
+	<p:dataTable var="classInfo" editable="true" value="#{librarianViewMB.librarianList}" widgetVar="classid" reflow="true" emptyMessage="No information found with given criteria" >
+		<f:facet name="header">
+			<p:outputPanel style="text-align:right">
+			<h:inputText id="globalFilter" onkeyup="PF('classid').filter()" style="width:20%;height:25px;" placeholder="Enter keyword" />
+			</p:outputPanel>
+		</f:facet>	
+		<p:ajax event="rowEdit" listener="#{librarianViewMB.updateclass}" update=":XX:messages"/>
+        <p:ajax event="rowEditCancel" listener="#{librarianViewMB.onRowCancel}"  update=":XX:messages"/>
+					<p:column headerText="#" filterBy="#{classInfo.sno}" filterMatchMode="contains" filterStyle="display:none" >
+					<h:outputText value="#{classInfo.sno}" />
+					<h:inputHidden value="#{classInfo.classid}"></h:inputHidden>
+					</p:column>
+					<p:column headerText="Class Name" filterBy="#{classInfo.classname}" filterMatchMode="contains" filterStyle="display:none" >
+					<p:cellEditor>
+        				<f:facet name="output"> <h:outputText value="#{classInfo.classname}" /></f:facet>
+       					<f:facet name="input"><h:inputText id="cname" styleClass="inputTxt"  value="#{classInfo.classname}"  style="width:80%"/></f:facet>
+            		</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Class Section" filterBy="#{classInfo.classsection}" filterMatchMode="contains" filterStyle="display:none" >
+					<p:cellEditor>
+        				<f:facet name="output"> <h:outputText value="#{classInfo.classsection}" /></f:facet>
+       					<f:facet name="input"><h:inputText id="csection" styleClass="inputTxt"  value="#{classInfo.classsection}"  style="width:80%"/></f:facet>
+            		</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Edit" width="100" >
+					 	<p:rowEditor></p:rowEditor>
+					</p:column>
+					<p:column headerText="Delete" width="100" style="font-size:10px">
+					 	<p:commandButton icon="fa fa-trash" title="Delete" oncomplete="PF('deleteConfirmDlg1').show()">
+					 	<f:setPropertyActionListener value="#{classInfo.classid}"
+							target="#{librarianViewMB.librarianDataBean.classid}"></f:setPropertyActionListener></p:commandButton>
+					</p:column>
+			</p:dataTable>
+	</p:tab>
+	<p:tab title="Subject Information">
+	<table>
+		<tr>
+			<th>
+				<h:outputText value="Class" styleClass="labelTxt" style="margin-left: 0px;"></h:outputText>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<h:selectOneMenu id="classsection" styleClass="selecttext_ui1" value="#{librarianViewMB.librarianDataBean.name}" valueChangeListener="#{librarianViewMB.subjectlist}" >
+				<f:selectItem itemLabel=" Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+				<f:selectItems value="#{librarianViewMB.clasSectionList}"></f:selectItems>
+	  			<p:ajax event="valueChange" immediate="true" process="@this" update=":XX"></p:ajax>
+				</h:selectOneMenu>
+			</th>
+		</tr>
+	</table>
+	<br></br>
+	<p:dataTable var="subInfo" editable="true" value="#{librarianViewMB.subjectLists}"
+					widgetVar="subjectid" reflow="true" id="student"
+					emptyMessage="No information found with given criteria"
+					resizableColumns="true" >
+				<f:facet name="header">
+						<p:outputPanel style="text-align:right">
+							<h:inputText id="globalFilter"
+								onkeyup="PF('subjectid').filter()"
+								style="width:20%;height:25px;" placeholder="Enter keyword" />
+						</p:outputPanel>
+			   </f:facet>	
+		<p:ajax event="rowEdit" listener="#{librarianViewMB.updatesubject}" update=":XX:messages"/>
+        <p:ajax event="rowEditCancel" listener="#{librarianViewMB.onRowCancel}"  update=":XX:messages"/>
+					<p:column headerText="Subject Name" filterBy="#{subInfo.subjectname}" filterMatchMode="contains" filterStyle="display:none">
+					<h:inputHidden value="#{subInfo.subid}"></h:inputHidden>
+					<p:cellEditor>
+        				<f:facet name="output"> <h:outputText value="#{subInfo.subjectname}" /></f:facet>
+       					<f:facet name="input"><h:inputText id="sname"  styleClass="inputTxt"  value="#{subInfo.subjectname}"  style="width:80%"/></f:facet>
+            		</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Subject Code" filterBy="#{subInfo.subjectcode}" filterMatchMode="contains" filterStyle="display:none">
+					<p:cellEditor>
+        				<f:facet name="output"> <h:outputText value="#{subInfo.subjectcode}" /></f:facet>
+       					<f:facet name="input"><h:inputText id="scode" styleClass="inputTxt"   value="#{subInfo.subjectcode}"  style="width:80%"/></f:facet>
+            		</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Edit" width="100">
+					 	<p:rowEditor></p:rowEditor>
+					</p:column>
+					<p:column headerText="Delete" width="100">
+					 	<p:commandButton icon="fa fa-trash" title="Delete" oncomplete="PF('deleteConfirmDlg').show()">
+					 	<f:setPropertyActionListener value="#{subInfo.subid}"
+							target="#{librarianViewMB.librarianDataBean.subid}"></f:setPropertyActionListener></p:commandButton>
+					</p:column>
+			</p:dataTable>
+	</p:tab>
+	</p:tabView>
+	<p:dialog widgetVar="updateblock" header="Confirmation" height="70px" width="30%" modal="true" appendTo="@(body)"
+ 	 position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<h:outputText value="Successfully Updated" style="font-size: 16px"> </h:outputText>
+		<br></br><br></br>
+		<p:commandButton value="OK" oncomplete="PF('updateblock').hide()"  process="@this" immediate="true"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+<p:dialog widgetVar="subupdateexistblock" header="Confirmation" height="100px" width="45%" modal="true" appendTo="@(body)"
+ 	 position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<h:outputText value="This Subject Name and Code Already Exist" style="font-size: 16px"> </h:outputText>
+		<br></br><br></br>
+		<p:commandButton value="OK" oncomplete="PF('updateexistblock').hide()"  process="@this" immediate="true"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			header="Delete user" severity="alert" global="true"
+			widgetVar="deleteConfirmDlg">
+			<center>
+				<p:commandButton id="confirmDelete" value="Yes"
+					oncomplete="PF('deleteConfirmDlg').hide();PF('deleteblock').show();"
+					immediate="true" process="@this"
+					action="#{librarianViewMB.deletesubject}" />
+				<p:commandButton id="declineDelete" value="No"
+					onclick="PF('deleteConfirmDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		<p:dialog id="deleteblock" header="Confirmation Message" modal="true" appendTo="@(body)"
+			 widgetVar="deleteblock"
+			dynamic="true" style="height:150px;">
+			<tr>
+				<td align="center"><p:outputLabel styleClass="label_ui">Subject Details are Successfully Deleted</p:outputLabel>
+				</td>
+			</tr>
+			<tr>
+				<td align="center"><h:form id="form"><p:commandButton value="OK" update=":XX"
+						action="#{librarianViewMB.returnToHome1}" oncomplete="PF('deleteblock').hide();" process="@this" immediate="true"/></h:form></td>
+			</tr>
+		</p:dialog>
+		<p:confirmDialog id="deleteConfirmDialog1" closable="false"
+			message="Are You Sure you want to Delete the information"
+			header="Delete user" severity="alert" global="true"
+			widgetVar="deleteConfirmDlg1">
+			<center>
+				<p:commandButton id="confirmDelete1" value="Yes"
+					oncomplete="PF('deleteConfirmDlg1').hide();PF('deleteblock1').show();"
+					immediate="true" process="@this"
+					action="#{librarianViewMB.deleteclass}" />
+				<p:commandButton id="declineDelete1" value="No"
+					onclick="PF('deleteConfirmDlg1').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		<p:dialog id="deleteblock1" header="Confirmation Message" modal="true" appendTo="@(body)"
+			 widgetVar="deleteblock1"
+			dynamic="true" style="height:150px;">
+			<tr>
+				<td align="center"><p:outputLabel styleClass="label_ui">Class Details are Successfully Deleted</p:outputLabel>
+				</td>
+			</tr>
+			<tr>
+				<td align="center"><h:form><p:commandButton value="OK"
+			 oncomplete="PF('deleteblock1').hide();" ajax="false"  process="@this" immediate="true"/></h:form></td>
+			</tr>
+		</p:dialog>
+	</p:panel>
+	</ui:define>
+	</ui:composition>

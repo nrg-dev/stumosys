@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+	<style>
+	.dateTimeField input {
+	width:208px;
+	border-style: double;
+	border-width: 1px;
+	border-color: rgba(21, 57, 73, 0.45);
+	margin-top: 10px;
+}
+	.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 3px;
+    background: none #ffffff;
+    border-left: none;
+}
+.ui-tabs-panels{
+background:white;
+}
+
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {
+    display: block;
+    padding: 0px;
+    width: auto;
+    border: none;
+    cursor: pointer;
+}
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {
+    margin-top: 4px;
+    margin-left: -4px;
+    
+}
+.ui-radiobutton-icon {
+    margin-left: 0px;
+    margin-top: -1px;
+}
+.ui-tabs.ui-tabs-top .ui-tabs-nav.ui-widget-header li.ui-state-active {
+    margin-bottom: -1px;
+    background-color: #dddddd;
+}
+</style>
+		<p:panel id="studentUpdateUI" header="Student Edit" toggleable="false" style="min-height:100%;width:100%;">		
+			<center>
+		<a4j:mediaOutput style="width:200px;height:200px;" element="img"
+								cacheable="false" session="true"
+								createContent="#{studentViewMB.imageview}" mimeType="image/png" />
+		</center>																									<!-- first tab start--> 
+		<p:tabView id="tabviewid1" style="height:230px;border:1px !important;margin-left:-15px; width: 975px;">
+    		<p:tab title="Personel Details" style="width:840px;height:320px;">
+    			<table>
+    				<tr>
+    					<th>
+    						<h:outputLabel value="First Name " styleClass="labelTxt" for="sFName" style="margin-left: 0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuFirstName}" id="sFName" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;">
+    						<p:ajax update="sFName" process="@this" immediate="true" ></p:ajax>
+    						</h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="Last Name " styleClass="labelTxt" for="sLName" style="margin-left:25px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuLastName}" id="sLName" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;">
+    						<p:ajax update="sLName" process="@this" immediate="true" ></p:ajax></h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="Father Name" styleClass="labelTxt" for="sFaName" style="margin-left:25px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuFatherName}" id="sFaName" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;">
+    						<p:ajax update="sFaName" process="@this" immediate="true" ></p:ajax></h:inputText>
+    					</th>
+    				</tr>    				
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sFName" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sLName" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sFaName" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    				</tr>
+    																															<!--second Row -->	
+    				
+    				<tr>
+    					<th>
+    						<h:outputLabel value="Mother Name " styleClass="labelTxt" for="sMoName" style="margin-left: 0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuMotherName}" id="sMoName" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="sMoName" process="@this" immediate="true" ></p:ajax></h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="D.O.B" styleClass="labelTxt" for="sDob" style="margin-left: 25px;margin-top: 10px"></h:outputLabel>
+    					</th>
+    					<th>
+    						<p:calendar value="#{studentViewMB.studentDataBean.stuDob}"  styleClass="dateTimeField" mask="true" maxdate="#{currentDate}" 
+    						mindate="01-01-1950" id="sDob" style="font-size:12px;margin-left: 10px;" pattern="dd-MM-yyyy" >
+    						<p:ajax update="sDob" process="@this" immediate="true" event="dateSelect"></p:ajax>
+    						</p:calendar>
+    					</th>
+    					<th>
+    						<h:outputLabel value="Gender" styleClass="labelTxt" for="sGender" style="margin-left: 25px;margin-top: 10px"></h:outputLabel>
+    					</th>
+    					<th>
+    						<p:selectOneRadio value="#{studentViewMB.studentDataBean.stuGender}" id="sGender" style="width:208px;font-size:10px;height:25px;margin-left: 10px;margin-top: 10px;" styleClass="labelTxt" >
+							<f:selectItem itemLabel="Male" itemValue="Male" />
+							<f:selectItem itemLabel="Female" itemValue="Female" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+							<p:ajax update="sGender" process="@this" immediate="true" ></p:ajax>
+							</p:selectOneRadio>
+    					</th>
+    				</tr>
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sMoName" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sDob" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="sGender" style="color:red;font-size:10px;margin-left: 10px;"></h:message>
+    					</th>
+    				</tr>
+    				
+    			</table>    			
+    		</p:tab>
+  		 </p:tabView>  
+  		<!-- first tab over-->		
+  			 
+  		<!-- second tab start -->
+  		  <p:tabView id="tabviewid2" style="height:375px;border:1px !important;margin-left:-15px; width: 975px;margin-top: -70px;">
+    		<p:tab title="Address" style="width:840px;height:320px;">
+    		<table>
+    		<!--first Row -->	
+    			<tr>
+    				<th>
+    					<h:outputText value="Present Address" class="label_ui" style="font-size: 13px;"></h:outputText>
+    				</th>
+    			</tr>
+    		</table>
+    		<table>
+    				<tr>
+    					<th>
+    						<h:outputLabel value="Name/Door" styleClass="labelTxt" for="TPAddress" style="margin-left:0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuPresentAddress}" id="TPAddress" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="TPAddress" process="@this" immediate="true" event="valueChange"></p:ajax>
+    						</h:inputText>
+    					</th>
+    					<th>&nbsp;
+    						<h:outputLabel value="Country" styleClass="labelTxt" for="SPcountry"  style="margin-left:25px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;&nbsp;
+    						<h:selectOneMenu value="#{studentViewMB.studentDataBean.stuPresentCountry}" id="SPcountry" valueChangeListener="#{studentViewMB.state}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-top: 10px;font-size: 10px;color: black;margin-left: 10px;">	
+								<f:selectItem itemLabel="Please Choose the Country" noSelectionOption="true"></f:selectItem>
+								<f:selectItem itemLabel="UAE" itemValue="UAE"></f:selectItem>
+								<f:selectItem itemLabel="INDIA" itemValue="INDIA"></f:selectItem>
+								<f:selectItem itemLabel="MALAYSIA" itemValue="MALAYSIA"></f:selectItem>	 
+								<f:selectItem itemLabel="INDONESIA" itemValue="INDONESIA"></f:selectItem>
+								<p:ajax update="SPcountry SPState Tcode" process="@this" immediate="true" event="valueChange"></p:ajax> 
+							</h:selectOneMenu>
+    					</th>
+    					<th>
+    						<h:outputLabel value="State" styleClass="labelTxt" for="SPState" style="margin-left:25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:selectOneMenu id="SPState" value="#{studentViewMB.studentDataBean.stuPresentState}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;color: black;margin-left:10px;margin-top: 10px;">	
+								<f:selectItem itemLabel="Please Choose state" noSelectionOption="true"></f:selectItem>
+								<f:selectItems value="#{studentViewMB.statelist}"></f:selectItems>  
+								<p:ajax update="SPState" process="@this" immediate="true" event="valueChange"></p:ajax>
+							</h:selectOneMenu>
+    					</th>
+    				</tr>    				
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="TPAddress" style="color:red;font-size:10px;margin-left:20px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    				</tr>
+    																														<!-- second Row-->	
+    				<tr>
+    					<th>
+    						<h:outputLabel value="City" styleClass="labelTxt" for="spreCity" style="margin-left: 0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuPresentCity}" id="spreCity" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="spreCity" process="@this" immediate="true" event="valueChange"></p:ajax></h:inputText>
+    					</th>
+    					<th>&nbsp;
+    						<h:outputLabel value="PostalCode" styleClass="labelTxt" for="postalcode" style="margin-left: 25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;&nbsp;
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuPresentpostal}" id="prepostal" styleClass="inputTxt" maxlength="15" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="prepostal" process="@this" immediate="true" event="valueChange"></p:ajax>
+    						</h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="PhoneNumber" styleClass="labelTxt" for="SPhone" style="margin-left: 25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText id="Tcode" value="#{studentViewMB.studentDataBean.code}" styleClass="inputTxt" maxlength="15" style="width:40px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="Tcode" process="@this" immediate="true" event="valueChange"></p:ajax>
+    						</h:inputText>
+    						<h:inputText id="TPhone" value="#{studentViewMB.studentDataBean.stuPhoneNo}" styleClass="inputTxt" maxlength="15" style="width:158px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="TPhone" process="@this" immediate="true" event="valueChange"></p:ajax>
+    						</h:inputText>
+    					</th>
+    				</tr>
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="prepostal" style="color:red;font-size:10px;margin-left: 20px;"></h:message>
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="SPhone" style="color:red;font-size:10px;margin-left: 20px;"></h:message>
+    					</th>
+    				</tr>     								  				
+    			</table> 
+   																										<!-- second tab present address over  -->					
+   																										<!-- second tab permenant address start -->	
+    			<table>
+   																									 	<!--first Row -->	
+    			<tr>
+    				<th><br />
+    					<h:outputText value="Permenant Address" class="label_ui" style="font-size: 13px;"></h:outputText>
+    				</th>
+    				<th>    				
+    				</th>
+    				<th><br />
+    					<p:selectBooleanCheckbox value="#{studentViewMB.chkBox}" valueChangeListener="#{studentViewMB.checkbox}"  >
+    					<p:ajax update="tabviewid2" process="@this" immediate="true" event="valueChange"></p:ajax></p:selectBooleanCheckbox>
+    				</th>
+    				<th><br />
+    					<h:outputText value="(same as present address)" class="label_ui" style="font-size: 10px;color: #FF9800;"></h:outputText>
+    				</th>
+    			</tr>
+    		</table>
+    		<table>
+    				<tr>
+    					<th>
+    						<h:outputLabel value="Name/Door" styleClass="labelTxt" for="TpermantAddress" style="margin-left:0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText rendered="#{studentViewMB.permenantAddFlag}" value="#{studentViewMB.studentDataBean.stuPermanentAddress}" id="TpermantAddress" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="TpermantAddress" process="@this" immediate="true"></p:ajax>
+    						</h:inputText>
+    						<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}" value="#{studentViewMB.studentDataBean.stuPermanentAddress}"  styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax></p:ajax>
+    						</h:inputText>    						
+    					</th>
+    					<th>&nbsp;
+    						<h:outputLabel value="Country" styleClass="labelTxt"  style="margin-left:25px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;&nbsp;
+    						<h:selectOneMenu rendered="#{studentViewMB.permenantAddFlag}" value="#{studentViewMB.studentDataBean.stuPermanentCountry}" id="country1" 
+    						valueChangeListener="#{studentViewMB.state1}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;margin-top: 10px;font-size: 10px;color: black;margin-left: 10px;">	
+								<f:selectItem itemLabel="Please Choose the Country" noSelectionOption="true"></f:selectItem>
+								<f:selectItem itemLabel="UAE" itemValue="UAE"></f:selectItem>
+								<f:selectItem itemLabel="INDIA" itemValue="INDIA"></f:selectItem>
+								<f:selectItem itemLabel="MALAYSIA" itemValue="MALAYSIA"></f:selectItem>	 
+								<f:selectItem itemLabel="INDONESIA" itemValue="INDONESIA"></f:selectItem>
+								<p:ajax update="country1 SStatePre Tcode1" process="@this" immediate="true" event="valueChange"></p:ajax> 								
+							</h:selectOneMenu>
+							<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}" value="#{studentViewMB.studentDataBean.stuPermanentCountry}"  styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax ></p:ajax>
+    						</h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="State" styleClass="labelTxt" for="SStatePre" style="margin-left:25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:selectOneMenu rendered="#{studentViewMB.permenantAddFlag}" id="SStatePre" value="#{studentViewMB.studentDataBean.stuPermanentState}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;color: black;margin-left:10px;margin-top: 10px;">	
+								<f:selectItem itemLabel="Please Choose state" noSelectionOption="true"></f:selectItem>
+								<f:selectItems value="#{studentViewMB.statelist1}"></f:selectItems>   
+								<p:ajax update="SStatePre" process="@this" immediate="true"></p:ajax>
+							</h:selectOneMenu>
+							<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}"  value="#{studentViewMB.studentDataBean.stuPermanentState}" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax ></p:ajax>
+    						</h:inputText>
+    					</th>
+    				</tr>    					
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						<h:message for="TpermantAddress" style="color:red;font-size:10px;margin-left: 10px;"></h:message>     						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    				</tr>
+    																											<!--second Row -->	
+    				<tr>
+    					<th>
+    						<h:outputLabel value="City" styleClass="labelTxt" for="city1" style="margin-left: 0px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText rendered="#{studentViewMB.permenantAddFlag}" value="#{studentViewMB.studentDataBean.stuPermanentCity}" id="city1" styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="city1" process="@this" immediate="true"></p:ajax>
+    						</h:inputText>
+    						<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}" value="#{studentViewMB.studentDataBean.stuPermanentCity}"  styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax></p:ajax>
+    						</h:inputText>
+    					</th>
+    					<th>&nbsp;
+    						<h:outputLabel value="PostalCode" styleClass="labelTxt" for="postalcode1" style="margin-left: 25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;&nbsp;
+    						<h:inputText rendered="#{studentViewMB.permenantAddFlag}" value="#{studentViewMB.studentDataBean.stuPermanentpostal}" id="postalcode1" styleClass="inputTxt" maxlength="15" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="postalcode1" process="@this" immediate="true"></p:ajax></h:inputText>
+    						<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}" value="#{studentViewMB.studentDataBean.stuPermanentpostal}"  styleClass="inputTxt" maxlength="15" style="width:208px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax ></p:ajax></h:inputText>
+    					</th>
+    					<th>
+    						<h:outputLabel value="PhoneNumber" styleClass="labelTxt" for="TPhone1" style="margin-left: 25px;margin-top: 10px;"></h:outputLabel>
+    					</th>
+    					<th>&nbsp;
+    						<h:inputText rendered="#{studentViewMB.permenantAddFlag}" id="Tcode1" value="#{studentViewMB.studentDataBean.code1}" styleClass="inputTxt" maxlength="15" style="width:40px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="Tcode1" process="@this" immediate="true"></p:ajax></h:inputText>
+    						<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}"  value="#{studentViewMB.studentDataBean.code1}" styleClass="inputTxt" maxlength="15" style="width:40px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax ></p:ajax></h:inputText> 
+    						
+    						<h:inputText rendered="#{studentViewMB.permenantAddFlag}" id="TPhone1" value="#{studentViewMB.studentDataBean.stuPhoneNo1}" styleClass="inputTxt" maxlength="15" style="width:158px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax update="TPhone1" process="@this" immediate="true"></p:ajax></h:inputText>
+    						<h:inputText readonly="true" rendered="#{studentViewMB.permenantAddFlag1}" value="#{studentViewMB.studentDataBean.stuPhoneNo1}" styleClass="inputTxt" maxlength="15" style="width:158px;font-size:12px;height:25px;margin-left: 10px;margin-top: 10px;">
+    						<p:ajax ></p:ajax></h:inputText>
+    					</th>
+    				</tr>
+    				<tr>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    					<th>    						
+    					</th>
+    					<th>
+    						
+    					</th>
+    				</tr>    																					
+    																											<!--second Row -->	
+    					
+    																					<!-- premenant address over -->	   								  				
+    			</table>     			
+    		</p:tab>
+    																						<!-- second Row over-->	
+    																						<!-- second Row second tab start -->	
+  		 	</p:tabView>
+  		 	<p:tabView id="tabviewid3" style="height:250px;border:1px !important;margin-left:-15px; width: 975px;margin-top: -70px;">
+    		<p:tab title="Personal Information" style="width:840px;height:320px;">
+    			<table>
+    				<tr>
+    					<th>
+    						<h:outputLabel value="Roll Number" styleClass="labelTxt" for="sRollNo" style="margin-left: 0px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuRollNo}" id="sRollNo" styleClass="inputTxt" readonly="true"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;">
+    						<p:ajax update="sRollNo" process="@this" immediate="true" ></p:ajax></h:inputText>
+    						
+    					</th>
+    					
+    					<th>
+    						<h:outputLabel value="Father's Occupation" styleClass="labelTxt" for="sFatherOccu" style="margin-left: 0px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:selectOneMenu  id="sFatherOccu" widgetVar="fatherwv" value="#{studentViewMB.studentDataBean.stuFatherOccu}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;color: black;margin-left:10px;margin-top: 10px;">	
+							<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+							<f:selectItem itemLabel="Business" itemValue="Business" />
+							<f:selectItem itemLabel="Employer" itemValue="Employer" />
+							<f:selectItem itemLabel="Banker" itemValue="Banker" />
+							<f:selectItem itemLabel="Teachers" itemValue="Teachers" />
+							<f:selectItem itemLabel="Farmer" itemValue="Farmer" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+							<p:ajax update="sFatherOccu" process="@this" immediate="true"></p:ajax>
+							</h:selectOneMenu>
+    					</th>
+    					
+    					<th>
+    						<h:outputLabel value="Father's Income Range" styleClass="labelTxt" for="sFatherInRange" style="margin-left: 0px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:inputText value="#{studentViewMB.studentDataBean.stuFatherIncome}" id="sFatherInRange"  styleClass="inputTxt"  maxlength="25" style="width:208px;font-size:12px;height:25px;margin-left: 10px;">
+    						<p:ajax update="sFatherInRange" process="@this" immediate="true" ></p:ajax></h:inputText>
+    					</th>
+    						  					
+    				</tr>
+    				<tr>
+    					<th>
+    						<h:message for="sRollNo" style="color:red;font-size:10px;margin-left: 10px;"></h:message> 
+    					</th>
+    					<th>
+    						<h:message for="sFatherOccu" style="color:red;font-size:10px;margin-left: 10px;"></h:message> 
+    					</th>
+    					<th>
+    						<h:message for="sFatherInRange" style="color:red;font-size:10px;margin-left: 10px;"></h:message> 
+    					</th>
+    									
+    				</tr>
+    				<tr>
+    					<th>
+    						<h:outputLabel value="Mother's Occupation " styleClass="labelTxt" for="sMotherOccu" style="margin-left: 0px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:selectOneMenu  id="sMotherOccu" widgetVar="motherwv" value="#{studentViewMB.studentDataBean.stuMotherOccu}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;color: black;margin-left:10px;margin-top: 10px;">
+    						<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+							<f:selectItem itemLabel="House wife" itemValue="House wife" />
+							<f:selectItem itemLabel="Business" itemValue="Busines" />
+							<f:selectItem itemLabel="Employer" itemValue="Employer" />
+							<f:selectItem itemLabel="Banker" itemValue="Banker" />
+							<f:selectItem itemLabel="Teachers" itemValue="Teachers" />
+							<f:selectItem itemLabel="Farmer" itemValue="Farmer" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+							<p:ajax update="sMotherOccu" process="@this" immediate="true" event="valueChange"></p:ajax>
+						</h:selectOneMenu>
+    					</th>
+    					
+    					<th>
+    						<h:outputLabel value="Class" styleClass="labelTxt" for="sClass" style="margin-left: 0px;"></h:outputLabel>
+    					</th>
+    					<th>
+    						<h:selectOneMenu  id="sClass" widgetVar="motherwv" value="#{studentViewMB.studentDataBean.stuCls}" styleClass="selecttext_ui1" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;color: black;margin-left:10px;margin-top: 10px;">
+    						<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{studentViewMB.sclass1}" />
+							<p:ajax update="sClass" process="@this" immediate="true" ></p:ajax>
+						</h:selectOneMenu>
+    					</th>
+    					 					
+    				</tr>  
+    				<tr>
+    				<th>
+    						<h:outputLabel value="Student's Photo" for="stuPhoto" styleClass="labelTxt" style="margin-left: 0px;margin-bottom: 20%;" /> 
+    					</th>
+    					
+    					<th>
+    						<p:fileUpload auto="true" mode="advanced" value="#{studentViewMB.studentDataBean.stuFile}" id="stuPhoto" fileUploadListener="#{studentViewMB.dummyAction}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="width: 100%;font-size: 10px;margin-top: 10px;"/> 
+    					</th>
+    				</tr> 				
+    			</table>		
+    		</p:tab>
+  		 </p:tabView> 	
+  		 <center>	
+				<p:commandButton value="Update"
+							oncomplete="PF('studentUpdateDialog').show()"
+							action="#{studentViewMB.studentUpdates}" ajax="false"
+							icon="ui-icon-triangle-1-e"></p:commandButton> 
+				<p:commandButton
+							value="Cancel" action="#{studentViewMB.returnToHome}"
+							ajax="false" icon="ui-icon-triangle-1-e"></p:commandButton>
+							</center>	
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="studentUpdateDialog" modal="true"
+			width="300" resizable="false" visible="#{studentViewMB.boxflag}"
+			dynamic="true">
+			<h:form>
+
+			<center>
+				<h:outputText
+					value="#{studentViewMB.studentDataBean.stuRollNo} is Edited Successfully"></h:outputText><br/>
+				<p:commandButton immediate="true"
+					action="#{studentViewMB.returnToHome}" process="@this" value="OK"
+					oncomplete="PF('studentUpdateDialog').hide()"></p:commandButton>
+			</center>
+			</h:form>
+
+		</p:dialog>
+		<p:blockUI widgetVar="studentUpdatesUI" block="studentUpdateUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{studentViewMB.studentUpdate}"
+			name="studentupdateRemote"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+		
+		<p:panel toggleable="false" header="Add New Books" style="min-height:100%;" rendered="#{addBookSaleMB.bookflag}">
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Book Title"
+							for="addBook" styleClass="labelTxt"></h:outputText> <span
+						style="color: red">*</span></td>
+					<td width="75%" height="50px"><h:inputText id="addBook"
+							value="#{addBookSaleMB.bookSaleDataBean.bookName}"
+							styleClass="inputTxt" rendered="#{addBookSaleMB.sflag}"></h:inputText>
+						<br></br> <h:message for="addBook"
+							style="color:red;font-size:12px;"></h:message><br></br></td>
+				</tr>
+
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Quantity"
+							for="addQuantity" styleClass="labelTxt"></h:outputText> <span
+						style="color: red">*</span></td>
+					<td width="75%" height="50px"><h:inputText id="addQuantity"
+							value="#{addBookSaleMB.bookSaleDataBean.bookQuantity}"
+							styleClass="inputTxt" rendered="#{addBookSaleMB.sflag}"></h:inputText>
+						<br></br> <h:message for="addQuantity"
+							style="color:red;font-size:12px;"></h:message><br></br></td>
+				</tr>
+
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Price"
+							for="addPrice" styleClass="labelTxt"></h:outputText> <span
+						style="color: red">*</span></td>
+					<td width="75%" height="50px"><h:inputText id="addPrice"
+							value="#{addBookSaleMB.bookSaleDataBean.bookPrice}"
+							styleClass="inputTxt" rendered="#{addBookSaleMB.sflag}"></h:inputText>
+						<br></br> <h:message for="addPrice"
+							style="color:red;font-size:12px;"></h:message><br></br></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel value="Book's Photo" for="prodphoto"
+							styleClass="labelTxt" /><span
+						style="color: red">*</span></td>
+					<td><p:fileUpload  mode="advanced"
+							value="#{addBookSaleMB.bookSaleDataBean.bookFile}" id="prodphoto"
+							fileUploadListener="#{addBookSaleMB.dummyAction}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> <br></br> 
+							<h:message for="prodphoto" style="color:red;font-size:12px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr align="center">
+				
+					<td colspan="2"><p:commandButton look="primary" value="Save"
+							id="submitButton" action="#{addBookSaleMB.submit}" ajax="false"
+							icon="ui-icon-triangle-1-e" rendered="#{addBookSaleMB.sflag}" />
+						<p:commandButton value="Reset" id="Reset"
+							action="#{addBookSaleMB.reset}" ajax="false"
+							icon="ui-icon-triangle-1-e" rendered="#{addBookSaleMB.sflag}" />
+					</td>
+				</tr>
+			</table>
+
+		</p:panel>
+		<p:panel toggleable="false" header="Add New Products" style="min-height:100%;" rendered="#{addBookSaleMB.bookflag1}">
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Product Title"
+							for="productname" styleClass="labelTxt"></h:outputText> <span
+						style="color: red">*</span></td>
+					<td width="75%" height="50px"><h:inputText id="productname"
+							value="#{addBookSaleMB.bookSaleDataBean.bookName}"
+							styleClass="inputTxt" rendered="#{addBookSaleMB.sflag}"></h:inputText>
+						<br></br> <h:message for="productname"
+							style="color:red;font-size:12px;"></h:message><br></br></td>
+				</tr>
+ 
+				
+
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Price"
+							for="productprice" styleClass="labelTxt"></h:outputText> <span
+						style="color: red">*</span></td>
+					<td width="75%" height="50px"><h:inputText id="productprice"
+							value="#{addBookSaleMB.bookSaleDataBean.bookPrice}"
+							styleClass="inputTxt" rendered="#{addBookSaleMB.sflag}"></h:inputText>
+						<br></br> <h:message for="productprice"
+							style="color:red;font-size:12px;"></h:message><br></br></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel value="Product's Photo" for="bkPhoto"
+							styleClass="labelTxt" /><span
+						style="color: red">*</span></td>
+					<td><p:fileUpload  mode="advanced"
+							value="#{addBookSaleMB.bookSaleDataBean.bookFile}" id="bkPhoto"
+							fileUploadListener="#{addBookSaleMB.dummyAction}"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /> <br></br> 
+							<h:message for="bkPhoto" style="color:red;font-size:12px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr align="center">
+				
+					<td colspan="2"><p:commandButton look="primary" value="Save"
+							action="#{addBookSaleMB.submit}" ajax="false"
+							icon="ui-icon-triangle-1-e" rendered="#{addBookSaleMB.sflag}" />
+						<p:commandButton value="Reset" action="#{addBookSaleMB.reset}" ajax="false"
+							icon="ui-icon-triangle-1-e" rendered="#{addBookSaleMB.sflag}" />
+					</td>
+				</tr>
+			</table>
+
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="studentRegDialog1" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{addBookSaleMB.boxflag}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="Book Details are saved successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{addBookSaleMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('studentRegDialog1').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="studentRegDialog2" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{addBookSaleMB.boxflag1}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="Book Details are already saved"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{addBookSaleMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('studentRegDialog2').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

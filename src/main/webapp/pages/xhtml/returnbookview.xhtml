@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel header="Book Return view" toggleable="false"
+			style="min-height:100%;width:100%;">
+			<h:form id="bookview" >
+				<p:dataTable id="borrow1" var="borrowInfo"
+					value="#{libraryViewMB.returnBookList}" widgetVar="borrowView"
+					reflow="true" 
+					emptyMessage="No information found with given criteria"
+					filteredValue="#{libraryViewMB.borrowerfilterList}"
+					paginator="true" rows="10" paginatorAlwaysVisible="false"
+					paginatorPosition="bottom" resizableColumns="true" pageLinks="5">
+
+					<f:facet name="header">
+						<p:outputPanel style="text-align:right">
+
+							<h:inputText id="globalFilter"
+								onkeyup="PF('borrowView').filter()"
+								style="width:20%;height:25px;" placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+					<p:column headerText="#" filterMatchMode="contains" width="5%">
+						<h:outputText value="#{borrowInfo.sNo}" />
+					</p:column>
+					<p:column filterBy="#{borrowInfo.borroweDate}" headerText="Date"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.borroweDate}">
+							<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+						</h:outputText>
+					</p:column>
+					<p:column filterBy="#{borrowInfo.studentid}" headerText="Student Name"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.studentid}" />
+					</p:column>
+					<p:column filterBy="#{borrowInfo.libStudID}" headerText="StudentID"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.libStudID}" />
+					</p:column>
+					<p:column filterBy="#{borrowInfo.bookName}" headerText="Book Name"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.bookName}" />
+					</p:column>
+					<p:column filterBy="#{borrowInfo.authorName}"
+						headerText="Author Name" filterMatchMode="contains"
+						filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.authorName}" />
+					</p:column>
+					<p:column filterBy="#{borrowInfo.duedate}"
+						headerText="Due Date" filterMatchMode="contains"
+						filterStyle="display:none">
+						<h:outputText value="#{borrowInfo.duedate}" >
+							<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+						</h:outputText>
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+			<h:commandLink rendered="#{libraryViewMB.tableflag}">
+				<p:graphicImage value="/images/pdf.png"></p:graphicImage>
+				<p:dataExporter type="pdf" target=":XX:bookview:borrow"
+					fileName="Borrower Info"
+					preProcessor="#{libraryViewMB.preProcessPDF}"></p:dataExporter>
+
+			</h:commandLink>
+		</p:panel>
+	</ui:define>
+</ui:composition>

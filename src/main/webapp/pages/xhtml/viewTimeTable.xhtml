@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+		<p:panel id="prints" style="min-height:100%;"
+			header="#{timeTableMB.timeTableDataBean.examTitle} for #{timeTableMB.timeTableDataBean.examClass}"
+			toggleable="false">
+			<br />
+			<p:dataTable var="tableinfo"
+				value="#{timeTableMB.timeTableDataBean.tablelist}"
+				widgetVar="examInfo" reflow="true"
+				emptyMessage="No information found with given criteria"
+				filteredValue="#{timeTableMB.filteredExam}" paginator="true"
+				rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Search:" />
+						<h:inputText id="globalFilter" onkeyup="PF('examInfo').filter()"
+							style="width:50%;height:30px" placeholder="Enter keyword" />
+					</p:outputPanel>
+				</f:facet>
+				<p:column headerText="Date" filterBy="#{tableinfo.examStartDate}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examStartDate}">
+						<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Day" filterBy="#{tableinfo.examDay}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examDay}" />
+				</p:column>
+				<p:column headerText="Subject" filterBy="#{tableinfo.examSubject}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examSubject}" />
+				</p:column>
+				<p:column headerText="Code" filterBy="#{tableinfo.examSubjectCode}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examSubjectCode}" />
+				</p:column>
+				<p:column headerText="Room No" filterBy="#{tableinfo.examRoomNo}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examRoomNo}" />
+				</p:column>
+				<p:column headerText="Start Time" filterBy="#{tableinfo.stime}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.stime}" />
+				</p:column>
+				<p:column headerText="End Time" filterBy="#{tableinfo.etime}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.etime}" />
+				</p:column>
+				<p:column headerText="Shift" filterBy="#{tableinfo.examShift}"
+					filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{tableinfo.examShift}" />
+				</p:column>
+			</p:dataTable>
+
+
+		</p:panel>
+		<br></br>
+		<center>
+			<p:commandButton icon="ui-icon-print" value="Print">
+				<p:printer target="prints"></p:printer>
+			</p:commandButton>
+		</center>
+	</ui:define>
+</ui:composition>

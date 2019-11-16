@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel header="Teacher Information" toggleable="false"
+			style="min-height:100%;">
+			<p:growl id="messages" showDetail="true" />
+			<table width="100%">
+				<tr>
+					<td width="25%"><h:outputLabel value="First Name "
+							styleClass="labelTxt" for="TFName"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaFirstName}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+
+				<tr>
+					<td width="25%"><h:outputLabel value="Last Name "
+							styleClass="labelTxt" for="TLName"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaLastName}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Father Name"
+							styleClass="labelTxt" for="TFatherName"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaFatherName}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Mother Name "
+							styleClass="labelTxt" for="TMotherName"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaMotherName}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Date Of Birth"
+							styleClass="labelTxt" for="TDob"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaDob}"></h:outputText> <br></br>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" valign="top"><br></br> <h:outputLabel
+							value="Gender" styleClass="labelTxt" for="TGender"></h:outputLabel>
+					</td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaGender}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Present Address"
+							styleClass="labelTxt" for="TPAddress"></h:outputLabel></td>
+					<td width="75%" height="70px">
+
+						<table width="100%">
+							<tr>
+								<td width="20%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPresentAddress}"></h:outputText>
+
+								</td>
+								<td width="10%"></td>
+								<td height="50px" width="30%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPresentState}"></h:outputText>
+									<br></br></td>
+								<td width="10%"></td>
+								<td width="30%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPresentZip}"></h:outputText>
+									<br></br></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Permanent Address"
+							styleClass="labelTxt" for="TpermantAddress"></h:outputLabel></td>
+					<td width="75%">
+						<table width="100%">
+							<tr>
+								<td width="20%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPermanentAddress}"></h:outputText>
+
+								</td>
+								<td width="10%"></td>
+								<td width="30%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPermanentState}"></h:outputText>
+									<br></br></td>
+								<td width="10%"></td>
+								<td width="30%" valign="top"><h:outputText
+										value="#{teacherViewMB.teacherDataBean.teaPermanentZip}"></h:outputText>
+									<br></br> <br></br></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Phone Number"
+							styleClass="labelTxt" for="TPhone"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaPhoneNo}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Email "
+							styleClass="labelTxt" for="TEmail"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaEmail}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><br></br> <h:outputLabel value="Teacher ID"
+							styleClass="labelTxt" for="TTeacherID"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaID}"></h:outputText> <br></br>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Post / Position"
+							styleClass="labelTxt" for="TPost"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaPosition}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" valign="top"><h:outputLabel
+							value="Faculties / Subject" styleClass="labelTxt" for="TSubject"></h:outputLabel>
+					</td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaSubjectTargetList}"></h:outputText>
+
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" valign="top"><h:outputLabel value="Class"
+							styleClass="labelTxt" for="TClass"></h:outputLabel></td>
+
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaClassTargetList}"></h:outputText>
+
+						<br></br>
+					<h:message for="TClass" style="color:red;font-size:12px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Working Hour "
+							styleClass="labelTxt" for="TWorking"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaWorkingHour}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><br></br> <h:outputLabel
+							value="Educational Qualification" styleClass="labelTxt"
+							for="TQualification"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaEduQualification}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Percentage"
+							styleClass="labelTxt" for="TPercentage"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaPercentage}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputLabel value="Year of Passing"
+							styleClass="labelTxt" for="TPassing"></h:outputLabel></td>
+					<td width="75%"><h:outputText
+							value="#{teacherViewMB.teacherDataBean.teaYearOfPassing}"></h:outputText>
+						<br></br> <br></br></td>
+				</tr>
+				<tr>
+					<td valign="top"><h:outputLabel value="Uploaded Photo"
+							for="TPhoto" styleClass="labelTxt" /></td>
+					<td><a4j:mediaOutput style="width:100px;height:100px;"
+							element="img" cacheable="false" session="true"
+							createContent="#{teacherViewMB.imageview}" mimeType="image/png" />
+					</td>
+				</tr>
+
+
+			</table>
+
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

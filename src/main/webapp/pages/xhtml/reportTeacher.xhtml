@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+		<style>
+	reportPanal a:hover,reportPanal a:active,reportPanal a:focus {
+    color: gray !important;
+    }
+   #backbutton:hover,#backbutton:ACTIVE,#backbutton:FOCUS {
+	 color: gray !important;
+}
+	</style>
+	<p:panel style="min-height:100%" >
+	<f:facet name="header">
+		<a href="reportMenuPage.xhtml" id="backbutton" style="color: black;" > &#60;&#60; Go Back</a>
+			<h:outputText  value="Teacher #{reportMB.reportDataBean.reportsubType} Report" style="font-size: 25px; padding-left: 30%;"/>
+	</f:facet>
+	
+	<p:outputPanel rendered="#{reportMB.reportDataBean.reportsubType=='Attendance'}">
+		<center>
+				<p:panelGrid columns="6" >
+				
+				
+				
+				<h:outputText value="TeacherName" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.teacherNameFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.teacherNameFlag}">
+					<h:selectOneMenu id="teachername" styleClass="inputTxt"  value="#{reportMB.reportDataBean.teacherName}"
+								rendered="#{reportMB.reportDataBean.teacherNameFlag}" >
+							<f:selectItem itemLabel="Select the Teacher" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItems value="#{reportMB.reportDataBean.teacherList}"></f:selectItems>
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="teachername" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Status" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.attendanceStatusFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.attendanceStatusFlag}">
+					<h:selectOneMenu id="attendanceStatus" styleClass="inputTxt"  value="#{reportMB.reportDataBean.attendanceStatus}"
+					
+								rendered="#{reportMB.reportDataBean.attendanceStatusFlag}" valueChangeListener="#{reportMB.attendanceStatusChange}">
+							<f:selectItem itemLabel="Select the Status" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="Both" itemValue="Both"></f:selectItem>
+							 <f:selectItem itemLabel="Present" itemValue="Present"/>
+				             <f:selectItem itemLabel="Absent" itemValue="Absent"/>
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="attendanceStatus" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="LeaveType" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.leaveTypeFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.leaveTypeFlag}">
+					<h:selectOneMenu id="leavetype" styleClass="inputTxt"  value="#{reportMB.reportDataBean.leaveType}"
+								rendered="#{reportMB.reportDataBean.leaveTypeFlag}" 
+								disabled="#{reportMB.reportDataBean.attendanceStatus=='Both' || reportMB.reportDataBean.attendanceStatus=='Present'}">
+								<f:selectItem itemLabel="Select Leave Type" itemValue="" noSelectionOption="true" />
+								<f:selectItem itemLabel="All" itemValue="All"/>
+							    <f:selectItem itemLabel="CL" itemValue="CL"/>
+							    <f:selectItem itemLabel="Half Day" itemValue="Half day"/>
+							    <f:selectItem itemLabel="OD" itemValue="OD"/>
+							    <f:selectItem itemLabel="OT" itemValue="OT"/>
+							    <f:selectItem itemLabel="None" itemValue="None"/>
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="leavetype" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				
+					<h:outputText value="Month" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.monthFlag}"></h:outputText>
+					<h:panelGroup rendered="#{reportMB.reportDataBean.monthFlag}">
+						<h:selectOneMenu id="month" styleClass="inputTxt"  value="#{reportMB.reportDataBean.month}"
+							rendered="#{reportMB.reportDataBean.monthFlag}" >
+							<f:selectItem itemLabel="Select the Month" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="January" itemValue="1"/>
+							                <f:selectItem itemLabel="February" itemValue="2"/>
+							                <f:selectItem itemLabel="March" itemValue="3"/>
+							                <f:selectItem itemLabel="April" itemValue="4"/>
+							                 <f:selectItem itemLabel="May" itemValue="5"/>
+							                <f:selectItem itemLabel="June" itemValue="6"/>
+							                <f:selectItem itemLabel="July" itemValue="7"/>
+							                <f:selectItem itemLabel="August" itemValue="8"/>
+							                 <f:selectItem itemLabel="September" itemValue="9"/>
+							                <f:selectItem itemLabel="October" itemValue="10"/>
+							                <f:selectItem itemLabel="November" itemValue="11"/>
+							                <f:selectItem itemLabel="December" itemValue="12"/>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						<br />
+					<h:message for="month" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Year" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.yearFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.yearFlag}">
+						<h:selectOneMenu id="year" styleClass="inputTxt"  value="#{reportMB.reportDataBean.year}"
+									rendered="#{reportMB.reportDataBean.yearFlag}">
+							<f:selectItem itemLabel="Select the year" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{reportMB.yearList}"></f:selectItems>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						<br />
+						<h:message for="year" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Date" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.dateFlag}" ></h:outputText>
+				<h:panelGroup  rendered="#{reportMB.reportDataBean.dateFlag}">
+					<p:calendar id="date21" maxdate="#{currentDate}" value="#{reportMB.reportDataBean.date1}" 
+					 rendered="#{reportMB.reportDataBean.dateFlag}" >
+					<p:ajax update="XX" process="@this" immediate="true" ></p:ajax>
+					 </p:calendar>
+					<br />
+					<h:message for="date21" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+			</p:panelGrid>
+			<br />
+		<p:commandButton  icon="fa fa-search" value="Search" action="#{reportMB.teacherAttendanceSearch}" update="XX" 
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" ></p:commandButton>
+		<p:commandButton  icon="fa fa-repeat" value="Reset" action="#{reportMB.reset}" update="XX" 
+		onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"></p:commandButton>
+		<br />
+		<br />
+		<p:outputLabel value="No Information found for given criteria" style="color:red;font-size:20px;" rendered="#{reportMB.teacherAttendanceDataTable}"></p:outputLabel>
+		<p:dataTable var="attendanceReport" value="#{reportMB.reportDataBean.teacherAttendanData}" id="attendanceReport" style="width:100%" scrollWidth="150%" 
+		rendered="#{!empty reportMB.reportDataBean.teacherAttendanData}" scrollable="true" resizableColumns="true" scrollHeight="220">
+						 <p:column headerText="TEACHER ROLL" style="text-align:center" >
+							<h:outputText value="#{attendanceReport.teacherRoll}"></h:outputText>
+						</p:column>
+						 <p:column headerText="TEACHER NAME" style="text-align:center" >
+							<h:outputText value="#{attendanceReport.teacherName}"></h:outputText>
+						</p:column>
+						<p:column headerText="DATE" style="text-align:center">
+							<h:outputText value="#{attendanceReport.date1}"></h:outputText>
+						</p:column>
+						<p:column headerText="LEAVE TYPE" style="text-align:center">
+							<h:outputText value="#{attendanceReport.leaveType}" rendered="#{attendanceReport.leaveType!='' and attendanceReport.leaveType!=null}" />
+							<h:outputText value="-"  rendered="#{attendanceReport.leaveType=='' or attendanceReport.leaveType==null}"/>
+						</p:column>
+						<p:column headerText="ATTENDANCE STATUS" style="text-align:center">
+							<h:outputText value="#{attendanceReport.attendanceStatus}"></h:outputText>
+						</p:column>
+						<p:column headerText="MONTH" style="text-align:center">
+							<h:outputText value="#{attendanceReport.month}"></h:outputText>
+						</p:column>
+						<p:column headerText="YEAR" style="text-align:center">
+							<h:outputText value="#{attendanceReport.year}"></h:outputText>
+						</p:column>
+							<p:column headerText="IN TIME" style="text-align:center">
+							<h:outputText value="#{attendanceReport.inTime}" rendered="#{attendanceReport.inTime!='' and attendanceReport.inTime!=null}" />
+							<h:outputText value="-"  rendered="#{attendanceReport.inTime=='' or attendanceReport.inTime==null}"/>
+						</p:column>
+						<p:column headerText="OUT TIME" style="text-align:center">
+							<h:outputText value="#{attendanceReport.outTime}" rendered="#{attendanceReport.outTime!='' and attendanceReport.outTime!=null}" />
+							<h:outputText value="-"  rendered="#{attendanceReport.outTime=='' or attendanceReport.outTime==null}"/>
+						</p:column>
+				
+				<f:facet name="header">
+					<div align="left">
+			            <h:commandLink value="Download as Excel Sheet" style="text-align: left;">
+			                <p:dataExporter type="xls" target="attendanceReport" fileName="Teacher Attendance Report" />
+			            </h:commandLink>
+			        </div>
+				</f:facet>			
+		</p:dataTable>
+	</center>
+	</p:outputPanel>
+	
+	
+	<p:outputPanel rendered="#{reportMB.reportDataBean.reportsubType=='TimeTable'}">
+		<center>
+				<p:panelGrid columns="6" >
+				
+				<h:outputText value="Class" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.classFlag}" ></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.classFlag}">
+					<h:selectOneMenu id="TTclassname" styleClass="inputTxt" value="#{reportMB.reportDataBean.className}" 
+							rendered="#{reportMB.reportDataBean.classFlag}" valueChangeListener="#{reportMB.classChangeTeacher}">
+							<f:selectItem itemLabel=" Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItems value="#{reportMB.classList}"></f:selectItems>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+						<h:message for="TTclassname" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="TeacherName" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.teacherNameFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.teacherNameFlag}">
+					<h:selectOneMenu id="TTteachername" styleClass="inputTxt"  value="#{reportMB.reportDataBean.teacherName}"
+								rendered="#{reportMB.reportDataBean.teacherNameFlag}" valueChangeListener="#{reportMB.teacherChange}">
+							<f:selectItem itemLabel="Select the Teacher" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItems value="#{reportMB.reportDataBean.teacherList}"></f:selectItems>
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="TTteachername" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				
+					<h:outputText value="SubjectName" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.subjectNameFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.subjectNameFlag}">
+					<h:selectOneMenu id="TTsubjectName" styleClass="inputTxt"  value="#{reportMB.reportDataBean.subjectName}"
+								rendered="#{reportMB.reportDataBean.subjectNameFlag}" >
+							<f:selectItem itemLabel="Select the Subject" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+							<f:selectItems value="#{reportMB.reportDataBean.subjectList}"></f:selectItems>
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="TTsubjectName" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				
+					<h:outputText value="Period" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.periodFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.periodFlag}">
+					<h:selectOneMenu id="TTperiod" styleClass="inputTxt"  value="#{reportMB.reportDataBean.period}"
+								rendered="#{reportMB.reportDataBean.periodFlag}" >
+								<f:selectItem itemLabel="Select the Period" itemValue="" noSelectionOption="true"></f:selectItem>
+								<f:selectItem itemLabel="All" itemValue="All"></f:selectItem>
+								<f:selectItem itemLabel="1st Period" itemValue="1"/>
+				                <f:selectItem itemLabel="2nd Period" itemValue="2"/>
+				                <f:selectItem itemLabel="3rd Period" itemValue="3"/>
+				                <f:selectItem itemLabel="4th Period" itemValue="4"/>
+				                <f:selectItem itemLabel="5th Period" itemValue="5"/>
+				                <f:selectItem itemLabel="6th Period" itemValue="6"/>
+				                <f:selectItem itemLabel="7th Period" itemValue="7"/>
+				                <f:selectItem itemLabel="8th Period" itemValue="8"/>
+							                
+							<p:ajax update="XX" process="@this" immediate="true"></p:ajax>
+					</h:selectOneMenu>
+						<br />
+					<h:message for="TTperiod" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Day" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.dayFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.dayFlag}">
+					<h:selectOneMenu id="TTDay" styleClass="inputTxt"  value="#{reportMB.reportDataBean.day}"
+							rendered="#{reportMB.reportDataBean.dayFlag}" >
+							<f:selectItem itemLabel="Select the Day" itemValue="" noSelectionOption="true"></f:selectItem>
+							  				 <f:selectItem itemLabel="Sunday" itemValue="Sunday"/>
+											<f:selectItem itemLabel="Monday" itemValue="Monday"/>
+							                <f:selectItem itemLabel="Tuesday" itemValue="Tuesday"/>
+							                <f:selectItem itemLabel="Wednesday" itemValue="Wednesday"/>
+							                <f:selectItem itemLabel="Thursday" itemValue="Thursday"/>
+							                 <f:selectItem itemLabel="Friday" itemValue="Friday"/>
+							                <f:selectItem itemLabel="Saturday" itemValue="Saturday"/>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						<br />
+					<h:message for="TTDay" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Month" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.monthFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.monthFlag}">
+					<h:selectOneMenu id="TTmonth" styleClass="inputTxt"  value="#{reportMB.reportDataBean.month}"
+							rendered="#{reportMB.reportDataBean.monthFlag}" >
+							<f:selectItem itemLabel="Select the Month" itemValue="" noSelectionOption="true"></f:selectItem>
+									<f:selectItem itemLabel="January" itemValue="January"/>
+					                <f:selectItem itemLabel="February" itemValue="February"/>
+					                <f:selectItem itemLabel="March" itemValue="March"/>
+					                <f:selectItem itemLabel="April" itemValue="April"/>
+					                <f:selectItem itemLabel="May" itemValue="May"/>
+					                <f:selectItem itemLabel="June" itemValue="June"/>
+					                <f:selectItem itemLabel="July" itemValue="July"/>
+					                <f:selectItem itemLabel="August" itemValue="August"/>
+					                <f:selectItem itemLabel="September" itemValue="September"/>
+					                <f:selectItem itemLabel="October" itemValue="October"/>
+					                <f:selectItem itemLabel="November" itemValue="November"/>
+					                <f:selectItem itemLabel="December" itemValue="December"/>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						<br />
+					<h:message for="TTmonth" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				<h:outputText value="Year" styleClass="labelTxt" rendered="#{reportMB.reportDataBean.yearFlag}"></h:outputText>
+				<h:panelGroup rendered="#{reportMB.reportDataBean.yearFlag}">
+						<h:selectOneMenu id="TTyear" styleClass="inputTxt"  value="#{reportMB.reportDataBean.year}"
+									rendered="#{reportMB.reportDataBean.yearFlag}">
+							<f:selectItem itemLabel="Select the year" itemValue="" noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{reportMB.yearList}"></f:selectItems>
+							<p:ajax event="valueChange" update="XX" process="@this" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						<br />
+						<h:message for="TTyear" style="color:red;font-size:12px"></h:message>
+				</h:panelGroup>
+				
+				
+			</p:panelGrid>
+			<br />
+		<p:commandButton  icon="fa fa-search" value="Search" action="#{reportMB.teacherTimeTableSearch}" update="XX" 
+					onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" ></p:commandButton>
+		<p:commandButton  icon="fa fa-repeat" value="Reset" action="#{reportMB.reset}" update="XX" 
+		onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"></p:commandButton>
+		<br />
+		<br />
+		<p:outputLabel value="No Information found for given criteria" style="color:red;font-size:20px;" rendered="#{reportMB.teacherTimetableDataTable}"></p:outputLabel>
+		<p:dataTable var="timeTableReport" value="#{reportMB.reportDataBean.teacherTimeTableData}" id="timeTableReport" style="width:100%" scrollWidth="200%" 
+		rendered="#{!empty reportMB.reportDataBean.teacherTimeTableData}" scrollable="true" resizableColumns="true" scrollHeight="220">
+						
+						 <p:column headerText="TEACHER ROLL" style="text-align:center" >
+							<h:outputText value="#{timeTableReport.teacherRoll}"></h:outputText>
+						</p:column>
+						
+						<p:column headerText="TEACHER NAME" style="text-align:center" >
+							<h:outputText value="#{timeTableReport.teacherName}"></h:outputText>
+						</p:column>
+						<p:column headerText="DAY" style="text-align:center">
+							<h:outputText value="#{timeTableReport.day}"></h:outputText>
+						</p:column>
+						
+						<p:column headerText="SUBJECT NAME" style="text-align:center">
+							<h:outputText value="#{timeTableReport.subjectName}"></h:outputText>
+						</p:column>
+						<p:column headerText="SUBJECT CODE" style="text-align:center">
+							<h:outputText value="#{timeTableReport.subjectCode}"></h:outputText>
+						</p:column>
+						<p:column headerText="START TIME" style="text-align:center">
+							<h:outputText value="#{timeTableReport.inTime}"></h:outputText>
+						</p:column>
+						<p:column headerText="END TIME" style="text-align:center">
+							<h:outputText value="#{timeTableReport.outTime}"></h:outputText>
+						</p:column>
+						<p:column headerText="PERIOD" style="text-align:center">
+							<h:outputText value="#{timeTableReport.period}"></h:outputText>
+						</p:column>
+						<p:column headerText="YEAR" style="text-align:center">
+							<h:outputText value="#{timeTableReport.year}"></h:outputText>
+						</p:column>
+						<p:column headerText="MONTH" style="text-align:center">
+							<h:outputText value="#{timeTableReport.month}"></h:outputText>
+						</p:column>
+						<p:column headerText="CLASS NAME" style="text-align:center">
+							<h:outputText value="#{timeTableReport.className}"></h:outputText>
+						</p:column>
+						
+				
+				<f:facet name="header">
+					<div align="left">
+			            <h:commandLink value="Download as Excel Sheet" style="text-align: left;">
+			                <p:dataExporter type="xls" target="timeTableReport" fileName="Teacher TimeTable Report" />
+			            </h:commandLink>
+			        </div>
+				</f:facet>			
+		</p:dataTable>
+	</center>
+	</p:outputPanel>
+	
+	</p:panel>
+	</ui:define>
+	</ui:composition>

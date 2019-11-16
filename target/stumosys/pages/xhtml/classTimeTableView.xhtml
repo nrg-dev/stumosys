@@ -1,0 +1,750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+	
+	<ui:define name="content">
+	<style type="text/css">
+	.ui-datatable-tablewrapper {
+	    overflow-x: hidden !important;
+	}
+	
+	textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
+    color: #000000;
+    opacity: 1;
+    text-align: center;
+    cursor: default;
+}
+	
+</style>
+		<p:panel toggleable="false"
+			style="min-height:100%;width:100%;'" id="classupdblockUI">
+			
+			 <f:facet name="header">
+			 	<center>
+				<h:outputText  value="CLASS TIME TABLE VIEW" style="font-size: 25px;"/>
+			</center>
+			</f:facet>
+			
+			<table width="100%">
+				<p:panelGrid styleClass="ui-panelgrid-blank" columns="7">
+							<h:panelGroup>
+								<h:outputLabel value="Class " style="margin-left: 20px;"
+								styleClass="labelTxt" for="classtime"
+								rendered="#{classTimeTableViewMB.studentflag}"></h:outputLabel> 
+								<h:outputLabel value=" *" style="color:red;"
+								rendered="#{classTimeTableViewMB.studentflag}"></h:outputLabel>
+							</h:panelGroup>
+							<h:selectOneMenu
+								value="#{classTimeTableViewMB.classTimeTableDataBean.classname}"
+								id="classtime" styleClass="selecttext_ui1"
+								rendered="#{classTimeTableViewMB.studentflag}">
+								<f:selectItem itemLabel="Select class..." itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{classTimeTableViewMB.classes}"></f:selectItems>
+								<p:ajax immediate="true" process="@this" event="valueChange"></p:ajax>
+							</h:selectOneMenu>
+					<h:panelGroup>		
+						<h:outputLabel value="Day " style="margin-left: 20px;"
+							styleClass="labelTxt"></h:outputLabel><span style="color: red;">
+							* </span>
+					</h:panelGroup>
+					<h:selectOneMenu value="#{classTimeTableViewMB.classTimeTableDataBean.day}"
+							id="day1" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Day" itemValue="" noSelectionOption="true" />
+							<f:selectItem itemLabel="Monday" itemValue="Monday" />
+							<f:selectItem itemLabel="Tuesday" itemValue="Tuesday" />
+							<f:selectItem itemLabel="Wednesday" itemValue="Wednesday" />
+							<f:selectItem itemLabel="Thursday" itemValue="Thursday" />
+							<f:selectItem itemLabel="Friday" itemValue="Friday" />
+							<f:selectItem itemLabel="Saturday" itemValue="Saturday" />
+							<p:ajax immediate="true" process="@this" event="valueChange"></p:ajax>
+					</h:selectOneMenu> 
+						<h:panelGroup>
+							<h:outputLabel value="Month " id="month" styleClass="labelTxt" style="margin-left: 20px;"></h:outputLabel>
+								<span style="color: red;">* </span>
+					</h:panelGroup>
+					<h:selectOneMenu value="#{classTimeTableViewMB.classTimeTableDataBean.month}" id="monthvalue"
+							styleClass="selecttext_ui1" >
+							<f:selectItem itemLabel="Select Month" itemValue=""	noSelectionOption="true" />
+							<f:selectItems value="#{classTimeTableViewMB.classTimeTableDataBean.monthlist}"></f:selectItems>
+							<p:ajax immediate="true" process="@this" event="valueChange"></p:ajax>
+					</h:selectOneMenu> 
+				<p:commandButton value="Search" ajax="false" onclick="submit()"  action="#{classTimeTableViewMB.timetableview}"></p:commandButton>
+				<h:outputText></h:outputText>
+				<h:message for="classtime" style="color:red;font-size:13px;"></h:message>
+				<h:outputText></h:outputText>
+				<h:message for="day1" style="color:red;font-size:13px;"></h:message>
+				<h:outputText></h:outputText>
+				<h:message for="month" style="color:red;font-size:13px;"></h:message>
+				<h:outputText></h:outputText>
+				
+				
+				</p:panelGrid>
+				<p:commandButton icon="fa fa-plus" value="Period"
+							action="#{classTimeTableViewMB.addPeriod}" ajax="false"
+							rendered="#{classTimeTableViewMB.addflagz}"></p:commandButton>
+			
+				<tr align="center">
+					<td colspan="2"><br></br> 
+				<p:dataTable width="100%"	id="TimeTable" var="classtime" widgetVar="timetable"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.classtimeList}" rendered="#{classTimeTableViewMB.flag}"
+							emptyMessage="No information found with given criteria"	filteredValue="#{classTimeTableViewMB.filteredclass}"
+							paginator="true" rows="10" paginatorAlwaysVisible="false" paginatorPosition="bottom" editable="true"
+							resizableColumns="true" pageLinks="5">
+							
+							
+							<p:ajax event="rowEdit" listener="#{classTimeTableViewMB.tableupdate}"
+									update=":XX:TimeTable" />
+							<p:ajax event="rowEditCancel" listener="#{classTimeTableViewMB.onRowCancel}"
+									update=":XX:TimeTable" />
+
+							<p:column headerText="#" filterMatchMode="contains" width="5%" styleClass="wrap"
+								filterStyle="display:none">
+								<h:outputText value="#{classtime.serialno}">
+								</h:outputText>
+								<h:inputHidden value="#{classtime.classtableid}">
+								</h:inputHidden>
+							</p:column>
+							<p:column headerText="Period" filterBy="#{classtime.period}" styleClass="wrap"
+								filterMatchMode="contains" filterStyle="display:none">
+								<h:outputText value="Period #{classtime.period}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Subject" filterBy="#{classtime.subject}"
+								filterMatchMode="contains" filterStyle="display:none" styleClass="wrap">
+								<p:cellEditor>
+										<f:facet name="output">
+										<h:outputText value="#{classtime.subject}" />
+										</f:facet>
+										<f:facet name="input">
+										<h:selectOneMenu value="#{classtime.subject}" id="subject" styleClass="selecttext_ui1" style="width:100%"
+											valueChangeListener="#{classTimeTableViewMB.subjectChangeNew}">
+											<f:selectItem itemLabel="Select Subject" itemValue="" noSelectionOption="true" />
+											<f:selectItems value="#{classTimeTableViewMB.classTimeTableDataBean.subjectlist}" />
+											<f:attribute value="#{classtime.period}" name="period"></f:attribute>
+											<f:attribute value="#{classtime.serialno}" name="serialno"></f:attribute>
+											<f:attribute value="#{classtime.classtableid}" name="classtableid"></f:attribute>
+											<f:attribute value="#{classtime.teaID}" name="teaID"></f:attribute>
+											<f:attribute value="#{classtime.startTime}" name="startTime"></f:attribute>
+											<f:attribute value="#{classtime.endTime}" name="endTime"></f:attribute>
+								    		<p:ajax update="teacherName subcode" > </p:ajax>
+										</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+										
+							
+										
+							</p:column>
+							<p:column headerText="Subject Code"  exportable="false"
+								filterBy="#{classtime.subjectCode}" filterMatchMode="contains" styleClass="wrap"
+								filterStyle="display:none">
+								<h:outputText value="#{classtime.subjectCode}" id="subcode">
+								</h:outputText>
+								<h:inputHidden value="#{classtime.subjects}" >
+								</h:inputHidden>
+							</p:column>
+							<p:column headerText="Teacher ID" filterBy="#{classtime.teaID}"  styleClass="wrap"
+								filterMatchMode="contains" filterStyle="display:none">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{classtime.teaID}">
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<h:selectOneMenu value="#{classtime.teaID}" id="teacherName" styleClass="selecttext_ui1" style="width:100%">
+											<f:selectItem itemLabel="Select Teacher Name" itemValue="" noSelectionOption="true" />
+											<f:selectItems value="#{classtime.teacherIDList}"/>
+								    		<p:ajax update="teacherName"> </p:ajax>
+										</h:selectOneMenu>
+									</f:facet>	
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Class" >
+             				<h:outputLabel value="#{classTimeTableViewMB.classTimeTableDataBean.classname}" ></h:outputLabel>
+				            </p:column>
+				              <p:column headerText="Day" >
+				             				<h:outputLabel value="#{classTimeTableViewMB.classTimeTableDataBean.day}" ></h:outputLabel>
+				            </p:column>
+				            <p:column headerText="Month" >
+				             			<h:outputLabel value="#{classTimeTableViewMB.classTimeTableDataBean.month}" ></h:outputLabel>
+				            </p:column>	
+							<p:column headerText="Start Time" styleClass="wrap"
+								filterBy="#{classtime.startTime}" filterMatchMode="contains"
+								filterStyle="display:none">
+								<p:cellEditor>
+										<f:facet name="output">
+											<pe:timePicker	styleClass="inputTxt" disabled="true" style="width:100%"   
+													value="#{classtime.startTime}"	mode="popup">
+													<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+											</pe:timePicker>
+										</f:facet>
+										<f:facet name="input">
+											<pe:timePicker	styleClass="inputTxt" style="width:100%"
+													value="#{classtime.startTime}"	id="startTimes"	mode="popup">
+													<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+											</pe:timePicker>
+										</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="End Time" filterBy="#{classtime.endTime}" styleClass="wrap"
+								filterMatchMode="contains" filterStyle="display:none">
+								<p:cellEditor>
+										<f:facet name="output">
+											<pe:timePicker	styleClass="inputTxt" disabled="true" style="width:100%" value="#{classtime.endTime}"
+													 placeholder="End Time" mode="popup">
+											</pe:timePicker>
+										</f:facet>
+										<f:facet name="input">
+											<pe:timePicker	styleClass="inputTxt" style="width:100%" value="#{classtime.endTime}"
+													id="endTimes" placeholder="End Time" mode="popup">
+												<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+											</pe:timePicker>
+										</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column style="width:7%" headerText="Edit" 
+								rendered="#{classTimeTableViewMB.editflag}" exportable="false">
+								<p:rowEditor rendered="#{classTimeTableViewMB.editflag}" />
+							</p:column>
+							<p:column style="width:5%" headerText="Delete" >
+								<p:commandButton icon="ui-icon-trash" title="Delete Period"
+									oncomplete="PF('deleteConfirmPeriodDlg').show()" 
+									rendered="#{classTimeTableViewMB.editflag}" >
+									<f:setPropertyActionListener  
+									target="#{classTimeTableViewMB.classTimeTableDataBean.classtableid}"  
+										value="#{classtime.classtableid}" >
+									</f:setPropertyActionListener>
+								</p:commandButton>
+ 							</p:column>
+						</p:dataTable></td>
+				</tr>
+				<tr align="center">
+					<td colspan="2"><p:panel header="Add Extra Class"
+							style="width:64%;" rendered="#{classTimeTableViewMB.addflag}">
+							<h:panelGroup>
+								<h:inputHidden id="validates"></h:inputHidden>
+								<br></br>
+								<h:message for="validates" style="color:red;font-size:12px;"></h:message>
+							</h:panelGroup>
+							<br />
+							<h:panelGrid columns="3"
+								rendered="#{classTimeTableViewMB.addflag}" cellpadding="5"
+								cellspacing="5">
+
+								<h:outputLabel value="Date" styleClass="labelTxt" for="date"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<p:calendar id="date"
+										value="#{classTimeTableViewMB.classTimeTableDataBean.date}"
+										pattern="dd-MM-yyyy" maxdate="01-01-2100"
+										mindate="#{currentDate}" style="height:25px">
+										<p:ajax process="@this" update=":XX:" event="dateSelect"
+											immediate="true"></p:ajax>
+									</p:calendar>
+									<br></br>
+									<h:message for="date" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Class " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.classname}"
+										id="classz" styleClass="selecttext_ui1"
+										valueChangeListener="#{classTimeTableViewMB.classChange}">
+										<f:selectItem itemLabel="Select Class" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{classTimeTableViewMB.classes}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="classz" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Subject " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.subject}"
+										id="subjectts"
+										styleClass="selecttext_ui1"
+										valueChangeListener="#{classTimeTableViewMB.subjectChange}">
+										<f:selectItem itemLabel="Select Subject" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{classTimeTableViewMB.classTimeTableDataBean.subjectlist}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="subjectts" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Subject Code" styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span><h:panelGroup>
+								<h:inputText
+									value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}" rendered="#{classTimeTableViewMB.codeflag}"
+									id="subcodes" placeholder="Subject Code" readonly="true"
+									styleClass="inputTxt">
+									<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax></h:inputText>
+											<h:selectOneMenu rendered="#{classTimeTableViewMB.codeflag1}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}" valueChangeListener="#{classTimeTableViewMB.subjectCodeChange}"
+							id="subjectcode" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Subject Code" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableViewMB.classTimeTableDataBean.subjectcodelist}" />
+								<p:ajax event="valueChange" update=":XX" process="@this"></p:ajax>
+						</h:selectOneMenu><br></br>
+									<h:message for="subjectcode" style="color:red;font-size:10px;"></h:message></h:panelGroup>
+									<h:outputLabel value="Teacher ID " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.teaID}"
+										id="teaid"
+										styleClass="selecttext_ui1">
+										<f:selectItem itemLabel="Select TeacherID" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{classTimeTableViewMB.teacherIDList}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="teaid" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Start Time " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<pe:timePicker
+										styleClass="inputTxt"
+										value="#{classTimeTableViewMB.classTimeTableDataBean.startTime}"
+										id="startTimes"
+										valueChangeListener="#{classTimeTableViewMB.checkStart}"
+										mode="popup" widgetVar="popupTimeWidget">
+										<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+									</pe:timePicker>
+									<br></br>
+									<h:message for="startTimes" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="End Time " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<pe:timePicker
+										styleClass="inputTxt"
+										value="#{classTimeTableViewMB.classTimeTableDataBean.endTime}"
+										id="endTimes"
+										valueChangeListener="#{classTimeTableViewMB.checkEnd}"
+										placeholder="End Time" mode="popup"
+										widgetVar="popupTimeWidget">
+										<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+									</pe:timePicker>
+									<br></br>
+									<h:message for="endTimes" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel></h:outputLabel>
+								<p:commandButton icon="fa fa-database" value="Save"
+									action="#{classTimeTableViewMB.checkClass}" ajax="false"></p:commandButton>
+								<h:outputLabel></h:outputLabel>
+							</h:panelGrid>
+						</p:panel>
+						
+						<center>
+						<p:panel header="Add Period"
+							style="width:64%;" rendered="#{classTimeTableViewMB.addPeriodflag}">
+							<h:panelGroup>
+								<h:inputHidden id="validates1"></h:inputHidden>
+								<br></br>
+								<h:message for="validates1" style="color:red;font-size:12px;"></h:message>
+							</h:panelGroup>
+							<br />
+							<h:panelGrid columns="3"
+								rendered="#{classTimeTableViewMB.addPeriodflag}" cellpadding="5"
+								cellspacing="5">
+								<h:outputLabel value="Class " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.classname}"
+										id="classz1" styleClass="selecttext_ui1"
+										valueChangeListener="#{classTimeTableViewMB.classChange}">
+										<f:selectItem itemLabel="Select Class" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems value="#{classTimeTableViewMB.classes}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="classz1" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Day" styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span><h:panelGroup>
+								<h:selectOneMenu  rendered="#{classTimeTableViewMB.flag2}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.day}"
+							id="days1" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Day" itemValue=""
+								noSelectionOption="true" />
+								
+							<f:selectItem itemLabel="Monday" itemValue="Monday" />
+							<f:selectItem itemLabel="Tuesday" itemValue="Tuesday" />
+							<f:selectItem itemLabel="Wednesday" itemValue="Wednesday" />
+							<f:selectItem itemLabel="Thursday" itemValue="Thursday" />
+							<f:selectItem itemLabel="Friday" itemValue="Friday" />
+							<f:selectItem itemLabel="Saturday" itemValue="Saturday" />
+							<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+						</h:selectOneMenu> 
+								
+									<h:selectOneMenu  rendered="#{classTimeTableViewMB.flag1}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.day}"
+							id="days" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Day" itemValue=""
+								noSelectionOption="true" />
+								<f:selectItem itemLabel="Sunday" itemValue="Sunday" />
+							<f:selectItem itemLabel="Monday" itemValue="Monday" />
+							<f:selectItem itemLabel="Tuesday" itemValue="Tuesday" />
+							<f:selectItem itemLabel="Wednesday" itemValue="Wednesday" />
+							<f:selectItem itemLabel="Thursday" itemValue="Thursday" />
+							<f:selectItem itemLabel="Friday" itemValue="Friday" />
+							<f:selectItem itemLabel="Saturday" itemValue="Saturday" />
+							<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+						</h:selectOneMenu> 
+						<br></br>
+							<h:message for="days1" style="color:red;font-size:10px;"></h:message>
+									<h:message for="days" style="color:red;font-size:10px;"></h:message>
+									</h:panelGroup>
+									
+								
+							<h:outputLabel value="Month "  styleClass="labelTxt" style="margin-left: 20px;"></h:outputLabel>
+								<span style="color: red;">* </span>
+					<h:panelGroup>
+						<h:selectOneMenu value="#{classTimeTableViewMB.classTimeTableDataBean.month}" id="monthAP"
+								styleClass="selecttext_ui1" >
+								<f:selectItem itemLabel="Select Month" itemValue=""	noSelectionOption="true" />
+								<f:selectItems value="#{classTimeTableViewMB.classTimeTableDataBean.monthlist}"></f:selectItems>
+								<p:ajax immediate="true" process="@this" event="valueChange"></p:ajax>
+						</h:selectOneMenu> 	
+						<h:message for="monthAP" style="color:red;font-size:10px;"></h:message>				
+					</h:panelGroup>			
+									
+									
+								<h:outputLabel value="Subject " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.subject}"
+										id="subjectts1"
+										styleClass="selecttext_ui1"
+										valueChangeListener="#{classTimeTableViewMB.subjectChange}">
+										<f:selectItem itemLabel="Select Subject" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{classTimeTableViewMB.classTimeTableDataBean.subjectlist}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="subjectts1" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Subject Code" styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup><h:inputText rendered="#{classTimeTableViewMB.codeflag}"
+									value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}"
+									id="subcodes1" placeholder="Subject Code" readonly="true"
+									styleClass="inputTxt">
+									<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax></h:inputText>
+						<h:selectOneMenu rendered="#{classTimeTableViewMB.codeflag1}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}" valueChangeListener="#{classTimeTableViewMB.subjectCodeChange}"
+							id="subjectcode1" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Subject Code" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableViewMB.classTimeTableDataBean.subjectcodelist}" />
+								<p:ajax event="valueChange" update=":XX" process="@this"></p:ajax>
+						</h:selectOneMenu><br></br>
+									<h:message for="subjectcode1" style="color:red;font-size:10px;"></h:message></h:panelGroup>
+									<h:outputLabel value="Teacher ID " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<h:selectOneMenu
+										value="#{classTimeTableViewMB.classTimeTableDataBean.teaID}"
+										id="teaid1"
+										styleClass="selecttext_ui1">
+										<f:selectItem itemLabel="Select TeacherID" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems
+											value="#{classTimeTableViewMB.teacherIDList}" />
+										<p:ajax immediate="true" process="@this" event="valueChange"
+											update=":XX"></p:ajax>
+									</h:selectOneMenu>
+									<br></br>
+									<h:message for="teaid1" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="Start Time " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<pe:timePicker
+										styleClass="inputTxt"
+										value="#{classTimeTableViewMB.classTimeTableDataBean.startTime}"
+										id="startTimes1"
+										valueChangeListener="#{classTimeTableViewMB.checkStart}"
+										mode="popup" widgetVar="popupTimeWidget">
+										<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+									</pe:timePicker>
+									<br></br>
+									<h:message for="startTimes1" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel value="End Time " styleClass="labelTxt"></h:outputLabel>
+								<span style="color: red;"> * </span>
+								<h:panelGroup>
+									<pe:timePicker
+										styleClass="inputTxt"
+										value="#{classTimeTableViewMB.classTimeTableDataBean.endTime}"
+										id="endTimes1"
+										valueChangeListener="#{classTimeTableViewMB.checkEnd}"
+										placeholder="End Time" mode="popup"
+										widgetVar="popupTimeWidget">
+										<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+									</pe:timePicker>
+									<br></br>
+									<h:message for="endTimes1" style="color:red;font-size:10px;"></h:message>
+								</h:panelGroup>
+								<h:outputLabel></h:outputLabel>
+					<p:commandButton icon="fa fa-database" value="Save"
+							action="#{classTimeTableViewMB.checkPeriod}" ajax="false"></p:commandButton>
+					<p:commandButton icon="fa fa-arrow-circle-o-left" value="Back" onclick="submit()"  action="#{classTimeTableViewMB.timetableview}"
+							ajax="false"></p:commandButton>
+					<h:outputLabel></h:outputLabel>
+						</h:panelGrid>
+						</p:panel>
+					</center></td>
+				</tr>
+				
+			</table>
+			<br />
+			<center>
+				<p:commandButton icon="ui-icon-print" value="Print"
+					rendered="#{classTimeTableViewMB.flag}" style="margin-left:+50px;">
+					<p:printer target="TimeTable"></p:printer>
+				</p:commandButton>
+				 	<h:commandLink rendered="#{classTimeTableViewMB.flag}">
+				 	  <p:graphicImage value="/images/excel.png" width="24" height="25"/>
+               			 <p:dataExporter type="xls" target="TimeTable" fileName="TimeTable" pageOnly="true"/>
+           			</h:commandLink>
+			</center>
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="extracls" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableViewMB.boxflag}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="Extra Class is successfully saved "></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableViewMB.classTimeViewCall}" process="@this"
+						value="OK" oncomplete="PF('extracls').hide()" update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="extraperiod" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableViewMB.boxflag1}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="Period is successfully saved "></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableViewMB.classTimeViewCall}" process="@this"
+						value="OK" oncomplete="PF('extraperiod').hide()" update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		 <p:dialog header="Class Details" widgetVar="classDialog" modal="true" resizable="false"  appendTo="@(body)">
+        <p:outputPanel id="classDetails" style="text-align:center;">
+        <h:form id="dialogform">
+            <p:panelGrid  columns="2">
+               
+			    <h:outputText value="Period:" />
+                <h:inputText value="#{classTimeTableViewMB.classTimeTableDataBean.period}" readonly="true" styleClass="inputTxt" id="dlgPeriod"/>
+				
+                <h:outputText value="Subject:" />
+                <h:selectOneMenu value="#{classTimeTableViewMB.classTimeTableDataBean.subject}" 
+                	id="dlgSubject" styleClass="selecttext_ui1" valueChangeListener="#{classTimeTableViewMB.subChange}">
+                <f:selectItem itemLabel="Please Select" itemValue="Select"></f:selectItem>
+                 <f:selectItems value="#{classTimeTableViewMB.classTimeTableDataBean.subjectlist}"></f:selectItems>
+                <p:ajax event="valueChange" process="@this" update="XX:dialogform" ></p:ajax>
+                </h:selectOneMenu>
+				 
+               <h:outputText value="Subject Code:" />
+               <h:panelGroup> <h:inputText rendered="#{classTimeTableViewMB.codeflag}" 
+               value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}" id="dlgSubCode" readonly="true" styleClass="inputTxt">
+               </h:inputText>
+				 <h:selectOneMenu rendered="#{classTimeTableViewMB.codeflag1}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.subjectCode}" valueChangeListener="#{classTimeTableViewMB.subjectCodeChange}"
+							id="dlgSubCode1" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Subject Code" itemValue="Select"
+								 />
+							<f:selectItems
+								value="#{classTimeTableViewMB.classTimeTableDataBean.subjectcodelist}" />
+								<p:ajax event="valueChange" update="XX:dialogform" process="@this"></p:ajax>
+						</h:selectOneMenu><br></br>
+									<h:message for="dlgSubCode1" style="color:red;font-size:10px;"></h:message></h:panelGroup>
+                <h:outputText value="Teacher ID:" />
+              <h:selectOneMenu value="#{classTimeTableViewMB.classTimeTableDataBean.teaID}" id="dlgTeaId" styleClass="selecttext_ui1" >
+                <f:selectItem itemLabel="Please Select" itemValue="Select1"></f:selectItem>
+                <f:selectItems value="#{classTimeTableViewMB.teacherIDList}"></f:selectItems>
+                <p:ajax event="valueChange" update="XX:dialogform" process="@this"></p:ajax>
+                </h:selectOneMenu>
+				 
+                <h:outputText value="Start Time :" />
+                 <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.startTime}"
+							id="dlgStart" pattern="HH:mm" timeOnly="true">
+							<p:ajax update="@this" process="@this" event="dateSelect"></p:ajax>
+						</p:calendar>
+               
+				<h:outputText value="End Time :" />
+				  <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.endTime}"
+							id="dlgEnd" pattern="HH:mm" timeOnly="true">
+							 <p:ajax update="@this" process="@this" event="dateSelect"></p:ajax>
+						</p:calendar>
+            </p:panelGrid>
+            <p:commandButton process="@this" immediate="true" action="#{classTimeTableViewMB.update}" value="Update"  icon="fa fa-floppy-o"></p:commandButton>
+            </h:form>
+        </p:outputPanel>
+    </p:dialog>
+    <p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="classUpdate" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableViewMB.updateflag}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="Class is successfully updated "></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableViewMB.refreshTable}" process="@this"
+						value="OK" oncomplete="PF('classUpdate').hide()" update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="alreadyclassUpdate" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableViewMB.updateflag1}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="In this time class already have a period"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableViewMB.refreshTable}" process="@this"
+						value="OK" oncomplete="PF('alreadyclassUpdate').hide()" update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="alreadyteacherUpdate" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableViewMB.updateflag2}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText value="This teacher already have a class for this time"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableViewMB.refreshTable}" process="@this"
+						value="OK" oncomplete="PF('alreadyteacherUpdate').hide()" update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		
+		<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			header="Delete user" severity="alert" global="true"
+			widgetVar="deleteConfirmDlg">
+			<center>
+				<p:commandButton id="confirmDelete" value="Yes"
+					immediate="true" process="@this"  action="#{classTimeTableViewMB.deleteclass}" />
+				<p:commandButton id="declineDelete" value="No"
+					onclick="PF('deleteConfirmDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="deleteclassDialog" modal="true" width="40%"
+			height="40%" resizable="false"
+			 dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{classTimeTableViewMB.classTimeTableDataBean.classname} is Deleted Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton update=":XX" immediate="true" process="@this"
+					action="#{classTimeTableViewMB.refreshTable}"
+						value="OK" oncomplete="PF('deleteclassDialog').hide()"></p:commandButton>
+				</center>
+
+			</h:form>
+		</p:dialog>
+		<p:confirmDialog id="deleteConfirmPeriodDialog" closable="false"
+			message="Are You Sure you want to Delete the Period"
+			header="Delete Class Time Table Period" severity="alert" global="true"
+			widgetVar="deleteConfirmPeriodDlg">
+			<center>
+				<p:commandButton id="confirmDeleteSection" value="Yes"
+					immediate="true" process="@this"  action="#{classTimeTableViewMB.deleteClassTimeTable}" />
+				<p:commandButton id="declineDeletePeriod" value="No"
+					onclick="PF('deleteConfirmPeriodDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="deleteclassPeriodDialog" modal="true" width="40%"
+			height="40%" resizable="false"
+			 dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="Period Deleted Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton update=":XX" immediate="true" process="@this"
+					action="#{classTimeTableViewMB.refreshTable}"
+						value="OK" oncomplete="PF('deleteclassPeriodDialog').hide()"></p:commandButton>
+				</center>
+
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="classupdblocksUI" block="classupdblockUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{classTimeTableViewMB.onRowEdit}"
+			name="classtableupd"></p:remoteCommand>
+		<p:remoteCommand action="#{classTimeTableViewMB.extraClassInsert}"
+			name="addexclass"></p:remoteCommand>
+			<p:remoteCommand action="#{classTimeTableViewMB.extraPeriodInsert}"
+			name="addexPeriod"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

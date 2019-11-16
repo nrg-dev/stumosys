@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+			<div id="layout-portlets-cover">
+		
+
+				<div class="Container100 SmallIndent Responsive100"
+					style="width: 100%;">
+					<div class="Container100 PadLeftRightZero">
+						<div class="Container50 WhiteBack"
+							style="border: solid 1px #D6D7D9; width: 100%;">
+							<div class="Container100 BlueBack Responsive50"
+								style="border: solid 1px #D6D7D9;">
+								<div class="Container100 WhiteBack">
+									<center>
+										<h:panelGrid columnClasses="value">
+
+
+											<p:schedule value="#{loginMB.lazyEventModel}"
+												rendered="#{loginMB.scheduleFlag1}" timeZone="GMT+15"
+												draggable="false">
+												<p:ajax event="eventSelect"
+													listener="#{loginMB.onEventSelect}" update="eventDetails"
+													oncomplete="PF('eventDialog').show();" />
+											</p:schedule>
+
+										</h:panelGrid>
+
+									</center>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<p:dialog widgetVar="eventDialog" header="Event Details" modal="true"
+				appendTo="@(body)">
+				<h:panelGrid id="eventDetails" columns="2">
+					<p:outputLabel value="Title:" />
+					<p:outputLabel value="#{loginMB.event.title}" />
+					<p:outputLabel value="From Date:" />
+					<p:outputLabel value="#{loginMB.event.startDate}">
+						<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+					</p:outputLabel>
+					<p:outputLabel value="To Date:" />
+					<p:outputLabel value="#{loginMB.event.endDate}">
+						<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+					</p:outputLabel>
+				</h:panelGrid>
+			</p:dialog>
+
+
+		</h:form>
+		<script type="text/javascript">
+			PrimeFaces.locales['tr'] = {
+				closeText : 'kapat',
+				prevText : 'geri',
+				nextText : 'ileri',
+				currentText : 'bugün',
+				monthNames : [ 'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs',
+						'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim',
+						'Kasım', 'Aralık' ],
+				monthNamesShort : [ 'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz',
+						'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara' ],
+				dayNames : [ 'Pazar', 'Pazartesi', 'Salı', 'Çarşamba',
+						'Perşembe', 'Cuma', 'Cumartesi' ],
+				dayNamesShort : [ 'Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct' ],
+				dayNamesMin : [ 'Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct' ],
+				weekHeader : 'Hf',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				month : 'Ay',
+				week : 'Hafta',
+				day : 'Gün',
+				allDayText : 'Tüm Gün'
+			};
+		</script>
+		<style type="text/css">
+.value {
+	width: 1000px;
+}
+</style>
+	</ui:define>
+</ui:composition>

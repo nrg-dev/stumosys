@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel rendered="#{libraryMB.flag1=='1'}" header="Book Borrower" toggleable="false"
+			style="min-height:100%;width:100%;">
+			<h:form>
+				<table width="100%">
+					<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="Class &amp; Section " for="borrowerClassID"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="75%" height="50px"><h:selectOneMenu
+								value="#{libraryMB.libraryDataBean.libStuClass}"
+								valueChangeListener="#{libraryMB.classChange}"
+								id="borrowerClassID" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Please Choose Class &amp; Section"
+									itemValue="Choose"></f:selectItem>
+								<f:selectItems value="#{libraryMB.classSectionList}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+							</h:selectOneMenu> <h:message for="borrowerClassID"
+								style="color:red;font-size:11px"></h:message><br></br></td>
+					</tr>
+					<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="Student Name " for="borrowerStudentID"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="75%" height="50px"><h:selectOneMenu
+								valueChangeListener="#{libraryMB.studentIDChange}"
+								value="#{libraryMB.libraryDataBean.libStudID}"
+								id="borrowerStudentID" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Please Choose Student Name"
+									itemValue="SS"></f:selectItem>
+								<f:selectItems value="#{libraryMB.studentIDList}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+							</h:selectOneMenu> <h:message for="borrowerStudentID"
+								style="color:red;font-size:11px"></h:message><br></br></td>
+					</tr>
+				</table>
+			</h:form>
+			<h:form>
+				<table width="100%">
+					<tr>
+						<td width="25%" height="50px"><h:outputText value="Category"
+								for="borrowerCategory" styleClass="labelTxt"></h:outputText> <span
+							style="color: red">*</span></td>
+						<td><h:selectOneMenu id="borrowerCategory"
+								value="#{libraryMB.libraryDataBean.bookCategory}"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{libraryMB.CatogoryChange}">
+								<f:selectItem itemLabel="Please Choose Category"
+									noSelectionOption="true"></f:selectItem>
+								<f:selectItems value="#{libraryMB.categoryList}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+							</h:selectOneMenu> <h:message for="borrowerCategory"
+								style="color:red;font-size:11px"></h:message></td>
+					</tr>
+
+				</table>
+			</h:form>
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							rendered="#{libraryMB.renderFlag}" value="Books"
+							for="borrowerBooks" styleClass="labelTxt"></h:outputText></td>
+					<td><p:pickList rendered="#{libraryMB.renderFlag}"
+							value="#{libraryMB.availableBookList}" var="book"
+							itemLabel="#{book}" itemValue="#{book}" id="borrowerBooks"
+							showCheckbox="true" showSourceFilter="true"
+							showTargetFilter="true" showSourceControls="true"
+							showTargetControls="true" filterMatchMode="contains"
+							responsive="true">
+							<f:facet name="sourceCaption">Available Books </f:facet>
+							<f:facet name="targetCaption">Borrowed Books</f:facet>
+						</p:pickList> <br></br>
+					<h:message for="borrowerBooks" style="color:red;font-size:12px"></h:message><br></br>
+					</td>
+				</tr>
+			</table>
+			<center>
+				<p:commandButton ajax="false" value="Submit"
+					action="#{libraryMB.insertBorrowed}"></p:commandButton>
+			</center>
+		</p:panel>
+		
+		<p:panel id="addborowbook" rendered="#{libraryMB.flag2=='1'}">
+		<center>
+		<h:message for="addborowbook" style="color:red;font-size:12px"></h:message>
+		</center>
+		<table width="100%" >
+		<tr>
+		<td>
+		<h:outputText
+								value="Student Name " for="studentids"
+								styleClass="labelTxt"></h:outputText> <span
+							style="color: red">*</span>
+		</td>
+		<td>
+		       <h:selectOneMenu filter="true" filterMatchMode="contains"
+								value="#{libraryMB.libraryDataBean.libStudID}"
+								valueChangeListener="#{libraryMB.studentnamechange}"
+								id="studentids" styleClass="selecttext_ui1">
+								<f:selectItem itemLabel="Please Choose Student Name"
+									itemValue="Choose"></f:selectItem>
+								<f:selectItems value="#{libraryMB.studentlist}"></f:selectItems>
+								<p:ajax event="valueChange" immediate="true" process="@this"
+									update=":XX" />
+							</h:selectOneMenu> 
+							<h:message for="studentids"
+								style="color:red;font-size:11px"></h:message>
+							
+		</td>
+		</tr>
+		<tr>
+		<td width="25%" height="50px">
+	    <h:outputText value="Student ID" styleClass="labelTxt">
+	    </h:outputText><span
+							style="color: red">*</span>
+		</td>
+		<td width="75%" height="50px">
+	    <h:outputText id="stid" styleClass="inputTxt" value="#{libraryMB.libraryDataBean.studentid}">
+	    </h:outputText>
+	    
+	    
+	    
+		</td>
+			</tr>
+		<tr>
+		<td width="25%" height="50px">
+	    <h:outputText value="Student Name" styleClass="labelTxt">
+	    </h:outputText><span
+							style="color: red">*</span>
+		</td>
+		<td width="75%" height="50px">
+	    <h:outputText id="stname" styleClass="inputTxt" value="#{libraryMB.libraryDataBean.studentname}">
+	    </h:outputText>
+	    
+	    
+	    
+		</td>
+			</tr>
+			<tr>
+		<td width="25%" height="50px">
+	    <h:outputText value="Class Name" styleClass="labelTxt">
+	    </h:outputText><span
+							style="color: red">*</span>
+		</td>
+		<td width="75%" height="50px" >
+	    <h:outputText id="cname" styleClass="inputTxt" value="#{libraryMB.libraryDataBean.libStuClass}">
+	    </h:outputText>
+	    
+		</td>
+			</tr>	
+			<tr>
+		<td width="25%" height="50px">
+	    <h:outputText value="Book Name" styleClass="labelTxt">
+	    </h:outputText><span
+							style="color: red">*</span>
+		</td>
+		<td width="75%" height="50px" >
+	    <h:inputText id="bname" styleClass="inputTxt" style="font-size:14px;" value="#{libraryMB.libraryDataBean.bookName}">
+	    </h:inputText>
+	    <h:message for="bname"
+								style="color:red;font-size:11px"></h:message>
+	     
+		</td>
+			</tr>
+			<tr>
+		<td width="25%" height="50px">
+	    <h:outputText value="Due Date" styleClass="labelTxt">
+	    </h:outputText><span
+							style="color: red">*</span>
+		</td>
+		<td width="75%" height="50px" >
+	    <p:calendar id="duecal" styleClass="dateTimeField" value="#{libraryMB.libraryDataBean.borroweDate}">
+	   </p:calendar><br/>
+	   <h:message for="duecal"
+								style="color:red;font-size:11px"></h:message>
+		</td>
+			</tr>		
+				</table>
+				<center>
+				<p:commandButton value="Save" action="#{libraryMB.borrowerbookinsert}" ajax="false"></p:commandButton>
+				</center>
+		
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="BorrowerRegDialog" modal="true"
+			width="40%" height="40%" resizable="false"
+			visible="#{libraryMB.boxDialogflag}" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{libraryMB.libraryDataBean.libStudID} is Saved Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{libraryMB.returnToHome}" process="@this" value="OK"
+						oncomplete="PF('BorrowerRegDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" widgetVar="borrowbook" height="100px" width="50%" modal="true" resizable="false" position="center" appendTo="@(body)">
+		    <center>
+			    <h:outputText style="font-size:16px" value="Borrow Book Added Successfully"></h:outputText>
+			    <br></br>
+			    <p:commandButton  immediate="true"
+					action="#{libraryMB.returnToHome}" process="@this" value="OK" oncomplete="PF('borrowbook').hide()"></p:commandButton>
+		    </center>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

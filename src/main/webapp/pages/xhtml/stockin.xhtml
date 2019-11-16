@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+		<ui:define name="content">
+		<p:growl id="messages" showDetail="true" />
+		<p:panel header="Stock In" id="book" toggleable="false"
+			style="min-height:100%;">
+			
+		<p:dataTable var="bookInfo" editable="true" value="#{libraryMB.booklist}"
+					widgetVar="bookid" reflow="true"
+					emptyMessage="No information found with given criteria"
+				    paginator="true"
+					rows="10" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					resizableColumns="true" pageLinks="5">
+				<f:facet name="header">
+						<p:outputPanel style="text-align:right">
+
+							<h:inputText id="globalFilter"
+								onkeyup="PF('bookid').filter()"
+								style="width:20%;height:25px;" placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>					 <p:ajax event="rowEdit" listener="#{libraryMB.addquantitybook}" update=":XX:messages"/>
+       <p:ajax event="rowEditCancel" listener="#{libraryMB.onRowCancel}"  />
+					<p:column headerText="Book Name" filterBy="#{bookInfo.bookName}" filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{bookInfo.bookName}" />
+					</p:column>
+						<p:column headerText="Author Name" filterBy="#{bookInfo.authorName}" filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{bookInfo.authorName}" />
+					</p:column>
+					
+						<p:column headerText="Book Price" filterBy="#{bookInfo.price}" filterMatchMode="contains" filterStyle="display:none">
+					<h:outputText value="#{bookInfo.price}" />
+					</p:column>
+					
+					<p:column headerText="Add Quantity">
+					<p:cellEditor>
+        <f:facet name="output"> <h:outputText value="#{bookInfo.quantity}" /></f:facet>
+        <f:facet name="input"><h:inputText id="qunti"  value="#{bookInfo.quantity}"  style="width:80%"/></f:facet>
+            </p:cellEditor>
+           
+										</p:column>
+<p:column headerText="Edit Quantity" width="100">
+					 <p:rowEditor></p:rowEditor>
+					
+					</p:column>
+			</p:dataTable>
+			</p:panel>
+			<p:dialog header="CONFORMATION" widgetVar="bookedit" height="100px" width="25%" modal="true" resizable="false" position="center" appendTo="@(body)">
+    <center>
+    <h:outputText style="font-size:16px" value="Add stock Successfully"></h:outputText>
+    <p:commandButton value="OK" oncomplete="PF('bookedit').hide()"></p:commandButton>
+    </center>
+</p:dialog>
+		</ui:define>
+	</ui:composition>

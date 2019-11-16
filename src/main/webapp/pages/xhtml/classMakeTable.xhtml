@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+	<p:panel id="classblockUI" style="border:0px;">
+		<p:panel header="Make Class Time Table" toggleable="false"
+			style="min-height:100%;width:100%;" id="classblockUI1" rendered="#{!classTimeTableMB.panelFlag}">
+
+			<table width="100%">
+				<h:outputLabel value="Period 1 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"></h:outputLabel>
+					
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject}"
+							id="subjectt" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange}"
+							onchange="submit()">
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode}"
+							id="subcode" placeholder="Subject Code" readonly="true"
+							styleClass="inputTxt"></h:inputText>
+						<br></br> <h:message for="subcode"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+							<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID}"
+							id="teaID" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+							
+					<td width="20%" valign="top"> <p:calendar
+							style="height:25px;width: 208px; font-size: 12px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime}"
+							id="startTime" pattern="HH:mm" timeOnly="true">
+							 
+						</p:calendar> <p:watermark for="startTime" value="Start Time" /> <br></br> <h:message
+							for="startTime" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:25px;width:208px; font-size: 12px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime}"
+							id="endTime" placeholder="End Time"  
+							pattern="HH:mm" timeOnly="true">
+							 
+						</p:calendar> <p:watermark for="endTime" value="End Time" /> <br></br> <h:message
+							for="endTime" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+
+				</tr>
+			
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 2 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject1}"
+							id="subjectt1" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange1}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt1"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode1}"
+							id="subcode1" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 >
+						</h:inputText> <br></br> <h:message for="subcode1"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+							<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID1}"
+							id="teaID1" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList1}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID1"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime1}"
+							id="startTime1"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime1" value="Start Time" /> <br></br> <h:message
+							for="startTime1" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime1}"
+							id="endTime1" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime1" value="End Time" /> <br></br> <h:message
+							for="endTime1" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+				</tr>
+				
+			</table>
+			<br></br>
+			<table width="100%">
+
+				<h:outputLabel value="Period 3 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject2}"
+							id="subjectt2" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange2}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt2"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode2}"
+							id="subcode2" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode2" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID2}"
+							id="teaID2" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList2}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID2"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime2}"
+							id="startTime2"   pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime2" value="Start Time" /> <br></br> <h:message
+							for="startTime2" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime2}"
+							id="endTime2" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime2" value="End Time" /> <br></br> <h:message
+							for="endTime2" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+
+				</tr>
+				
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 4 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject3}"
+							id="subjectt3" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange3}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt3"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode3}"
+							id="subcode3" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode3" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID3}"
+							id="teaID3" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList3}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID4"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime3}"
+							id="startTime3"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime3" value="Start Time" /> <br></br> <h:message
+							for="startTime3" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime3}"
+							id="endTime3" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime3" value="End Time" /> <br></br> <h:message
+							for="endTime3" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					
+				</tr>
+				
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 5 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject4}"
+							id="subjectt4" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange4}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt4"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode4}"
+							id="subcode4" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode4" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID4}"
+							id="teaID4" styleClass="selecttext_ui1"
+						>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList4}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID4"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime4}"
+							id="startTime4"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime4" value="Start Time" /> <br></br> <h:message
+							for="startTime4" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime4}"
+							id="endTime4" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime4" value="End Time" /> <br></br> <h:message
+							for="endTime4" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					
+				</tr>
+				
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 6 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject5}"
+							id="subjectt5" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange5}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt5"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode5}"
+							id="subcode5" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode5" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID5}"
+							id="teaID5" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList5}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID5"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime5}"
+							id="startTime5"   pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime5" value="Start Time" /> <br></br> <h:message
+							for="startTime5" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime5}"
+							id="endTime5" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime5" value="End Time" /> <br></br> <h:message
+							for="endTime5" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					
+				</tr>
+			
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 7 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject6}"
+							id="subjectt6" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange6}"
+							onchange="submit()"  >
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+						</h:selectOneMenu> <br></br> <h:message for="subjectt6"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode6}"
+							id="subcode6" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode6" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID6}"
+							id="teaID6" styleClass="selecttext_ui1"
+							>
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList6}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID6"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime6}"
+							id="startTime6"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime6" value="Start Time" /> <br></br> <h:message
+							for="startTime6" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime6}"
+							id="endTime6" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime6" value="End Time" /> <br></br> <h:message
+							for="endTime6" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					 
+				</tr>
+				
+			</table>
+			<br></br>
+			<table width="100%">
+				<h:outputLabel value="Period 8 :"
+					style="font-family: Book Antiqua ;font-size: 15px;"
+					 ></h:outputLabel>
+				<tr>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject7}"
+							id="subjectt7" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange7}"
+							  onchange="submit()">
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+								
+						</h:selectOneMenu> <br></br> <h:message for="subjectt7"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode7}"
+							id="subcode7" placeholder="Subject Code" readonly="true"
+							style="height:30px;width: 180px; font-size: 15px;"
+							 ></h:inputText> <br></br> <h:message
+							for="subcode7" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID7}"
+							id="teaID7" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList7}" />
+						</h:selectOneMenu> <br></br> <h:message for="teaID7"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width: 180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime7}"
+							id="startTime7"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="startTime7" value="Start Time" /> <br></br> <h:message
+							for="startTime7" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					<td width="20%" valign="top"> <p:calendar
+							style="height:30px;width:180px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime7}"
+							id="endTime7" placeholder="End Time"  pattern="HH:mm" timeOnly="true"
+							  >
+							 
+						</p:calendar> <p:watermark for="endTime7" value="End Time" /> <br></br> <h:message
+							for="endTime7" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+					 
+				</tr>
+			</table>
+			<table align="center">
+				<tr align="center">
+					<td align="center"><p:commandButton icon="fa fa-database"
+							value="Save" action="#{classTimeTableMB.classTimTable}"
+							style="width:100px;" ajax="false" 
+							 ></p:commandButton></td>
+				</tr>
+			</table>
+
+
+		</p:panel>
+		
+		<p:panel rendered="#{classTimeTableMB.panelFlag}" header="Make Class Time Table" toggleable="false"
+			style="min-height:100%;width:100%;" id="classblockUI2">
+		<br/>
+				<table width="100%">
+				<tr><td colspan="4">
+				<div align="center" ><h:inputText style="display:none;" id="ermsg"></h:inputText>
+				<h:message for="ermsg" style="color:red;font-size:10px;"></h:message>
+				<br/>
+				</div></td></tr>
+					<tr>
+					
+						<td width="25%" height="50px">
+						
+						<h:outputText
+								value="Subject Name " for="subjectname"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="25%" height="50px"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.subject}"
+							id="subjectname" styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableMB.subjectChange}">
+							<f:selectItem itemLabel="Select Subject" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectlist}" />
+								<p:ajax event="valueChange" update=":XX" process="@this"></p:ajax>
+						</h:selectOneMenu><br></br> <h:message for="subjectname"
+							style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="25%" height="50px"><h:outputText
+								value="Subject Code " for="subjectcode"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="25%" height="50px"> <h:inputText
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode}" rendered="#{classTimeTableMB.codeflag}"
+							id="subjectcodes" placeholder="Subject Code" readonly="true"
+							styleClass="inputTxt"></h:inputText> 
+							<h:selectOneMenu rendered="#{classTimeTableMB.codeflag1}"
+							value="#{classTimeTableMB.classTimeTableDataBean.subjectCode}" valueChangeListener="#{classTimeTableMB.subjectCodeChange}"
+							id="subjectcode" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select Subject Code" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.subjectcodelist}" />
+								<p:ajax event="valueChange" update=":XX" process="@this"></p:ajax>
+						</h:selectOneMenu><br></br>
+							 <h:message
+							for="subjectcode" style="color:red;font-size:10px;"></h:message><br></br>
+						</td></tr>
+						<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="Teacher ID " for="teacherid"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="25%" height="50px"> <h:selectOneMenu
+							value="#{classTimeTableMB.classTimeTableDataBean.teaID}"
+							id="teacherid" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select TeacherID" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{classTimeTableMB.classTimeTableDataBean.teacherIDList}" />
+						</h:selectOneMenu><br></br> <h:message for="teacherid"
+							style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="25%" height="50px"><h:outputText
+								value="Start Time " for="starttime"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="25%" height="50px"> <p:calendar
+							style="height:25px;width: 208px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.startTime}"
+							id="starttime"  pattern="HH:mm" timeOnly="true"
+							 > 
+						</p:calendar> <p:watermark for="starttime" value="Start Time" /><br></br><h:message
+							for="starttime" style="color:red;font-size:10px;"></h:message><br></br>
+						</td></tr>
+						<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="End Time " for="endtime"
+								styleClass="labelTxt"></h:outputText> <span style="color: red">*</span>
+						</td>
+						<td width="25%" height="50px"> <p:calendar
+							style="height:25px;width: 208px; font-size: 15px;"
+							value="#{classTimeTableMB.classTimeTableDataBean.endTime}"
+							id="endtime"  pattern="HH:mm" timeOnly="true"> 
+						</p:calendar> <p:watermark for="endtime" value="End Time" /> <br></br> <h:message
+							for="endtime" style="color:red;font-size:10px;"></h:message><br></br>
+						</td></tr></table>
+			<br/><center>
+	<p:commandButton  icon="fa fa-plus" value="Add" action="#{classTimeTableMB.addclasstimetable}" update="XX timetables">
+	<p:collector value="#{classTimeTableMB.classTimeTableDataBean}" addTo="#{classTimeTableMB.classesBean}" unique="true"/>
+	</p:commandButton>
+	</center><br></br><br></br>
+            <p:outputPanel id="timetables" style="width:100%;align:center">
+        <p:dataTable value="#{classTimeTableMB.classesBean}" var="times" id="timetableDataTable">
+ 
+            <p:column headerText="Subject Name">
+                <h:outputText value="#{times.subject}" />
+            </p:column>
+ 
+            <p:column headerText="Subject Code">
+                <h:outputText value="#{times.subjectCode}" />
+            </p:column>
+            
+            <p:column headerText="Teacher ID">
+                <h:outputText value="#{times.teaID}" />
+            </p:column>
+            
+             <p:column headerText="Start Time">
+                <h:outputText value="#{times.startTime}">
+                <f:convertDateTime pattern="HH:mm"></f:convertDateTime>
+                </h:outputText> 
+            </p:column>
+            
+             <p:column headerText="End Time">
+                <h:outputText value="#{times.endTime}" >
+                <f:convertDateTime pattern="HH:mm"></f:convertDateTime>
+                </h:outputText>
+            </p:column>
+ 
+            <p:column headerText="Action" width="18%">
+                <p:commandButton icon="fa fa-trash-o" update=":XX" style="font-family: book antiqua;font-size: 13px;">
+                    <p:collector value="#{times}" removeFrom="#{classTimeTableMB.classesBean}" unique="true"/>
+                </p:commandButton>
+            </p:column>
+ 
+        </p:dataTable>
+    </p:outputPanel>
+	<br/><br/>
+		<table align="center">
+				<tr align="center">
+					<td align="center"><p:commandButton icon="fa fa-database"
+							value="Save" action="#{classTimeTableMB.classTimTable}"
+							style="width:100px;" ajax="false" 
+							 ></p:commandButton></td>
+				</tr>
+			</table>
+		</p:panel>
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="classTime" modal="true" width="40%"
+			height="40%" resizable="false"
+			visible="#{classTimeTableMB.confirmflag}" dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{classTimeTableMB.classTimeTableDataBean.classname} time table is successfully saved "></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{classTimeTableMB.returnForm}" process="@this" value="OK"
+						oncomplete="PF('classTime').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="classblocksUI" block="classblockUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{classTimeTableMB.classTimeTableInsert}"
+			name="classtable"></p:remoteCommand>
+
+
+	</ui:define>
+</ui:composition>

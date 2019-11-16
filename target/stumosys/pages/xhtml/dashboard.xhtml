@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+	<f:loadBundle var="pathBundle" basename="com.sms.paths"></f:loadBundle>
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+			<div id="layout-portlets-cover">
+				<div class="section bg">
+
+					<div class="Container100 NoIndent pad">
+					<h:panelGroup rendered="#{sessionScope.schoolID!=pathBundle['MALAYSIA.SCHOOLID']}">
+						<div class="Container20 Responsive50 SmallIndent" >
+							<div class="Container100 dashboard5 TexAlCenter ui-fluid">
+								<div class="Container100">
+									<p:graphicImage value="/images/attendance.png" />
+								</div>
+								<div class="Container100">
+									<div class="FontSourceSansRegular Fs161 White">Take
+										Attendance</div>
+									<div class="EmptyBox20"></div>
+									<p:commandButton icon="fa fa-arrow-circle-o-right"
+										style="width:100px" value="GoTo"
+										action="#{attendanceMB.markAttendancePage}" ajax="false"></p:commandButton>
+								</div>
+							</div>
+						</div>
+						<div class="Container20 Responsive50 SmallIndent">
+							<div class="Container100 dashboard6 TexAlCenter ui-fluid">
+								<div class="Container100">
+									<p:graphicImage value="/images/behaviour.png" />
+								</div>
+								<div class="Container100">
+									<div class="FontSourceSansRegular Fs161 White">Student
+										Behaviour</div>
+									<div class="EmptyBox20"></div>
+									<p:commandButton icon="fa fa-arrow-circle-o-right"
+										style="width:100px" value="GoTo"
+										action="#{studentPerformanceMB.attitudePage}" ajax="false"></p:commandButton>
+								</div>
+							</div>
+						</div>
+						</h:panelGroup>
+						<div class="Container20 Responsive50 SmallIndent">
+							<div class="Container100 dashboard7 TexAlCenter ui-fluid">
+								<div class="Container100">
+									<p:graphicImage value="/images/book1.png" />
+								</div>
+								<div class="Container100">
+									<div class="FontSourceSansRegular Fs161 White">School
+										Library</div>
+									<div class="EmptyBox20"></div>
+									<p:commandButton icon="fa fa-arrow-circle-o-right"
+										style="width:100px" value="GoTo"
+										action="#{libraryViewMB.bookListPage}" ajax="false" />
+								</div>
+							</div>
+						</div>
+						<div class="Container20 Responsive50 SmallIndent">
+							<div class="Container100 dashboard8 TexAlCenter ui-fluid">
+								<div class="Container100">
+									<p:graphicImage value="/images/timetable.png" />
+								</div>
+								<div class="Container100">
+									<div class="FontSourceSansRegular Fs161 White">Time Table</div>
+									<div class="EmptyBox20"></div>
+									<p:commandButton icon="fa fa-arrow-circle-o-right"
+										style="width:100px" value="GoTo"
+										action="#{timeTableViewMB.timeTableView}" ajax="false" />
+								</div>
+							</div>
+						</div>
+						<h:panelGroup rendered="#{sessionScope.schoolID!=pathBundle['MALAYSIA.SCHOOLID']}">
+						<div class="Container20 Responsive50 SmallIndent">
+							<div class="Container100 BlueDarkerBack TexAlCenter ui-fluid">
+								<div class="Container100">
+									<p:graphicImage value="/images/repoart1.png" />
+								</div>
+								<div class="Container100">
+									<div class="FontSourceSansRegular Fs161 White">Report Card</div>
+									<div class="EmptyBox20"></div>
+									<p:commandButton icon="fa fa-arrow-circle-o-right"
+										style="width:100px" action="#{reportCardMB.addMarkPage}"
+										value="GoTo" ajax="false" />
+								</div>
+							</div>
+						</div>
+						</h:panelGroup>
+
+					</div>
+				</div>
+				<center>
+					<p:outputLabel value="#{loginMB.month} Time Table" style="font-size: 16px;padding-bottom: 0px;margin-bottom: -17px;text-transform: uppercase;font-weight: 900;"></p:outputLabel>
+				</center>
+				<div class="Container100 SmallIndent Responsive100">
+					<div class="Container100 PadLeftRightZero">
+						<div class="Container100 WhiteBack"
+							style="border: solid 1px #D6D7D9;">
+							<div class="Container100 BlueBack Responsive50"
+								style="border: solid 1px #D6D7D9;">
+								<div class="Container100 WhiteBack">
+									<p:dataTable var="tableinfo"
+										value="#{loginMB.classtimetablelist}" widgetVar="examInfo"
+										rendered="#{loginMB.flag1}">
+
+										<p:column headerText="Day">
+											<h:outputText value="#{tableinfo.day}" />
+										</p:column>
+										<p:column headerText="1">
+											<h:outputText value="#{tableinfo.subject}" />
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID}" />
+										</p:column>
+										<p:column headerText="2">
+											<h:outputText value="#{tableinfo.subject1}" />
+             &nbsp; <h:outputText value="#{tableinfo.subjectCode1}" />
+              &nbsp; <h:outputText value="#{tableinfo.teaID1}" />
+										</p:column>
+										<p:column headerText="3">
+											<h:outputText value="#{tableinfo.subject2}" />
+             &nbsp; <h:outputText value="#{tableinfo.subjectCode2}" />
+              &nbsp; <h:outputText value="#{tableinfo.teaID2}" />
+										</p:column>
+										<p:column headerText="4">
+											<h:outputText value="#{tableinfo.subject3}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode3}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID3}" />
+										</p:column>
+										<p:column headerText="5">
+											<h:outputText value="#{tableinfo.subject4}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode4}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID4}" />
+										</p:column>
+										<p:column headerText="6">
+											<h:outputText value="#{tableinfo.subject5}" />
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode5}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID5}" />
+										</p:column>
+										<p:column headerText="7">
+											<h:outputText value="#{tableinfo.subject6}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode6}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID6}" />
+										</p:column>
+										<p:column headerText="8">
+											<h:outputText value="#{tableinfo.subject7}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.subjectCode7}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID7}" />
+										</p:column>
+										<p:column headerText="9" rendered="#{loginMB.exflag}">
+											<h:outputText value="#{tableinfo.exSubject}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.exSubjectcode}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID8}" />
+										</p:column>
+										<p:column headerText="10" rendered="#{loginMB.exflag1}">
+											<h:outputText value="#{tableinfo.exSubject1}">
+											</h:outputText>
+            &nbsp; <h:outputText value="#{tableinfo.exSubjectcode1}" />
+             &nbsp; <h:outputText value="#{tableinfo.teaID9}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="Container100 SmallIndent Responsive100">
+					<div class="Container100 PadLeftRightZero">
+						<div class="Container100 WhiteBack"
+							style="border: solid 1px #D6D7D9;">
+							<div class="Container100 BlueBack Responsive50"
+								style="border: solid 1px #D6D7D9;">
+								<div class="Container100 WhiteBack">
+									<center>
+										<h:panelGrid columnClasses="value">
+
+
+											<p:schedule value="#{loginMB.lazyEventModel}"
+												rendered="#{loginMB.scheduleFlag1}" timeZone="GMT+15"
+												draggable="false">
+												<p:ajax event="eventSelect"
+													listener="#{loginMB.onEventSelect}" update="eventDetails"
+													oncomplete="PF('eventDialog').show();" />
+											</p:schedule>
+
+										</h:panelGrid>
+
+									</center>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<p:dialog widgetVar="eventDialog" header="Event Details" modal="true"
+				appendTo="@(body)">
+				<h:panelGrid id="eventDetails" columns="2">
+					<p:outputLabel value="Title:" />
+					<p:outputLabel value="#{loginMB.event.title}" />
+					<p:outputLabel value="From Date:" />
+					<p:outputLabel value="#{loginMB.event.startDate}">
+						<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+					</p:outputLabel>
+					<p:outputLabel value="To Date:" />
+					<p:outputLabel value="#{loginMB.event.endDate}">
+						<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+					</p:outputLabel>
+				</h:panelGrid>
+			</p:dialog>
+
+
+		</h:form>
+		<script type="text/javascript">
+    PrimeFaces.locales['tr'] = {
+        closeText: 'kapat',
+        prevText: 'geri',
+        nextText: 'ileri',
+        currentText: 'bugün',
+        monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
+            'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+        monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
+            'Tem','Ağu','Eyl','Eki','Kas','Ara'],
+        dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
+        dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        weekHeader: 'Hf',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        month: 'Ay',
+        week: 'Hafta',
+        day: 'Gün',
+        allDayText : 'Tüm Gün'
+    };
+</script>
+		<style type="text/css">
+.value {
+	width: 1000px;
+}
+</style>
+	</ui:define>
+</ui:composition>

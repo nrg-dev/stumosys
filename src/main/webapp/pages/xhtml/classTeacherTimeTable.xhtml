@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+		<p:panel header="Teacher Class Time Table" toggleable="false"
+			style="min-height:100%;width:100%;">
+			<p:growl id="msgs" showDetail="true" />
+			<table width="100%">
+
+				<tr>
+					<td width="25%"><h:outputLabel value="Day "
+							styleClass="labelTxt"></h:outputLabel><span style="color: red;">
+							* </span></td>
+					<td width="75%" height="50px"><br /> <h:selectOneMenu rendered="#{classTimeTableViewMB.flag2}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.day}"
+							styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableViewMB.teacherTableview}"
+							onchange="submit()">
+							<f:selectItem itemLabel="Select Day" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Monday" itemValue="Monday" />
+							<f:selectItem itemLabel="Tuesday" itemValue="Tuesday" />
+							<f:selectItem itemLabel="Wednesday" itemValue="Wednesday" />
+							<f:selectItem itemLabel="Thursday" itemValue="Thursday" />
+							<f:selectItem itemLabel="Friday" itemValue="Friday" />
+							<f:selectItem itemLabel="Saturday" itemValue="Saturday" />
+						</h:selectOneMenu>
+						 <h:selectOneMenu rendered="#{classTimeTableViewMB.flag1}"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.day}"
+							styleClass="selecttext_ui1"
+							valueChangeListener="#{classTimeTableViewMB.teacherTableview}"
+							onchange="submit()">
+							<f:selectItem itemLabel="Select Day" itemValue=""
+								noSelectionOption="true" />
+								<f:selectItem itemLabel="Sunday" itemValue="Sunday" />
+							<f:selectItem itemLabel="Monday" itemValue="Monday" />
+							<f:selectItem itemLabel="Tuesday" itemValue="Tuesday" />
+							<f:selectItem itemLabel="Wednesday" itemValue="Wednesday" />
+							<f:selectItem itemLabel="Thursday" itemValue="Thursday" />
+							<f:selectItem itemLabel="Friday" itemValue="Friday" />
+							<f:selectItem itemLabel="Saturday" itemValue="Saturday" />
+						</h:selectOneMenu>
+						 <br></br> <h:message for="day" style="color:red;font-size:10px;"></h:message><br></br>
+					</td>
+				</tr>
+				<tr align="center">
+					<td colspan="2"><br></br> <p:dataTable width="100%"
+							id="TimeTable" var="teachertable" widgetVar="timetable"
+							value="#{classTimeTableViewMB.classTimeTableDataBean.classtimeList}"
+							reflow="true" rendered="#{classTimeTableViewMB.flag}"
+							emptyMessage="No information found with given criteria"
+							filteredValue="#{classTimeTableViewMB.filteredclass}"
+							paginator="true" rows="10" editable="true"
+							paginatorAlwaysVisible="false" paginatorPosition="bottom"
+							resizableColumns="true" pageLinks="5">
+							<f:facet name="header">
+								<p:outputPanel style="text-align:right">
+									<h:inputText id="globalFilter"
+										onkeyup="PF('timetable').filter()"
+										style="width:20%;height:25px;" placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column headerText="#" filterMatchMode="contains"
+								filterStyle="display:none">
+								<h:outputText value="#{teachertable.serialno}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Class" filterBy="#{teachertable.classname}"
+								filterMatchMode="contains" filterStyle="display:none">
+								<h:outputText value="#{teachertable.classname}">
+
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Subject" filterBy="#{teachertable.subject}"
+								filterMatchMode="contains" filterStyle="display:none">
+								<h:outputText value="#{teachertable.subject}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Subject Code"
+								filterBy="#{teachertable.subjectCode}"
+								filterMatchMode="contains" filterStyle="display:none">
+								<h:outputText value="#{teachertable.subjectCode}">
+								</h:outputText>
+								<f:facet name="footer">
+									<h:commandLink>
+										<p:graphicImage value="/images/pdf.png"></p:graphicImage>
+										<p:dataExporter type="pdf" target="TimeTable"
+											fileName="Class Time Table Info"
+											preProcessor="#{classTimeTableViewMB.preProcessPDF}"></p:dataExporter>
+
+									</h:commandLink>
+								</f:facet>
+							</p:column>
+							<p:column headerText="Start Time"
+								filterBy="#{teachertable.startTime}" filterMatchMode="contains"
+								filterStyle="display:none">
+								<h:outputText value="#{teachertable.timeStart}" />
+							</p:column>
+							<p:column headerText="End Time"
+								filterBy="#{teachertable.endTime}" filterMatchMode="contains"
+								filterStyle="display:none">
+								<h:outputText value="#{teachertable.timeEnd}">
+
+								</h:outputText>
+							</p:column>
+
+						</p:dataTable></td>
+				</tr>
+
+			</table>
+			<br />
+			<center>
+				<p:commandButton icon="ui-icon-print" value="Print"
+					rendered="#{classTimeTableViewMB.flag}" style="margin-left:+50px;">
+					<p:printer target="TimeTable"></p:printer>
+				</p:commandButton>
+			</center>
+		</p:panel>
+	</ui:define>
+</ui:composition>

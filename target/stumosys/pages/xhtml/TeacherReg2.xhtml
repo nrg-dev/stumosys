@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+		<p:panel header="Other Details" toggleable="false" style="min-height:100%;">
+			<p:steps activeIndex="2" styleClass="custom" readonly="true">
+				<p:menuitem value="Personal" />
+				<p:menuitem value="Address" />
+				<p:menuitem value="Other Details" />
+				<p:menuitem value="Education Details" />
+			</p:steps>
+
+			<br />
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><br></br> <h:outputLabel
+							value="Teacher ID" styleClass="labelTxt" for="TTeacherID"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><br></br> <h:inputText
+							value="#{teacherMB.teacherDataBean.teaID}" id="TTeacherID"
+							styleClass="inputTxt" tabindex="1" maxlength="15"></h:inputText>
+						<br></br> <h:message for="TTeacherID"
+							style="color:red;font-size:10px"></h:message><br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Post / Position" styleClass="labelTxt" for="TPost"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><h:inputText
+							value="#{teacherMB.teacherDataBean.teaPosition}" id="TPost"
+							styleClass="inputTxt" tabindex="2" maxlength="25"></h:inputText>
+						<br></br>
+					<h:message for="TPost" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px" valign="top"><h:outputLabel
+							value="Faculties / Subject" styleClass="labelTxt" for="TSubject"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><p:pickList value="#{teacherMB.subjectList}"
+							var="subj" itemLabel="#{subj}" itemValue="#{subj}" id="TSubject"
+							showCheckbox="true" showSourceFilter="true"
+							showTargetFilter="true" showSourceControls="true"
+							showTargetControls="true" filterMatchMode="contains"
+							responsive="true">
+							<f:facet name="sourceCaption">Choose</f:facet>
+							<f:facet name="targetCaption">Choosen</f:facet>
+						</p:pickList> <br></br>
+					<h:message for="TSubject" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px" valign="top"><h:outputLabel
+							value="Class" styleClass="labelTxt" for="TClass"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><p:pickList id="TClass" itemValue="#{cList}"
+							itemLabel="#{cList}" value="#{teacherMB.classList}" var="cList"
+							showCheckbox="true" showSourceFilter="true"
+							showTargetFilter="true" showSourceControls="true"
+							showTargetControls="true" filterMatchMode="contains"
+							responsive="true">
+							<f:facet name="sourceCaption">Choose</f:facet>
+							<f:facet name="targetCaption">Choosen</f:facet>
+						</p:pickList> <br></br>
+					<h:message for="TClass" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Working Hour " styleClass="labelTxt" for="TWorking"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%"><h:selectOneMenu
+							value="#{teacherMB.teacherDataBean.teaWorkingHour}" id="TWorking"
+							styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select One" noSelectionOption="true" />
+							<f:selectItem itemLabel="Part Time" itemValue="Part Time" />
+							<f:selectItem itemLabel="Full Time" itemValue="Full Time" />
+						</h:selectOneMenu> <br></br>
+					<h:message for="TWorking" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<h:panelGroup rendered="#{teacherMB.meuflag}">
+				<tr>
+	<td width="25%" height="50px"><h:outputLabel value="Menus"
+							styleClass="labelTxt" for="menu"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+	<td width="75%" height="50px"><p:selectCheckboxMenu id="menus"  label="Menus" value="#{teacherMB.teacherDataBean.menus}"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:30%" style="width:52%">
+            <f:selectItems value="#{teacherMB.menulist}" />
+        </p:selectCheckboxMenu>&nbsp;&nbsp;&nbsp;<p:commandButton icon="fa fa-check" update="display" style="padding: 0.1em;"/>
+        <br></br>
+		<h:message for="menus" style="color:red;font-size:10px"></h:message><br></br>
+        </td></tr>
+        <tr><td></td><td><p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px">
+        <p:dataList value="#{teacherMB.teacherDataBean.menus}" var="menu" emptyMessage="No menus selected">
+            #{menu}
+        </p:dataList>
+    </p:outputPanel> </td></tr></h:panelGroup>
+				<tr align="center">
+					<td colspan="2"><p:commandButton id="reset" value="Back"
+							icon="fa fa-arrow-circle-o-left"
+							action="TeacherReg1.xhtml?faces-redirect=true;" /> <p:commandButton
+							id="save" value="Next" update="@form"
+							icon="fa fa-arrow-circle-o-right"
+							action="#{teacherMB.teacherPage2}" /></td>
+				</tr>
+			</table>
+
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	
+		<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+		<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+		<link type="text/css" rel="stylesheet" href="../../css/stumosysdashboard.css"> </link>
+			<style type="text/css">
+				.myclass .fc-event,
+				.myclass a,
+				.myclass .fc-event-inner{
+					   background-color: red;
+					   border-color: red;
+					   color: white;
+					}
+					
+					
+				 a:hover{
+					    color: black !important;
+					    }
+			</style>
+	
+	<ui:define name="content">
+		<style type="text/css">
+				.ui-datatable-tablewrapper {
+				    overflow-x: hidden;
+				}
+				
+				a, a:hover, a:active, a:focus {
+				    color: #0D47A1;
+				    text-decoration: none;
+				    outline: none;
+				    outline-offset: 0;
+				}
+			</style>
+	<p:panel style="min-height:100%;width:100%" header="LIST OF REPORTS" toggleable="false"  >
+	<f:facet name="header">
+		<center>
+			<h:outputText  value="LIST OF REPORTS" style="font-size: 25px;"/>
+		</center>
+	</f:facet>
+	<p:outputPanel style="min-height:100%;width:100%">
+			<ui:repeat value="#{reportMB.reportDataBean.reportList}" var="reportList" >
+			<div class="ui-g-3">
+			        <h:panelGroup style="width:25%">
+			        
+	            	 <h:panelGrid columns="4">
+			                <h:panelGroup>
+		            		<div class="ui-g colorbox colorbox-1" style="width: 200px; background-color: #2196F3;text-transform:uppercase; " >
+		                    			<div class="ui-g-4" style="background-color: #1565C0;">
+		                    			<h:panelGroup rendered="true">
+		                       				<img src="../../images/reporticon.png" style="width: 45px;" />
+		                       			</h:panelGroup> 
+		                    			</div>
+			                    		<div class="ui-g-8">
+			                        			<p:commandLink update="XX" style="color:white;font-size: 14px;" actionListener="#{reportMB.reportBasedPage(reportList)}" onstart="PF('statusDialog').show()"
+			                        			oncomplete="PF('statusDialog').hide()" ajax="false">
+			                        			<span class="colorbox-name">#{reportList.reportName}</span>
+			                        			</p:commandLink>
+			                    		</div>
+		                	</div>
+		            	</h:panelGroup>
+		            </h:panelGrid>
+		        <hr />
+            	</h:panelGroup>
+           </div>
+    		</ui:repeat>
+    	</p:outputPanel>
+	</p:panel>
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		     <h:panelGrid  columns="2"
+		    style="table-layout:auto;">
+		    <p:graphicImage value="../../images/ajax-loader1.gif" />
+		    <h:outputText value="Please wait, data is being processed..."
+		     style="white-space: nowrap;" />
+		   </h:panelGrid>
+		    </p:dialog>
+	</ui:define>
+	</ui:composition>

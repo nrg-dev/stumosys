@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+	<p:growl id="messages" showDetail="true" />
+	<p:panel style="min-height:100%;width:100%" header="Student Class Information" toggleable="false" >
+	<table>
+		<p:panelGrid styleClass="ui-panelgrid-blank" columns="2">
+				<h:panelGroup>
+						<h:outputLabel
+							for="parViewClass" value="Class &amp; Section "
+							rendered="#{studentViewMB.flag1}" styleClass="labelTxt">
+						</h:outputLabel>
+				</h:panelGroup>
+				<h:selectOneMenu
+							id="parViewClass1"
+							value="#{studentViewMB.studentDataBean.teaclssection}"
+							valueChangeListener="#{studentViewMB.classChange}"
+							rendered="#{studentViewMB.flag1}" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel=" Select the Class" itemValue=""
+								noSelectionOption="true"></f:selectItem>
+								<f:selectItem itemLabel="ALL" itemValue="all" ></f:selectItem>
+							<f:selectItems value="#{studentViewMB.teaClass}"></f:selectItems>
+							<p:ajax event="valueChange" immediate="true" process="@this"
+								update=":XX" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+						</h:selectOneMenu><br></br>
+					<h:message for="parViewClass1" style="color:red;font-size:12px;"></h:message><br></br>
+			</p:panelGrid>
+	
+		
+	</table>
+	<br></br>
+	<p:dataTable var="StuInfo" editable="true" value="#{studentViewMB.studentList}"
+					widgetVar="studentInfo" reflow="true" id="student" rendered="#{studentViewMB.sflag}"
+					emptyMessage="No information found with given criteria"
+					resizableColumns="true" >
+				<f:facet name="header">
+						<p:outputPanel style="text-align:right">
+							<h:inputText id="globalFilter"
+								onkeyup="PF('studentInfo').filter()"
+								style="width:20%;height:25px;" placeholder="Enter keyword" />
+						</p:outputPanel>
+			   </f:facet>	
+			   <p:ajax event="rowEdit" listener="#{studentViewMB.updateclass}"
+									update=":XX:messages" />
+							<p:ajax event="rowEditCancel" listener="#{studentViewMB.onRowClassCancel}"
+									update=":XX:messages" />
+		
+					<p:column headerText="Roll Number" filterBy="#{StuInfo.stuRollNo}" filterMatchMode="contains" filterStyle="display:none">
+					<h:inputHidden value="#{StuInfo.stuStudentId}"></h:inputHidden>
+        				<h:outputText value="#{StuInfo.stuRollNo}" />
+					</p:column>
+					
+					<p:column headerText="Student Name" filterBy="#{StuInfo.names}" filterMatchMode="contains" filterStyle="display:none">
+        				<h:outputText value="#{StuInfo.names}" />
+					</p:column>
+					
+					<p:column headerText="Class">    
+							<p:cellEditor>
+										<f:facet name="output"> 
+											<h:outputText value="#{studentViewMB.studentDataBean.teaclssection}" id="sClass"> 
+    										</h:outputText>
+										</f:facet>
+										<f:facet name="input">
+										<h:selectOneMenu value="#{StuInfo.teaclssection}" id="class" styleClass="selecttext_ui1" style="width:100%">
+											<f:selectItem itemLabel="Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+											<f:selectItems value="#{studentViewMB.teaClass}" />
+											<f:attribute value="#{StuInfo.stuStudentId}" name="stuStudentId"></f:attribute>
+										</h:selectOneMenu>
+										</f:facet>
+							</p:cellEditor>
+										        		
+						<!-- <h:selectOneMenu
+							id="class"
+							value="#{studentViewMB.studentDataBean.stuCls}"
+							rendered="#{studentViewMB.flag1}" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel=" Select the Class" itemValue=""
+								noSelectionOption="true"></f:selectItem>
+							<f:selectItems value="#{studentViewMB.teaClass}"></f:selectItems>
+							<p:ajax event="valueChange" immediate="true" process="@this"/>
+						</h:selectOneMenu> -->
+							
+					</p:column>
+					
+					<p:column  headerText="Edit"  exportable="false">
+								<p:rowEditor></p:rowEditor>
+ 					</p:column>
+			</p:dataTable>
+			<p:dialog widgetVar="updateblock" header="Confirmation" height="70px" width="30%" modal="true" appendTo="@(body)"
+ 	 position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<h:outputText value="Student Class is Successfully Updated" style="font-size: 16px"> </h:outputText>
+		<br></br><br></br>
+		<p:commandButton value="OK" oncomplete="PF('updateblock').hide()"  process="@this" immediate="true"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+	</p:panel>
+	</ui:define>
+	</ui:composition>

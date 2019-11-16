@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+		<p:panel header="#{timeTableMB.timeTableDataBean.examTitle}"
+			toggleable="false" style="min-height:100%;" id="examBlockUI">
+
+			<p:panel style="min-height:100%;width:100%;">
+
+				<table width="100%">
+					<h:outputLabel value="Exam 1"></h:outputLabel>
+					<tr>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examStartDate}"
+								id="exDate" readonly="true" styleClass="inputTxt">
+								<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+							</h:inputText> <br></br> <h:message for="exDate"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText readonly="true"
+								value="#{timeTableMB.timeTableDataBean.examDay}" id="exDay"
+								styleClass="inputTxt">
+								</h:inputText> <br></br> <h:message for="exDay"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:selectOneMenu
+								value="#{timeTableMB.timeTableDataBean.examSubject}"
+								id="exSubject"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{timeTableMB.subjectcode}"
+								onchange="submit()">
+								<f:selectItem itemLabel="Select Subject"
+									noSelectionOption="true" />
+								<f:selectItems value="#{timeTableMB.timeTableDataBean.sublist}"></f:selectItems>
+							</h:selectOneMenu> <br></br> <h:message for="exSubject"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examSubjectCode}"
+								id="exSubCode" placeholder="Subject Code" readonly="true"
+								styleClass="inputTxt"></h:inputText><p:watermark value="Subject Code" for="exSubCode"></p:watermark>
+							<br></br> <h:message for="exSubCode"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+					</tr>
+					<tr>
+						<td width="20%"><h:inputText
+								value="#{timeTableMB.timeTableDataBean.examRoomNo}"
+								id="exRoomNo" placeholder="Room No" styleClass="inputTxt"></h:inputText> 
+								<p:watermark value="Room No" for="exRoomNo"></p:watermark> <br></br> <h:message
+								for="exRoomNo" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examStartTime}"
+								id="exStartTime" mode="popup" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.starttime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exStartTime" value="Start Time" /> <br></br>
+							<h:message for="exStartTime" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examEndTime}"
+								id="exEndTime" mode="popup" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.endtime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exEndTime" value="End Time" /> <br></br> <h:message
+								for="exEndTime" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<!-- <td width="20%"><h:selectOneMenu
+								style="height:30px;width: 200px; font-size: 15px;"
+								value="#{timeTableMB.timeTableDataBean.examShift}" id="exShift"
+								onchange="submit()"
+								<f:selectItem itemLabel="Select Shift" noSelectionOption="true" />
+								<f:selectItem itemLabel="Morning Shift"
+									itemValue="Morning Shift" />
+								<f:selectItem itemLabel="Evening Shift"
+									itemValue="Evening Shift" />
+							</h:selectOneMenu> <br></br> <h:message for="exShift"
+								style="color:red;font-size:10px;"></h:message><br></br></td> -->
+					</tr>
+					<tr>
+						<td colspan="4" align="right"><p:commandButton
+								value="Next Exam and Subject" ajax="false"
+								action="#{timeTableMB.nextExam}" rendered="#{timeTableMB.next1}"></p:commandButton>
+						</td>
+					</tr>
+					<tr align="center">
+						<td colspan="4"><br></br> <p:commandButton value="Submit"
+								action="#{timeTableMB.examTable}" ajax="false"
+								rendered="#{timeTableMB.next1}"></p:commandButton> <p:commandButton
+								value="Refresh" ajax="false" action="#{timeTableMB.reset1}"
+								rendered="#{timeTableMB.next1}"></p:commandButton></td>
+					</tr>
+				</table>
+				<table>
+					<h:outputLabel value="Exam 2" rendered="#{timeTableMB.next}"></h:outputLabel>
+
+					<tr>
+						<td width="20%"><br /> <p:calendar
+								value="#{timeTableMB.timeTableDataBean.examStartDate1}"
+								id="exDate1" pattern="dd-MM-yyyy" rendered="#{timeTableMB.next}"
+								placeholder="Exam Date" style="height:25px;width:208px">
+								<p:ajax event="dateSelect" listener="#{timeTableMB.dateChange1}" update="exDay1"></p:ajax>
+								</p:calendar> <br></br> <h:message
+								for="exDate1" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examDay1}" id="exDay1"
+								styleClass="inputTxt"
+								rendered="#{timeTableMB.next}">
+							</h:inputText> <br></br> <h:message for="exDay1"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:selectOneMenu
+								value="#{timeTableMB.timeTableDataBean.examSubject1}"
+								id="exSubject1"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{timeTableMB.subjectcode1}"
+								onchange="submit()" rendered="#{timeTableMB.next}">
+								<f:selectItem itemLabel="Select Subject"
+									noSelectionOption="true" />
+								<f:selectItems value="#{timeTableMB.timeTableDataBean.sublist}"></f:selectItems>
+							</h:selectOneMenu> <br></br> <h:message for="exSubject1"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examSubjectCode1}"
+								id="exSubCode1" placeholder="Subject Code" readonly="true"
+								rendered="#{timeTableMB.next}"
+								styleClass="inputTxt"></h:inputText><p:watermark value="Subject Code" for="exSubCode1"></p:watermark> 
+							<br></br> <h:message for="exSubCode1"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+					</tr>
+					<tr>
+						<td width="20%"><h:inputText
+								value="#{timeTableMB.timeTableDataBean.examRoomNo1}"
+								id="exRoomNo1" placeholder="Room No"
+								rendered="#{timeTableMB.next}" styleClass="inputTxt"></h:inputText> 
+								<p:watermark value="Room No" for="exRoomNo1"></p:watermark>
+								<br></br> <h:message
+								for="exRoomNo1" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examStartTime1}"
+								id="exStartTime1" mode="popup" widgetVar="popupTimeWidget"
+								rendered="#{timeTableMB.next}"
+								valueChangeListener="#{timeTableMB.starttime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exStartTime1" value="Start Time" /> <br></br>
+							<h:message for="exStartTime1" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examEndTime1}"
+								id="exEndTime1" placeholder="End Time" mode="popup"
+								rendered="#{timeTableMB.next}" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.endtime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exEndTime1" value="End Time" /> <br></br> <h:message
+								for="exEndTime1" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<!-- <td width="20%"><h:selectOneMenu
+								style="height:30px;width: 200px; font-size: 15px;"
+								value="#{timeTableMB.timeTableDataBean.examShift1}"
+								id="exShift1" rendered="#{timeTableMB.next}"
+								onchange="submit()">
+								<f:selectItem itemLabel="Select Shift" noSelectionOption="true" />
+								<f:selectItem itemLabel="Morning Shift"
+									itemValue="Morning Shift" />
+								<f:selectItem itemLabel="Evening Shift"
+									itemValue="Evening Shift" />
+							</h:selectOneMenu> <br></br> <h:message for="exShift1"
+								style="color:red;font-size:10px;"></h:message><br></br></td> -->
+					</tr>
+					<tr>
+						<td colspan="4" align="right"><p:commandButton
+								value="Next Exam and Subject" ajax="false"
+								action="#{timeTableMB.nextExam1}"
+								rendered="#{timeTableMB.next2}"></p:commandButton></td>
+					</tr>
+					<tr align="center">
+						<td colspan="4"><br></br> <p:commandButton value="Submit"
+								action="#{timeTableMB.examTable}" ajax="false"
+								rendered="#{timeTableMB.next2}"></p:commandButton> <p:commandButton
+								value="Refresh" ajax="false" action="#{timeTableMB.reset1}"
+								rendered="#{timeTableMB.next2}"></p:commandButton></td>
+					</tr>
+				</table>
+				<table>
+					<h:outputLabel value="Exam 3" rendered="#{timeTableMB.next3}"></h:outputLabel>
+
+					<tr>
+						<td width="20%"><br /> <p:calendar
+								value="#{timeTableMB.timeTableDataBean.examStartDate2}"
+								id="exDate3" pattern="dd-MM-yyyy" style="height:25px;width:208px"
+								rendered="#{timeTableMB.next3}" placeholder="Exam Date">
+								<p:ajax event="dateSelect" listener="#{timeTableMB.dateChange2}" update="exDay3"></p:ajax>
+								</p:calendar>
+							<br></br> <h:message for="exDate3"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText readonly="true"
+								value="#{timeTableMB.timeTableDataBean.examDay2}" id="exDay3"
+								styleClass="inputTxt"
+								rendered="#{timeTableMB.next3}">
+							</h:inputText> <br></br> <h:message for="exDay3"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:selectOneMenu
+								value="#{timeTableMB.timeTableDataBean.examSubject2}"
+								id="exSubject3"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{timeTableMB.subjectcode2}"
+								onchange="submit()" rendered="#{timeTableMB.next3}">
+								<f:selectItem itemLabel="Select Subject"
+									noSelectionOption="true" />
+								<f:selectItems value="#{timeTableMB.timeTableDataBean.sublist}"></f:selectItems>
+							</h:selectOneMenu> <br></br> <h:message for="exSubject3"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examSubjectCode2}"
+								styleClass="inputTxt"
+								id="exSubCode3" placeholder="Subject Code" readonly="true"
+								rendered="#{timeTableMB.next3}"></h:inputText> 
+								<p:watermark value="Subject Code" for="exSubCode3"></p:watermark><br></br> <h:message
+								for="exSubCode3" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><h:inputText
+								value="#{timeTableMB.timeTableDataBean.examRoomNo2}"
+								id="exRoomNo3" placeholder="Room No" styleClass="inputTxt"
+								rendered="#{timeTableMB.next3}"></h:inputText> 
+								<p:watermark value="Room No" for="exRoomNo3"></p:watermark><br></br> <h:message
+								for="exRoomNo3" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examStartTime2}"
+								id="exStartTime3" mode="popup" widgetVar="popupTimeWidget"
+								rendered="#{timeTableMB.next3}"
+								valueChangeListener="#{timeTableMB.starttime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exStartTime3" value="Start Time" /> <br></br>
+							<h:message for="exStartTime3" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examEndTime2}"
+								id="exEndTime3" placeholder="End Time" mode="popup"
+								rendered="#{timeTableMB.next3}" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.endtime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exEndTime3" value="End Time" /> <br></br> <h:message
+								for="exEndTime3" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<!-- <td width="20%"><h:selectOneMenu
+								style="height:30px;width: 200px; font-size: 15px;"
+								value="#{timeTableMB.timeTableDataBean.examShift2}"
+								id="exShift3" rendered="#{timeTableMB.next3}"
+								onchange="submit()">
+								<f:selectItem itemLabel="Select Shift" noSelectionOption="true" />
+								<f:selectItem itemLabel="Morning Shift"
+									itemValue="Morning Shift" />
+								<f:selectItem itemLabel="Evening Shift"
+									itemValue="Evening Shift" />
+
+							</h:selectOneMenu> <br></br> <h:message for="exShift3"
+								style="color:red;font-size:10px;"></h:message><br></br></td> -->
+					</tr>
+					<tr>
+						<td colspan="4" align="right"><p:commandButton
+								value="Next Exam and Subject" ajax="false"
+								action="#{timeTableMB.nextExam2}"
+								rendered="#{timeTableMB.next4}"></p:commandButton></td>
+					</tr>
+					<tr align="center">
+						<td colspan="4" align="center"><br></br> <p:commandButton
+								value="Submit" action="#{timeTableMB.examTable}" ajax="false"
+								rendered="#{timeTableMB.next4}"></p:commandButton> <p:commandButton
+								value="Refresh" ajax="false" action="#{timeTableMB.reset1}"
+								rendered="#{timeTableMB.next4}"></p:commandButton></td>
+					</tr>
+				</table>
+				<table>
+					<h:outputLabel value="Exam 4" rendered="#{timeTableMB.next5}"></h:outputLabel>
+
+					<tr>
+						<td width="20%"><br /> <p:calendar
+								value="#{timeTableMB.timeTableDataBean.examStartDate3}"
+								id="exDate4" pattern="dd-MM-yyyy" style="height:25px;width:208px"
+								rendered="#{timeTableMB.next5}" placeholder="Exam Date">
+								<p:ajax event="dateSelect" listener="#{timeTableMB.dateChange3}" update="exDay4"></p:ajax>
+								</p:calendar>
+							<br></br> <h:message for="exDate4"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText readonly="true"
+								value="#{timeTableMB.timeTableDataBean.examDay3}" id="exDay4"
+								styleClass="inputTxt"
+								rendered="#{timeTableMB.next5}">
+							</h:inputText> <br></br> <h:message for="exDay4"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:selectOneMenu
+								value="#{timeTableMB.timeTableDataBean.examSubject3}"
+								id="exSubject4"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{timeTableMB.subjectcode3}"
+								onchange="submit()" rendered="#{timeTableMB.next5}">
+								<f:selectItem itemLabel="Select Subject"
+									noSelectionOption="true" />
+								<f:selectItems value="#{timeTableMB.timeTableDataBean.sublist}"></f:selectItems>
+							</h:selectOneMenu> <br></br> <h:message for="exSubject4"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examSubjectCode3}"
+								styleClass="inputTxt"
+								id="exSubCode4"  readonly="true"
+								rendered="#{timeTableMB.next5}"></h:inputText><p:watermark value="Subject Code" for="exSubCode4"></p:watermark> <br></br> <h:message
+								for="exSubCode4" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><h:inputText
+								value="#{timeTableMB.timeTableDataBean.examRoomNo3}"
+								id="exRoomNo4" placeholder="Room No" styleClass="inputTxt"
+								rendered="#{timeTableMB.next5}"></h:inputText> <p:watermark value="Room No" for="exRoomNo4"></p:watermark><br></br> <h:message
+								for="exRoomNo4" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examStartTime3}"
+								id="exStartTime4" mode="popup" widgetVar="popupTimeWidget"
+								rendered="#{timeTableMB.next5}"
+								valueChangeListener="#{timeTableMB.starttime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exStartTime4" value="Start Time" /> <br></br>
+							<h:message for="exStartTime4" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examEndTime3}"
+								id="exEndTime4" placeholder="End Time" mode="popup"
+								rendered="#{timeTableMB.next5}" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.endtime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exEndTime4" value="End Time" /> <br></br> <h:message
+								for="exEndTime4" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<!-- <td width="20%"><h:selectOneMenu
+								style="height:30px;width: 200px; font-size: 15px;"
+								value="#{timeTableMB.timeTableDataBean.examShift3}"
+								id="exShift4" rendered="#{timeTableMB.next5}"
+								onchange="submit()">
+								<f:selectItem itemLabel="Select Shift" noSelectionOption="true" />
+								<f:selectItem itemLabel="Morning Shift"
+									itemValue="Morning Shift" />
+								<f:selectItem itemLabel="Evening Shift"
+									itemValue="Evening Shift" />
+							</h:selectOneMenu> <br></br> <h:message for="exShift4"
+								style="color:red;font-size:10px;"></h:message><br></br></td> -->
+					</tr>
+					<tr>
+						<td colspan="4" align="right"><p:commandButton
+								value="Next Exam and Subject" ajax="false"
+								action="#{timeTableMB.nextExam3}"
+								rendered="#{timeTableMB.next6}"></p:commandButton></td>
+					</tr>
+					<tr align="center">
+						<td colspan="4"><br></br> <p:commandButton value="Submit"
+								action="#{timeTableMB.examTable}" ajax="false"
+								rendered="#{timeTableMB.next6}"></p:commandButton> <p:commandButton
+								value="Refresh" ajax="false" action="#{timeTableMB.reset1}"
+								rendered="#{timeTableMB.next6}"></p:commandButton></td>
+					</tr>
+				</table>
+				<table>
+					<h:outputLabel value="Exam 5" rendered="#{timeTableMB.next7}"></h:outputLabel>
+
+					<tr>
+						<td width="20%"><br /> <p:calendar
+								value="#{timeTableMB.timeTableDataBean.examStartDate4}"
+								id="exDate5" pattern="dd-MM-yyyy" style="height:25px;width:208px"
+								rendered="#{timeTableMB.next7}" placeholder="Exam Date">
+								<p:ajax event="dateSelect" listener="#{timeTableMB.dateChange4}" update="exDay5"></p:ajax>
+								</p:calendar>
+							<br></br> <h:message for="exDate5"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examDay4}" id="exDay5"
+								styleClass="inputTxt"
+								rendered="#{timeTableMB.next7}" readonly="true"> 
+							</h:inputText> <br></br> <h:message for="exDay5"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:selectOneMenu
+								value="#{timeTableMB.timeTableDataBean.examSubject4}"
+								id="exSubject5"
+								styleClass="selecttext_ui1"
+								valueChangeListener="#{timeTableMB.subjectcode4}"
+								onchange="submit()" rendered="#{timeTableMB.next7}">
+								<f:selectItem itemLabel="Select Subject"
+									noSelectionOption="true" />
+								<f:selectItems value="#{timeTableMB.timeTableDataBean.sublist}"></f:selectItems>
+							</h:selectOneMenu> <br></br> <h:message for="exSubject5"
+								style="color:red;font-size:10px;"></h:message><br></br></td>
+						<td width="20%"><br /> <h:inputText
+								value="#{timeTableMB.timeTableDataBean.examSubjectCode4}"
+								id="exSubCode5"
+								styleClass="inputTxt"
+								placeholder="Subject Code" readonly="true"
+								rendered="#{timeTableMB.next7}"></h:inputText>
+								<p:watermark value="Subject Code" for="exSubCode5"></p:watermark> <br></br> <h:message
+								for="exSubCode5" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><h:inputText
+								value="#{timeTableMB.timeTableDataBean.examRoomNo4}"
+								id="exRoomNo5" placeholder="Room No" styleClass="inputTxt"
+								rendered="#{timeTableMB.next7}"></h:inputText>
+								<p:watermark value="Room No" for="exRoomNo5"></p:watermark> <br></br> <h:message
+								for="exRoomNo5" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examStartTime4}"
+								id="exStartTime5" mode="popup" widgetVar="popupTimeWidget"
+								rendered="#{timeTableMB.next7}"
+								valueChangeListener="#{timeTableMB.starttime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exStartTime5" value="Start Time" /> <br></br>
+							<h:message for="exStartTime5" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<td width="20%"><pe:timePicker
+								styleClass="inputTxt"
+								value="#{timeTableMB.timeTableDataBean.examEndTime4}"
+								id="exEndTime5" placeholder="End Time" mode="popup"
+								rendered="#{timeTableMB.next7}" widgetVar="popupTimeWidget"
+								valueChangeListener="#{timeTableMB.endtime}">
+								<p:ajax process="@this" immediate="true" event="timeSelect"></p:ajax>
+							</pe:timePicker> <p:watermark for="exEndTime5" value="End Time" /> <br></br> <h:message
+								for="exEndTime5" style="color:red;font-size:10px;"></h:message><br></br>
+						</td>
+						<!-- <td width="20%"><h:selectOneMenu
+								style="height:30px;width: 200px; font-size: 15px;"
+								value="#{timeTableMB.timeTableDataBean.examShift4}"
+								id="exShift5" rendered="#{timeTableMB.next7}"
+								onchange="submit()">
+								<f:selectItem itemLabel="Select Shift" noSelectionOption="true" />
+								<f:selectItem itemLabel="Morning Shift"
+									itemValue="Morning Shift" />
+								<f:selectItem itemLabel="Evening Shift"
+									itemValue="Evening Shift" />
+							</h:selectOneMenu> <br></br> <h:message for="exShift5"
+								style="color:red;font-size:10px;"></h:message><br></br></td> -->
+					</tr>
+
+					<tr align="center">
+						<td colspan="4"><br></br> <p:commandButton value="Submit"
+								action="#{timeTableMB.examTable}" ajax="false"
+								rendered="#{timeTableMB.next7}"></p:commandButton> <p:commandButton
+								value="Refresh" ajax="false" action="#{timeTableMB.reset1}"
+								rendered="#{timeTableMB.next7}"></p:commandButton></td>
+					</tr>
+				</table>
+			</p:panel>
+
+		</p:panel>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="examDialog" modal="true" width="40%"
+			height="40%" resizable="false" dynamic="true">
+			<h:form id="makeexamp">
+				<center>
+					<h:outputText value="Exam Time Table is Saved Successfully"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true" action="#{timeTableMB.addTimeTable}"
+						process="@this" value="OK" oncomplete="PF('examDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="checkDialog" modal="true"
+			visible="#{timeTableMB.checkflag}" width="40%" height="40%"
+			resizable="false" dynamic="true">
+			<h:form>
+				<center>
+					<h:outputText value="Already make exam for this class"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{timeTableMB.addTimeTable}" process="@this" value="OK"
+						oncomplete="PF('checkDialog').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="checkDialogz" modal="true"
+			visible="#{timeTableMB.checkflagz}" width="40%" height="40%"
+			resizable="false" dynamic="true">
+			<h:form id="makeexampConf">
+				<center>
+					<h:outputText value="Already make exam for this subject"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true"
+						action="#{timeTableMB.addTimeTable}" process="@this" value="OK"
+						oncomplete="PF('checkDialogz').hide()"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="examblocksUI" block="examBlockUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{timeTableMB.viewTimeTable}"
+			name="examtable"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+	<ui:define name="content">
+
+		<p:panel toggleable="false" header="Add Student" style="min-height:100%;">
+
+
+			<p:steps activeIndex="2" styleClass="custom" readonly="true">
+				<p:menuitem value="Personal Details" />
+				<p:menuitem value="Contact Details" />
+				<p:menuitem value="personal Information" />
+				<p:menuitem value="Confirmation" />
+			</p:steps>
+
+			<br />
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Father's Occupation " styleClass="labelTxt"
+							for="sFatherOccu"></h:outputLabel><span style="color: red;">
+							* </span></td>
+					<td width="75%" height="50px"><h:selectOneMenu
+							value="#{studentMB.studentDataBean.stuFatherOccu}"
+							id="sFatherOccu" widgetVar="fatherwv" styleClass="selecttext_ui1"
+							immediate="true">
+							<f:selectItem itemLabel="Select One" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="Business" itemValue="Business" />
+							<f:selectItem itemLabel="Employer" itemValue="Employer" />
+							<f:selectItem itemLabel="Banker" itemValue="Banker" />
+							<f:selectItem itemLabel="Teachers" itemValue="Teachers" />
+							<f:selectItem itemLabel="Farmer" itemValue="Farmer" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+						</h:selectOneMenu> <br></br>
+					<h:message for="sFatherOccu" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Father's Income Range " styleClass="labelTxt"
+							for="sFatherInRange"></h:outputLabel><span style="color: red;">
+							* </span></td>
+					<td width="75%" height="50px"><h:inputText
+							value="#{studentMB.studentDataBean.stuFatherIncome}"
+							id="sFatherInRange" styleClass="inputTxt"></h:inputText> <br></br>
+					<h:message for="sFatherInRange" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel
+							value="Mother's Occupation " styleClass="labelTxt"
+							for="sMotherOccu"></h:outputLabel><span style="color: red;">
+							* </span></td>
+					<td width="75%" height="50px"><h:selectOneMenu
+							value="#{studentMB.studentDataBean.stuMotherOccu}"
+							id="sMotherOccu" widgetVar="motherwv" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select One" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="House wife" itemValue="House wife" />
+							<f:selectItem itemLabel="Business" itemValue="Busines" />
+							<f:selectItem itemLabel="Employer" itemValue="Employer" />
+							<f:selectItem itemLabel="Banker" itemValue="Banker" />
+							<f:selectItem itemLabel="Teachers" itemValue="Teachers" />
+							<f:selectItem itemLabel="Farmer" itemValue="Farmer" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+						</h:selectOneMenu> <br></br>
+					<h:message for="sMotherOccu" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputLabel value="Class "
+							styleClass="labelTxt" for="sClass"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%" height="50px"><h:selectOneMenu
+							value="#{studentMB.studentDataBean.stuCls}" id="sClass"
+							widgetVar="classwv" styleClass="selecttext_ui1">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{studentMB.sclass1}" />
+
+						</h:selectOneMenu> <br></br>
+					<h:message for="sClass" style="color:red;font-size:10px"></h:message><br></br>
+					</td>
+				</tr>
+
+
+				<tr align="center">
+					<td colspan="2"><br></br> <p:commandButton value="Back"
+							action="studentRegistration1.xhtml" update="@form"
+							icon="ui-icon-triangle-1-e" rendered="#{studentMB.sflag}" /> <p:commandButton
+							value="Next" action="#{studentMB.stuRegPage3}" update="@form"
+							icon="ui-icon-triangle-1-e" rendered="#{studentMB.sflag}" /></td>
+				</tr>
+			</table>
+
+		</p:panel>
+	</ui:define>
+</ui:composition>

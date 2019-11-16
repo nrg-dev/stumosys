@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+	<f:loadBundle var="pathBundle" basename="com.sms.paths"></f:loadBundle>
+		<div class="home wrap-content on">
+			<div class="ui-grid ui-grid-responsive">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-4">
+						<p:commandLink action="#{feesPaymentViewMB.feesViewCall}" ajax="false">
+							<div class="box box-profile profile-link-box">
+								<div class="mask"></div>
+							<h:outputLabel styleClass="title" value="Online Payment Information"></h:outputLabel>	
+								
+								<span class="glyphicon glyphicon-usd"></span>
+
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="ui-grid-col-4">
+						<p:commandLink action="#{teacherViewMB.teacherInfo}" ajax="false">
+							<div class="box box-experience experience-link-box">
+								<div class="mask"></div>
+								<h:outputLabel styleClass="title" value="Teacher Information"></h:outputLabel>
+								<span class="glyphicon glyphicon-info-sign"></span>
+							</div>
+						</p:commandLink>
+					</div>
+					<div class="ui-grid-col-4">
+						<div class="box box-twitter">
+							<div class="title">Schedule</div>
+							<div id="tweet-feed">
+								<br /> <br />
+								<center>
+									<h:panelGrid columnClasses="value">
+
+
+										<p:schedule value="#{loginMB.lazyEventModel}"
+											rendered="#{loginMB.scheduleFlag1}" timeZone="GMT+15"
+											draggable="false">
+											<p:ajax event="eventSelect"
+												listener="#{loginMB.onEventSelect}" update="eventDetails"
+												oncomplete="PF('eventDialog').show();" />
+										</p:schedule>
+
+									</h:panelGrid>
+
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row raise">
+					<div class="ui-grid-row">
+					<h:panelGroup rendered="#{sessionScope.schoolID!=pathBundle['MALAYSIA.SCHOOLID']}">
+						<div class="ui-grid-col-2">
+							<p:commandLink
+								action="#{studentPerformanceViewMB.AttitudePageLoad}"
+								ajax="false">
+
+								<div class="box box-contact contact-link-box">
+									<div class="mask"></div>
+								<h:outputLabel styleClass="title" value="Performance"/>
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</div>
+							</p:commandLink>
+						</div>
+						</h:panelGroup>
+						<div class="ui-grid-col-2">
+							<p:commandLink action="#{timeTableViewMB.timeTableView}"
+								ajax="false">
+
+								<div class="box box-contact contact-link-box">
+									<div class="mask"></div>
+									<h:outputLabel styleClass="title" value="Exam Time Table"/>
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</div>
+							</p:commandLink>
+						</div>
+						<h:panelGroup rendered="#{sessionScope.schoolID!=pathBundle['MALAYSIA.SCHOOLID']}">
+						<div class="ui-grid-col-4">
+							<p:commandLink action="#{reportCardViewMB.marksheetviewpage}"
+								ajax="false">
+
+								<div class="box box-education education-link-box">
+									<div class="mask"></div>
+								<h:outputLabel styleClass="title" value="Report Card"/>
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</div>
+							</p:commandLink>
+						</div>
+						</h:panelGroup>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div><center><h:panelGrid columns="3" rendered="#{loginMB.studentListflag}">
+		<h:outputLabel styleClass="labelTxt" value="StudentID "/>
+		<h:outputLabel style="width:50px"></h:outputLabel>
+		<h:selectOneMenu value="#{loginMB.studentDataBean.stuStudentId}" style="height:30px;width:200px;" valueChangeListener="#{loginMB.timetableChange}">
+		<f:selectItem itemLabel="select" itemValue=""></f:selectItem>
+		 <f:selectItems value="#{loginMB.studentList}"></f:selectItems>
+		 <p:ajax event="valueChange" immediate="true" process="@this" update=":XX" /></h:selectOneMenu>
+		</h:panelGrid></center> </div><br/>
+		<div class="Container50 WhiteBack"
+			style="border: solid 1px #D6D7D9; width: 100%;">
+			<div class="Container100 BlueBack Responsive50"
+				style="border: solid 1px #D6D7D9;">
+				<div class="Container100 WhiteBack">
+					<p:dataTable var="tableinfo" value="#{loginMB.classtimetablelist}"
+						rendered="#{loginMB.flag1}">
+
+						<p:column headerText="Day">
+							<h:outputText value="#{tableinfo.day}" />
+						</p:column>
+						<p:column headerText="1">
+							<h:outputText value="#{tableinfo.subject}" />
+							&nbsp; <h:outputText value="#{tableinfo.teaID}" />
+						</p:column>
+						<p:column headerText="2">
+							<h:outputText value="#{tableinfo.subject1}" />
+							&nbsp; <h:outputText value="#{tableinfo.teaID1}" />
+						</p:column>
+						<p:column headerText="3">
+							<h:outputText value="#{tableinfo.subject2}" />
+							&nbsp; <h:outputText value="#{tableinfo.teaID2}" />
+						</p:column>
+						<p:column headerText="4">
+							<h:outputText value="#{tableinfo.subject3}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID3}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="5">
+							<h:outputText value="#{tableinfo.subject4}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID4}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="6">
+							<h:outputText value="#{tableinfo.subject5}" />
+							&nbsp; <h:outputText value="#{tableinfo.teaID5}" />
+						</p:column>
+						<p:column headerText="7">
+							<h:outputText value="#{tableinfo.subject6}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID6}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="8">
+							<h:outputText value="#{tableinfo.subject7}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID7}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="9" rendered="#{loginMB.exflag}">
+							<h:outputText value="#{tableinfo.exSubject}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID8}" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="10" rendered="#{loginMB.exflag1}">
+							<h:outputText value="#{tableinfo.exSubject1}">
+							&nbsp; <h:outputText value="#{tableinfo.teaID9}" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</div>
+		<!-- end Home -->
+		<p:dialog widgetVar="eventDialog" header="Event Details" modal="true"
+			appendTo="@(body)">
+			<h:panelGrid id="eventDetails" columns="2">
+				<p:outputLabel value="Title:" />
+				<p:outputLabel value="#{loginMB.event.title}" />
+				<p:outputLabel value="From Date:" />
+				<p:outputLabel value="#{loginMB.event.startDate}">
+					<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+				</p:outputLabel>
+				<p:outputLabel value="To Date:" />
+				<p:outputLabel value="#{loginMB.event.endDate}">
+					<f:convertDateTime pattern="dd-MM-yyy"></f:convertDateTime>
+				</p:outputLabel>
+			</h:panelGrid>
+		</p:dialog>
+		<style type="text/css">
+.value {
+	width: 1000px;
+}
+</style>
+	</ui:define>
+</ui:composition>

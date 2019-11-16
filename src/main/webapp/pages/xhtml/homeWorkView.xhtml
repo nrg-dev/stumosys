@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+
+		<p:panel look="primary" header="Home Work View" toggleable="false" id="homeWorkUpdateBlockUI" style="min-height:100%;">
+		 <f:facet name="header">
+			 	<center>
+				<h:outputText  value="HOME WORK VIEW" style="font-size: 25px;"/>
+			</center>
+			</f:facet>
+		<h:form id="fo">
+		<p:growl id="msgs" showDetail="true" />
+		<br></br>
+			<p:panelGrid styleClass="ui-panelgrid-blank" columns="6" >
+			<h:outputLabel value="Date" styleClass="labelTxt" for="date"></h:outputLabel>
+			<p:calendar id="date" value="#{homeWorkMB.homeworkDatabean.date}" pattern="dd-MM-yyyy" maxdate="#{currentDate}"
+			styleClass="dateTimeField" placeholder="DD-MM-YYYY" valueChangeListener="#{homeWorkMB.dateChange}">
+				<p:ajax process="@this" update="date" event="dateSelect" immediate="true"></p:ajax>
+			</p:calendar> 
+			<h:outputLabel value="Class" styleClass="labelTxt" for="class" rendered="#{homeWorkMB.classflag}"></h:outputLabel>
+			<h:selectOneMenu value="#{homeWorkMB.homeworkDatabean.classname}" id="class" styleClass="selecttext_ui1" rendered="#{homeWorkMB.classflag}" style="border-radius:0px;height: 25px;width:208px;margin-left:39px;font-size: 10px;">	
+				<f:selectItem itemLabel="Select Class" itemValue="" noSelectionOption="true" />
+				<f:selectItem itemLabel="All" itemValue="All"  />
+				<f:selectItems value="#{homeWorkMB.classList}"></f:selectItems>		
+				<p:ajax process="@this" update="class"  immediate="true"></p:ajax>
+			</h:selectOneMenu>
+			<h:outputText></h:outputText>
+			<p:commandButton value="Search" icon="fa fa-search" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" action="#{homeWorkMB.classChange}"
+			update=":XX" process="@this"></p:commandButton>
+			<h:outputText></h:outputText>
+			<h:message for="date" style="color:red;font-size:10px;"></h:message>
+			<h:outputText></h:outputText>
+			<h:message for="class" style="color:red;font-size:10px;"></h:message>
+			</p:panelGrid>
+			
+				<table width="100%">
+					
+
+					<tr align="center">
+						<td colspan="2"><br></br> <p:dataTable id="homework"
+								width="100%" var="work"
+								value="#{homeWorkMB.homeworkDatabean.worklist}"
+								widgetVar="homeworks" rowIndexVar="rowIndex"
+								rendered="#{homeWorkMB.flag}"
+								emptyMessage="No information found with given criteria"
+								filteredValue="#{homeWorkMB.filteredstudent}"
+								editable="true" resizableColumns="true" >
+								<f:facet name="header">
+									<p:outputPanel style="text-align:right">
+										<h:inputText id="globalFilter"
+											onkeyup="PF('homeworks').filter()"
+											style="width:20%;height:25px;" placeholder="Enter keyword" />
+									</p:outputPanel>
+								</f:facet>
+								<p:ajax event="rowEdit" listener="#{homeWorkMB.workupdate}"
+									update=":XX:fo:homework" />
+								<p:ajax event="rowEditCancel"
+									listener="#{homeWorkMB.onRowCancel}"
+									update=":XX:fo:homework" />
+
+								<p:column headerText="S.No" filterMatchMode="contains"
+									filterStyle="display:none" width="5%">
+									<h:outputText value="#{rowIndex+1}">
+									</h:outputText>
+								</p:column>
+								<p:column headerText="ClassName" filterMatchMode="contains"
+									filterStyle="display:none" width="130">
+									<h:outputText value="#{work.classname}"></h:outputText>
+								</p:column>
+								<p:column headerText="Date" filterMatchMode="contains"
+									filterStyle="display:none" width="120">
+									<h:outputText value="#{work.date}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></h:outputText>
+								</p:column>
+								<p:column headerText="Subject" filterBy="#{work.subject}"
+									filterMatchMode="contains" filterStyle="display:none"
+									width="16%">
+									<h:outputText value="#{work.subject}">
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Home Work" filterBy="#{work.homework}" 
+									filterMatchMode="contains" filterStyle="display:none">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{work.homework}"
+												 readonly="true" />
+										</f:facet>
+										<f:facet name="input">
+											<h:inputTextarea value="#{work.homework}"
+												style="height:10%;width:95%;" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column headerText="Edit" width="06%" exportable="false"
+									rendered="#{homeWorkMB.actionflag}">
+									<p:rowEditor rendered="#{homeWorkMB.actionflag}" />
+								</p:column>
+								<p:column headerText="Delete" width="06%" exportable="false"
+									rendered="#{homeWorkMB.actionflag}">
+									<p:commandButton icon="ui-icon-trash" title="Delete"
+										oncomplete="PF('deleteConfirmDlg').show()"
+										rendered="#{homeWorkMB.actionflag}">
+										<f:setPropertyActionListener value="#{work.subject}"
+											target="#{homeWorkMB.homeworkDatabean.subject}"></f:setPropertyActionListener>
+										<f:setPropertyActionListener value="#{work.homework}"
+											target="#{homeWorkMB.homeworkDatabean.homework}"></f:setPropertyActionListener>
+										<f:setPropertyActionListener value="#{work.date}"
+											target="#{homeWorkMB.homeworkDatabean.date}"></f:setPropertyActionListener>
+										<f:setPropertyActionListener value="#{work.classname}"
+											target="#{homeWorkMB.homeworkDatabean.classname}"></f:setPropertyActionListener>
+									</p:commandButton>
+								</p:column>
+							</p:dataTable> <br></br>
+							<center>
+								<p:commandButton icon="ui-icon-print"
+									rendered="#{homeWorkMB.flag}" value="Print">
+									<p:printer target="homework"></p:printer>
+								</p:commandButton>
+							</center></td>
+					</tr>
+				</table>
+			</h:form>
+		</p:panel>
+		<p:confirmDialog id="deleteConfirmDialog" closable="false"
+			message="Are You Sure you want to Delete the information"
+			header="Delete user" severity="alert" global="true"
+			widgetVar="deleteConfirmDlg">
+			<center>
+				<p:commandButton id="confirmDelete" value="Yes"
+					oncomplete="PF('deleteConfirmDlg').hide();"
+					immediate="true" process="@this" action="#{homeWorkMB.workDelete}" />
+				<p:commandButton id="declineDelete" value="No"
+					onclick="PF('deleteConfirmDlg').hide()" type="button" />
+			</center>
+		</p:confirmDialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="works" modal="true" width="40%"
+			height="40%" resizable="false" visible="#{homeWorkMB.boxflag}"
+			dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{homeWorkMB.homeworkDatabean.subject} work is successfully deleted "></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true" action="#{homeWorkMB.returnView}"
+						process="@this" value="OK" oncomplete="PF('works').hide()"
+						update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:dialog header="Confirmation Box" appendTo="@(body)"
+			closable="false" widgetVar="updatework" modal="true" width="40%"
+			height="40%" resizable="false" 
+			dynamic="true">
+
+			<h:form>
+				<center>
+					<h:outputText
+						value="#{homeWorkMB.homeworkDatabean.subject} work is successfully updated"></h:outputText>
+					<br></br>
+					<p:commandButton immediate="true" action="#{homeWorkMB.returnView}"
+						process="@this" value="OK" oncomplete="PF('updatework').hide()"
+						update=":XX"></p:commandButton>
+				</center>
+			</h:form>
+		</p:dialog>
+		<p:blockUI widgetVar="homeWorkUpdateBlock"
+			block="homeWorkUpdateBlockUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{homeWorkMB.onRowEdit}"
+			name="homeWorkUpdate"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+
+
+		<p:panel look="Primary" header="Take Attendance" id="attendblockUI"
+			toggleable="false" style="min-height:100%;">
+			<table width="100%">
+			<tr>
+					<td width="25%" height="50px"><h:panelGroup rendered="#{attendanceMB.flagdropdown}"><h:outputLabel value="Date" 
+							styleClass="labelTxt" for="attPreDate"></h:outputLabel><span 
+						style="color: red;"> * </span></h:panelGroup></td>
+					<td width="75%" height="50px"><p:calendar id="attPreDate" rendered="#{attendanceMB.flagdropdown}"
+							value="#{attendanceMB.attendanceDataBean.date}" styleClass="selecttext_ui1"
+							pattern="dd-MM-yyyy"
+							placeholder="DD-MM-YYYY" maxdate="#{currentDate}" mindate="01-01-1950">
+							<p:ajax process="@this" update=":XX" event="dateSelect"
+								immediate="true"></p:ajax>
+						</p:calendar> <br></br> <h:message for="attPreDate"
+							style="color:red;font-size:10px;"></h:message></td>
+				</tr>
+				<tr>
+				
+				
+					<td width="25%" height="50px"><h:outputLabel value="Class"
+							styleClass="labelTxt" for="attClass"></h:outputLabel><span
+						style="color: red;"> * </span></td>
+					<td width="75%" height="50px"><h:selectOneMenu id="attClass"
+							value="#{attendanceMB.attendanceDataBean.classname}"
+							styleClass="selecttext_ui1"
+							valueChangeListener="#{attendanceMB.search}" rendered="#{attendanceMB.classdropflag}">
+							<f:selectItem itemLabel="Select Class" itemValue=""	noSelectionOption="true" />
+							<f:selectItems value="#{attendanceMB.classList}"></f:selectItems>
+							<p:ajax event="valueChange" process="@this" update=":XX"
+								immediate="true"></p:ajax>
+						</h:selectOneMenu> 
+						<h:selectOneMenu id="attClass1" value="#{attendanceMB.attendanceDataBean.classname}"
+							styleClass="selecttext_ui1" rendered="#{attendanceMB.flagdropdown}">
+							<f:selectItem itemLabel="Select Class" itemValue=""	noSelectionOption="true" />
+							<f:selectItems value="#{attendanceMB.classSectionList}"></f:selectItems>
+							<p:ajax event="valueChange" process="@this" update=":XX" immediate="true"></p:ajax>
+						</h:selectOneMenu>
+						
+						
+						
+						<h:outputLabel value="#{attendanceMB.attendanceDataBean.classname}"
+							styleClass="labelTxt" for="attClass2" rendered="#{attendanceMB.classlabelflag and !attendanceMB.flagdropdown}"></h:outputLabel><br></br>
+							 <h:message for="attClass"
+							style="color:red;font-size:10px;"></h:message><br></br></td>
+				</tr>
+				<tr>
+						<td width="25%" height="50px">
+									<p:outputPanel rendered="#{attendanceMB.flagdropdown}">
+										<h:outputLabel value="Period" styleClass="labelTxt" for="Period1" rendered="#{attendanceMB.flagdropdown}">
+										<span style="color: red;font-size:10px;"> * </span></h:outputLabel>
+									</p:outputPanel>
+								</td>
+							<td width="75%" height="50px">
+												<h:selectOneMenu id="Period1" value="#{attendanceMB.attendanceDataBean.period}" valueChangeListener="#{attendanceMB.search}"
+													styleClass="selecttext_ui1" rendered="#{attendanceMB.flagdropdown}">
+													<f:selectItem itemLabel="Select Period" itemValue=""	noSelectionOption="true" />
+													<f:selectItem itemLabel="Period 1" itemValue="1"></f:selectItem>
+													<f:selectItem itemLabel="Period 2" itemValue="2"></f:selectItem>
+													<f:selectItem itemLabel="Period 3" itemValue="3"></f:selectItem>
+													<f:selectItem itemLabel="Period 4" itemValue="4"></f:selectItem>
+													<f:selectItem itemLabel="Period 5" itemValue="5"></f:selectItem>
+													<f:selectItem itemLabel="Period 6" itemValue="6"></f:selectItem>
+													<f:selectItem itemLabel="Period 7" itemValue="7"></f:selectItem>
+													<f:selectItem itemLabel="Period 8" itemValue="8"></f:selectItem>
+							<p:ajax event="valueChange" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" process="@this" update=":XX" immediate="true"></p:ajax>
+												</h:selectOneMenu>
+									</td>
+				</tr>
+				<tr align="center">
+					<td colspan="2"><br></br> <p:dataTable var="attend"
+							value="#{attendanceMB.attendanceDataBean.studentList}"
+							widgetVar="attendence" reflow="true"
+							rendered="#{attendanceMB.flag}"
+							emptyMessage="No information found with given criteria"
+							filteredValue="#{attendanceMB.filteredstudent}" 
+							resizableColumns="true" >
+							<f:facet name="header">
+								<p:outputPanel style="text-align:right">
+									<h:inputText id="globalFilter"
+										onkeyup="PF('attendence').filter()"
+										style="width:20%;height:25px;" placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="#" filterMatchMode="contains"
+								filterStyle="display:none" width="12%">
+								<h:outputText value="#{attend.sno}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Date" width="20%">
+								<h:outputText value="#{attend.date}">
+									<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Student ID" filterBy="#{attend.studentID}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="30%">
+								<h:outputText value="#{attend.studentID}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Name" filterBy="#{attend.studentName}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="30%">
+								<h:outputText value="#{attend.studentName}" />
+							</p:column>
+							<p:column headerText="Status" filterBy="#{attend.status}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="22%" rendered="#{attendanceMB.flag1}">
+								<h:selectOneMenu value="#{attend.status}" style="width:75%;"
+									valueChangeListener="#{attendanceMB.loadimage}"
+									rendered="#{attend.flag}">
+									<f:selectItem itemLabel="Select One" noSelectionOption="true"></f:selectItem>
+									<f:selectItem itemLabel="Absent" itemValue="Absent"></f:selectItem>
+									<f:selectItem itemLabel="Late" itemValue="Late"></f:selectItem>
+									<f:attribute name="date" value="#{attend.date}"></f:attribute>
+									<f:attribute name="sno" value="#{attend.sno}"></f:attribute>
+									<f:attribute name="ID" value="#{attend.studentID}"></f:attribute>
+									<f:attribute name="name" value="#{attend.studentName}"></f:attribute>
+									<p:ajax immediate="true" update=":XX" event="valueChange"
+										process="@this">
+									</p:ajax>
+								</h:selectOneMenu>
+								<h:outputText value="#{attend.status}"
+									rendered="#{attend.flag1}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Percentage" filterBy="#{attend.percentage}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="15%">
+								<h:outputText value="#{attend.percentage}" />
+							</p:column>
+						</p:dataTable>
+						
+						
+						
+						
+		<p:dataTable var="attend" rowIndexVar="rowIndex" 
+							value="#{attendanceMB.attendanceDataBean.studentList}"
+							widgetVar="attendence" reflow="true"
+							rendered="#{attendanceMB.flagothers}"
+							emptyMessage="No information found with given criteria"
+							filteredValue="#{attendanceMB.filteredstudent}" 
+							resizableColumns="true" >
+							<f:facet name="header">
+								<p:outputPanel style="text-align:right">
+									<h:inputText id="globalFilter"
+										onkeyup="PF('attendence').filter()"
+										style="width:20%;height:25px;" placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="#" width="12%">
+								 #{rowIndex+1}
+							</p:column>
+							<p:column headerText="Date" width="20%">
+								<h:outputText value="#{attend.date}">
+									<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Student ID" filterBy="#{attend.studentID}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="30%">
+								<h:outputText value="#{attend.studentID}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Name" filterBy="#{attend.studentName}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="30%">
+								<h:outputText value="#{attend.studentName}" />
+							</p:column>
+							<p:column headerText="Status" filterBy="#{attend.status}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="22%">
+								<h:outputText value="#{attend.status}">
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Action" filterBy="#{attend.percentage}"
+								filterMatchMode="contains" filterStyle="display:none"
+								width="15%">
+								<h:selectOneMenu value="#{attend.status1}" style="width:75%;">
+									<f:selectItem itemLabel="Present" itemValue="Present"></f:selectItem>
+									<f:selectItem itemLabel="Absent" itemValue="Absent"></f:selectItem>
+									<p:ajax immediate="true" update=":XX" event="valueChange"
+										process="@this">
+									</p:ajax>
+								</h:selectOneMenu>
+							</p:column>
+						</p:dataTable>
+						
+						
+						
+						</td>
+				</tr>
+			</table>
+			<center>
+			<p:commandButton value="Save" action="#{attendanceMB.Attendanceinsert}" 
+			onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()" 
+			rendered="#{attendanceMB.flagothers}" update=":XX"></p:commandButton>
+	</center>
+			
+			
+		</p:panel>
+		
+		<p:dialog widgetVar="confirm" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+			  position="center" resizable="false" draggable="true">
+			  <h:form>			
+			  	<center>
+					<h:outputText value="Successfully Saved" style="font-size: 16px"> </h:outputText>
+					<br></br><br></br>
+					<p:commandButton value="OK" oncomplete="PF('confirm').hide()" process="@this" immediate="true" update=":XX"></p:commandButton>
+				</center>
+				</h:form>	
+			</p:dialog>	
+		
+		<p:blockUI widgetVar="attendblocksUI" block="attendblockUI">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		<p:remoteCommand action="#{attendanceMB.prsentStatus}"
+			name="attendremote"></p:remoteCommand>
+	</ui:define>
+</ui:composition>

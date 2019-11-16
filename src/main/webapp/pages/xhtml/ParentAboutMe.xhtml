@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+
+
+	<ui:define name="content">
+		<p:growl id="messages" showDetail="true" />
+
+		<p:panel toggleable="false" header="Parent Information"
+			style="min-height:100%;">
+			<h:form>
+				<table width="100%">
+					<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="Class &amp; Section " for="parClassID"
+								styleClass="labelTxt"></h:outputText></td>
+						<td width="75%" height="50px"><h:outputText
+								value="#{parentsViewMB.parentsDataBean.parStuClass}"></h:outputText>
+							<br></br></td>
+					</tr>
+					<tr>
+						<td width="25%" height="50px"><h:outputText
+								value="Student ID " for="parStudentID" styleClass="labelTxt"></h:outputText>
+						</td>
+						<td width="75%" height="50px"><h:outputText
+								value="#{parentsViewMB.parentsDataBean.parStudID}"></h:outputText>
+							<br></br></td>
+					</tr>
+				</table>
+			</h:form>
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="Guardian First Name " for="parFName" styleClass="labelTxt"></h:outputText>
+
+					</td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parFirstName}"></h:outputText>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="Guardian Last Name " for="parLName" styleClass="labelTxt"></h:outputText>
+
+					</td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parLastName}"></h:outputText>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Relation "
+							for="parRelation" styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parentRelation}"></h:outputText>
+						<br></br></td>
+				</tr>
+
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Parent ID"
+							for="parParentID" styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parParentID}"></h:outputText>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="E-mail "
+							for="parE-mail" styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parEmail}"></h:outputText>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="Phone Number " for="parPhone" styleClass="labelTxt"></h:outputText>
+					</td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{parentsViewMB.parentsDataBean.parPhoneNo}"></h:outputText>
+						<br></br></td>
+				</tr>
+				<tr>
+					<td valign="top"><h:outputLabel value="Uploaded Photo"
+							for="parUpPhoto" styleClass="labelTxt" /> <span
+						style="color: red">*</span></td>
+					<td><a4j:mediaOutput style="width:100px;height:100px;"
+							element="img" cacheable="false" session="true"
+							createContent="#{parentsViewMB.imageview}" mimeType="image/png" />
+					</td>
+				</tr>
+
+
+			</table>
+
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

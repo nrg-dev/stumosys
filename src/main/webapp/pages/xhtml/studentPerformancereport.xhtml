@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<ui:define name="content">
+	<p:panel style="min-height:100%;width:100%" header="STUDENT PERFORMANCE REPORT" toggleable="false" >
+	<table style="width:100%" >
+	<tr><td width="25%" height="50px"><h:outputText value="School Name" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="schoolname" styleClass="inputTxt" 
+	 value="#{studentPerformanceViewMB.studentPerformanceDataBean.schoolName}" >
+	<f:selectItem itemLabel=" Select the SchoolName" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItems value="#{studentPerformanceViewMB.schoollist}"></f:selectItems>
+	</h:selectOneMenu><br></br>
+	<h:message for="schoolname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<!-- <tr><td width="25%" height="50px"><h:outputText value="Student Behaviour" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="behaviour" styleClass="inputTxt"  value="#{studentPerformanceViewMB.studentPerformanceDataBean.stuAtt}" filterMatchMode="contains" filter="true">
+	<f:selectItem itemLabel="Select the Behaviour" itemValue="" noSelectionOption="true"></f:selectItem>
+						<f:selectItem itemLabel="Long Hair/Dyed Hair "
+											itemValue="Long Hair/Dyed Hair "></f:selectItem>
+										<f:selectItem itemLabel="Long/Colored Nail "
+											itemValue="Long/Colored Nail "></f:selectItem>
+										<f:selectItem itemLabel="No School Batch/Nametag "
+											itemValue="No School Batch/Nametag "></f:selectItem>
+										<f:selectItem itemLabel="No Socks/Dirty Shoes/Color Shoe "
+											itemValue="No Socks/Dirty Shoes/Color Shoe "></f:selectItem>
+										<f:selectItem itemLabel="Wearing Jewelry/Make up "
+											itemValue="Wearing Jewelry/Make up "></f:selectItem>
+										<f:selectItem itemLabel="Tattoo " itemValue="Tattoo "></f:selectItem>
+										<f:selectItem itemLabel="Non Standard Uniform "
+											itemValue="Non Standard Uniform "></f:selectItem>
+											<f:selectItem itemLabel="Didn’t do Homework "
+											itemValue="Didnt do Homework"></f:selectItem>
+										<f:selectItem itemLabel="Didn’t bring books "
+											itemValue="Didnt bring books"></f:selectItem>
+										<f:selectItem itemLabel="No concentration on studies"
+											itemValue="No concentration on studies"></f:selectItem>
+										<f:selectItem itemLabel="Rude/No Discipline"
+											itemValue="Rude/No Discipline"></f:selectItem>
+										<f:selectItem itemLabel="Intimate relationship"
+											itemValue="Intimate relationship"></f:selectItem>
+										<f:selectItem itemLabel="Smoking/Alcohol/Drugs Influence"
+											itemValue="Smoking/Alcohol/Drugs Influence"></f:selectItem>
+										<f:selectItem itemLabel="Pornography" itemValue="Pornography"></f:selectItem>
+										<f:selectItem itemLabel="Gangsterism" itemValue="Gangsterism"></f:selectItem>
+										<f:selectItem itemLabel="Vandalism" itemValue="Vandalism"></f:selectItem>
+										<f:selectItem itemLabel="Carry dangerous items"
+											itemValue="Carry dangerous items"></f:selectItem>
+										<f:selectItem itemLabel="Carry Hand phone"
+											itemValue="Carry Hand phone"></f:selectItem>
+										<f:selectItem itemLabel="Cheating in Exam"
+											itemValue="Cheating in Exam"></f:selectItem>
+										<f:selectItem itemLabel="Stealing" itemValue="Stealing"></f:selectItem>
+										<f:selectItem itemLabel="Racism" itemValue="Racism"></f:selectItem>
+										<f:selectItem itemLabel="Get bullied" itemValue="Get bullied"></f:selectItem>
+										<f:selectItem itemLabel="Scared" itemValue="Scared"></f:selectItem>
+										<f:selectItem itemLabel="Phobia" itemValue="Phobia"></f:selectItem>
+										<f:selectItem itemLabel="Isolated" itemValue="Isolated"></f:selectItem>
+										<f:selectItem itemLabel="Health Issue"
+											itemValue="Health Issue"></f:selectItem>
+	</h:selectOneMenu><br></br>
+	<h:message for="behaviour" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr> -->
+	<tr><td width="25%" height="50px"><h:outputText value="Class Name" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="classname" styleClass="inputTxt" 
+	valueChangeListener="#{studentPerformanceViewMB.classchange}"	value="#{studentPerformanceViewMB.studentPerformanceDataBean.classname}" >
+	<f:selectItem itemLabel=" Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItem itemLabel=" All" itemValue="All"></f:selectItem>
+	<f:selectItems value="#{studentPerformanceViewMB.classlist}"></f:selectItems>
+	<p:ajax event="valueChange" update="XX:studentname" process="@this" immediate="true"></p:ajax>
+	</h:selectOneMenu><br></br>
+	<h:message for="classname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<tr><td width="25%" height="50px"><h:outputText value="Student Name" styleClass="labelTxt"></h:outputText></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="studentname" styleClass="inputTxt"  value="#{studentPerformanceViewMB.studentPerformanceDataBean.stuName}">
+	<f:selectItem itemLabel="Select the Student" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItems value="#{studentPerformanceViewMB.sRoll}"></f:selectItems>
+	</h:selectOneMenu><br></br>
+	<h:message for="studentname" style="color:red;font-size:10px;"></h:message><br></br>
+	</td>
+	</tr>
+	<tr><td width="25%" height="50px"><h:outputText value="Report Type" styleClass="labelTxt"></h:outputText><span style="color: red">*</span></td>
+	<td width="75%" height="50px"><h:selectOneMenu id="repfrom" styleClass="inputTxt"  value="#{studentPerformanceViewMB.studentPerformanceDataBean.stuApp}">
+	<f:selectItem itemLabel="Please Select One" itemValue="" noSelectionOption="true"></f:selectItem>
+	<f:selectItem itemLabel="Monthly" itemValue="Monthly"></f:selectItem>
+	<f:selectItem itemLabel="Half Yearly" itemValue="Half Yearly"></f:selectItem>
+	<f:selectItem itemLabel="Yearly" itemValue="Yearly"></f:selectItem>
+	</h:selectOneMenu><br></br>
+	<h:message for="repfrom" style="color:red;font-size:10px;"></h:message><br></br>
+	</td></tr>
+	<tr>
+	<td width="25%" height="50px"><h:outputText value="Date" styleClass="labelTxt"></h:outputText></td>
+	<td width="75%" height="50px">
+	<h:panelGrid columns="4"  > 
+	<p:calendar maxdate="#{currentDate}" value="#{studentPerformanceViewMB.studentPerformanceDataBean.fromdate}" id="date1"></p:calendar>
+	<p:watermark value="From date" for="date1"></p:watermark>
+	<p:calendar maxdate="#{currentDate}"  value="#{studentPerformanceViewMB.studentPerformanceDataBean.todate}" id="date2"></p:calendar>
+	<p:watermark value="To date" for="date2"></p:watermark>
+	</h:panelGrid></td>
+	</tr>
+	<tr><td width="25%"></td>
+	<td width="75%"><p:commandButton icon="fa fa-search" value="Search" action="#{studentPerformanceViewMB.performancereport}" update="@form"></p:commandButton></td></tr>
+	</table>
+	<br></br>
+	<p:dataTable var="att"   rendered="#{studentPerformanceViewMB.tableflag}" value="#{studentPerformanceViewMB.studviewlist}"
+	 id="datatable">
+	 <p:column headerText="Student ID" >
+	<h:outputText value="#{att.stuName}"></h:outputText>
+	</p:column>
+	<p:column headerText="Date">
+	<h:outputText value="#{att.fromdate}"><f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime></h:outputText>
+	</p:column>
+	<p:column headerText="Attitude">
+	<h:outputText value="#{att.stuAtt}"></h:outputText>
+	</p:column>
+	<p:column headerText="Appearance">
+	<h:outputText value="#{att.stuApp}"></h:outputText>
+	</p:column>
+	<f:facet name="footer">
+            <h:commandLink>
+                <p:graphicImage value="/images/excel.png" width="24" height="25"/>
+                <p:dataExporter type="xls" target="datatable" fileName="PerformanceDetails" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage value="/images/pdf.png" width="24" height="25"/>
+                <p:dataExporter type="pdf" target="datatable" fileName="PerformanceDetails"/>
+            </h:commandLink>
+ 			
+        </f:facet>
+	</p:dataTable>
+	</p:panel>
+	</ui:define>
+	</ui:composition>

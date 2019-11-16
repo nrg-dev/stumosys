@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<body>
+<h:form id="myform">
+<h:inputText value="#{NavigationMB.email}" id="t">
+
+</h:inputText>
+<br></br>
+<h:message for="t" id="c"></h:message>
+<br></br>
+<h:inputText value="#{NavigationMB.email1}" id="t1"
+></h:inputText>
+<br></br>
+<h:message for="t1" id="c1"></h:message>
+<br></br>
+<p:commandButton value="submit" action="#{NavigationMB.name1}" ajax="false"></p:commandButton>
+</h:form>
+</body>
+</ui:composition>

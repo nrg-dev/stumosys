@@ -1,0 +1,1380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+   xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+   http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+   version="2.0">
+
+<!-- Login -->
+<managed-bean>
+<managed-bean-name>loginMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.LoginMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>loginaccess</property-name>
+<value>#{LoginAccess}</value>
+</managed-property>
+ <managed-property>
+ <property-name>studentViewMB</property-name>
+ <value>#{studentViewMB}</value>
+ </managed-property>
+ <managed-property>
+ <property-name>parentsViewMB</property-name>
+ <value>#{parentsViewMB}</value>
+ </managed-property>
+  <managed-property>
+ <property-name>teacherViewMB</property-name>
+ <value>#{teacherViewMB}</value>
+ </managed-property> 
+ <managed-property>
+ <property-name>staffMB</property-name>
+ <value>#{staffMB}</value>
+ </managed-property>
+ <managed-property>
+ <property-name>librarianViewMB</property-name>
+ <value>#{librarianViewMB}</value>
+ </managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>LoginAccess</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.LoginAccess</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>sucess</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>returnToHomes</from-outcome>
+<to-view-id>/pages/xhtml/staffview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>homePage</from-outcome>
+<to-view-id>/pages/xhtml/myNewLogin1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadAdmin1</from-outcome>
+<to-view-id>/pages/xhtml/adminOutput1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<!-- DashBoard -->
+<managed-bean>
+<managed-bean-name>dashBoardMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.DashBoardMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>dashBoardDataBean</property-name>
+<value>#{DashBoardDataBean}</value>
+</managed-property>
+</managed-bean>
+<managed-bean>
+<managed-bean-name>DashBoardDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.DashBoardDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>dashBoard</from-outcome>
+<to-view-id>/pages/xhtml/dashboard.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<!-- Getting Current Date -->
+<managed-bean>
+    <managed-bean-name>currentDate</managed-bean-name>
+    <managed-bean-class>java.util.Date</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+</managed-bean>
+
+<!-- Login -->
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadLogin</from-outcome>
+<to-view-id>/pages/xhtml/myNewLogin.jsf</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/myNewLogin.jsf</from-view-id>
+<navigation-case>
+<from-outcome>Fail</from-outcome>
+<to-view-id>/pages/xhtml/myNewLogin.jsf</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<!-- Parents -->
+<managed-bean>
+<managed-bean-name>parentsMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ParentsMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>parentsDataBean</property-name>
+<value>#{ParentsDataBean}</value>
+</managed-property>
+<managed-property>
+<property-name>loginMB</property-name>
+<value>#{loginMB}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>parentsViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ParentsViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>parentsDataBean</property-name>
+<value>#{ParentsDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>ParentsDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.ParentsDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>parentsRegistration1</from-outcome>
+<to-view-id>/pages/xhtml/parentsRegistration1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>parentsRegistration</from-outcome>
+<to-view-id>/pages/xhtml/parentsRegistration.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/parentsRegistration1.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/parentsRegistration.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/parentsInfo.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>parentEditPage</from-outcome>
+<to-view-id>/pages/xhtml/parentEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/parentEdit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>parentviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/parentsInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/parentsInfo.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>parentviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/parentsInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<!-- Notice Board -->
+<managed-bean>
+<managed-bean-name>noticeBoardMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.NoticeBoardMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>noticeBoardDataBean</property-name>
+<value>#{NoticeBoardDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>NoticeBoardDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.NoticeBoardDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>noticeBoardViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.NoticeBoardViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>noticeBoardDataBean</property-name>
+<value>#{NoticeBoardDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/noticeboard.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/noticeBoardView.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>NoticeBoardPageEdit</from-outcome>
+<to-view-id>/pages/xhtml/noticeBoardEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/noticeBoardEdit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/noticeBoardView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/noticeBoardEdit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>noticeBoardView</from-outcome>
+<to-view-id>/pages/xhtml/noticeBoardView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/noticeBoardView.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>noticeBoardView</from-outcome>
+<to-view-id>/pages/xhtml/noticeBoardView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<!-- Student Performance -->
+<managed-bean>
+<managed-bean-name>studentPerformanceMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StudentPerformanceMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>studentPerformanceDataBean</property-name>
+<value>#{StudentPerformanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+
+<!-- reportMB -->
+<managed-bean>
+<managed-bean-name>reportMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ReportMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>reportDataBean</property-name>
+<value>#{ReportDataBean}</value>
+</managed-property>
+<managed-property>
+<property-name>attendancePreviewMB</property-name>
+<value>#{AttendancePreviewMB}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>ReportDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.ReportDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+
+<managed-bean>
+<managed-bean-name>StudentPerformanceDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.StudentPerformanceDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>studentPerformanceViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StudentPerformanceViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>studentPerformanceDataBean</property-name>
+<value>#{StudentPerformanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>StudentviewPage</from-outcome>
+<to-view-id>/pages/xhtml/studentPerfomInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/studentPerform.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+ 
+
+<!-- Student -->
+<managed-bean>
+<managed-bean-name>studentMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StudentMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>studentDataBean</property-name>
+<value>#{StudentDataBean}</value>
+</managed-property>
+<managed-property>
+ <property-name>loginMB</property-name>
+ <value>#{loginMB}</value>
+ </managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>StudentDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.StudentDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>studentViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StudentViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>studentDataBean</property-name>
+<value>#{StudentDataBean}</value>
+</managed-property>
+<managed-property>
+<property-name>attendanceDataBean</property-name>
+<value>#{AttendanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/studentRegistration3.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>StudentviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/studentview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>studentRegistration1</from-outcome>
+<to-view-id>/pages/xhtml/studentRegistration1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>studentRegistration2</from-outcome>
+<to-view-id>/pages/xhtml/studentRegistration2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>studentRegistration3</from-outcome>
+<to-view-id>/pages/xhtml/studentRegistration3.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+
+<navigation-rule>
+<from-view-id>pages/xhtml/studentview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>editPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/StudentEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>StudentviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/StudentEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<!-- TimeTable -->
+<managed-bean>
+<managed-bean-name>timeTableMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.TimeTableMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>timeTableDataBean</property-name>
+<value>#{TimeTableDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>TimeTableDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.TimeTableDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>timeTableViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.TimeTableViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>timeTableDataBean</property-name>
+<value>#{TimeTableDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<from-view-id>/pages/xhtml/examUpdate.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>allexamInfoBack</from-outcome>
+<to-view-id>/pages/xhtml/allexamInfo.xhtml</to-view-id>
+<redirect></redirect>
+</navigation-case>
+</navigation-rule>
+
+<!-- Teacher -->
+<managed-bean>
+<managed-bean-name>teacherMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.TeacherMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>teacherDataBean</property-name>
+<value>#{TeacherDataBean}</value>
+</managed-property>
+<managed-property>
+<property-name>loginMB</property-name>
+<value>#{loginMB}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>TeacherDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.TeacherDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadTeacherPage</from-outcome>
+<to-view-id>/pages/xhtml/TeacherRegisterationForm.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadTAddressPage</from-outcome>
+<to-view-id>/pages/xhtml/TeacherReg1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadTeacherOther</from-outcome>
+<to-view-id>/pages/xhtml/TeacherReg2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>TeacherEduPage</from-outcome>
+<to-view-id>/pages/xhtml/TeacherReg3.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+<managed-bean>
+<managed-bean-name>teacherViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.TeacherViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>teacherDataBean</property-name>
+<value>#{TeacherDataBean}</value>
+</managed-property>
+</managed-bean>
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/TeacherReg3.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+ <navigation-rule>
+<from-view-id>pages/xhtml/Teacherview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>editPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/TeacherEditForm.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Teacherview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>viewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/Teacherviewform.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+
+ <navigation-rule>
+<navigation-case>
+<from-outcome>TeacherviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/Teacherview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<!-- Attendance -->
+<managed-bean>
+<managed-bean-name>attendanceMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.AttendanceMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>attendanceDataBean</property-name>
+<value>#{AttendanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>AttendanceDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.AttendanceDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>attendancePreviewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.AttendancePreviewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>attendanceDataBean</property-name>
+<value>#{AttendanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<!-- ReportCard -->
+<managed-bean>
+<managed-bean-name>reportCardMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ReportCardMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>reportCardDataBean</property-name>
+<value>#{ReportCardDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>ReportCardDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.ReportCardDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>reportCardViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ReportCardViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>reportCardDataBean</property-name>
+<value>#{ReportCardDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<!-- Library -->
+<managed-bean>
+<managed-bean-name>libraryMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.LibraryMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>libraryDataBean</property-name>
+<value>#{LibraryDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>LibraryDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.LibraryDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>libraryViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.LibraryViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>libraryDataBean</property-name>
+<value>#{LibraryDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Addbook.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/bookBorrower.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Bookview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>pageBookEdit</from-outcome>
+<to-view-id>/pages/xhtml/bookEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/bookEdit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/Bookview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Bookview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/Bookview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>borrowerPage</from-outcome>
+<to-view-id>/pages/xhtml/bookBorrower.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>viewBorrower</from-outcome>
+<to-view-id>/pages/xhtml/borrowerview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+
+
+<!-- Book Sales -->
+
+
+<managed-bean>
+<managed-bean-name>bookDetailViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.BookDetailViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>bookSaleDataBean</property-name>
+<value>#{BookSaleDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>bookSaleMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.BookSaleMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>bookSaleDataBean</property-name>
+<value>#{BookSaleDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>addBookSaleMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.AddBookSaleMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>bookSaleDataBean</property-name>
+<value>#{BookSaleDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>BookSaleDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.BookSaleDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>bookSaleViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.BookSaleViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>bookSaleDataBean</property-name>
+<value>#{BookSaleDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>AddBookView</from-outcome>
+<to-view-id>/pages/xhtml/Addbooksales.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Addbooksales.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Booksalesorder.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>BookView</from-outcome>
+<to-view-id>/pages/xhtml/BookDetailView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/BookDetailView.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>BookEditPage</from-outcome>
+<to-view-id>/pages/xhtml/BookSalesEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/dashboard1.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>Booksalesorder</from-outcome>
+<to-view-id>/pages/xhtml/Booksalesorder.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/dashboard1.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>Booksalesview</from-outcome>
+<to-view-id>/pages/xhtml/Booksalesview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/dashboard1.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>BookDetailView</from-outcome>
+<to-view-id>/pages/xhtml/BookDetailView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>editPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/StudentAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+ <navigation-rule>
+<navigation-case>
+<from-outcome>parentEditPage</from-outcome>
+<to-view-id>/pages/xhtml/ParentAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+ <navigation-rule>
+<navigation-case>
+<from-outcome>editPageLoad1</from-outcome>
+<to-view-id>/pages/xhtml/TeacherAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>adminPage</from-outcome>
+<to-view-id>/pages/xhtml/AdminAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+
+  <managed-bean>
+<managed-bean-name>classTimeTableMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ClassTimeTableMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>classTimeTableDataBean</property-name>
+<value>#{ClassTimeTableDataBean}</value>
+</managed-property>
+</managed-bean>
+<managed-bean>
+<managed-bean-name>ClassTimeTableDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.ClassTimeTableDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+<navigation-rule>
+<from-view-id>pages/xhtml/classMakeTable.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>classTimeTablereturn</from-outcome>
+<to-view-id>/pages/xhtml/classTimeTable.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<managed-bean>
+<managed-bean-name>classTimeTableViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.ClassTimeTableViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>classTimeTableDataBean</property-name>
+<value>#{ClassTimeTableDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>attendanceChartMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.AttendanceChartMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>attendanceDataBean</property-name>
+<value>#{AttendanceDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>dashboard1back</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<managed-bean>
+<managed-bean-name>staffMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StaffMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>staffDataBean</property-name>
+<value>#{StaffDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>StaffDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.StaffDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>staffViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.StaffViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>staffDataBean</property-name>
+<value>#{StaffDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>loadStaffPage</from-outcome>
+<to-view-id>/pages/xhtml/staffRegisteration.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>SuccessHome4</from-outcome>
+<to-view-id>/pages/xhtml/dashboard4.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>classDashboard2</from-outcome>
+<to-view-id>/pages/xhtml/dashboard2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>classDashboard</from-outcome>
+<to-view-id>/pages/xhtml/dashboard.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>editPagestaff</from-outcome>
+<to-view-id>/pages/xhtml/staffedit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>view</from-outcome>
+<to-view-id>/pages/xhtml/stafviews.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>editPagebookshop</from-outcome>
+<to-view-id>/pages/xhtml/bookshopedit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>editPageSuccess</from-outcome>
+<to-view-id>/pages/xhtml/staffview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>editPageBookshopSuccess</from-outcome>
+<to-view-id>/pages/xhtml/bookshopview.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+ 
+<!-- Staff -->
+<navigation-rule>
+<from-view-id>pages/xhtml/stafviews.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>stafviews</from-outcome>
+<to-view-id>/pages/xhtml/stafviews.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+ 
+<navigation-rule>
+<from-view-id>pages/xhtml/staffedit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>editPagestaff</from-outcome>
+<to-view-id>/pages/xhtml/staffedit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+
+
+
+ <!-- Forgotpage Navigation -->
+<navigation-rule>
+<navigation-case>
+<from-outcome>goForgetpassword</from-outcome>
+<to-view-id>/pages/xhtml/Forgetpassword.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>goOTP</from-outcome>
+<to-view-id>/pages/xhtml/OTP.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>goRecoverpassword</from-outcome>
+<to-view-id>/pages/xhtml/Recoverpassword.xhtml</to-view-id>
+<redirect/>
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>restsuccess</from-outcome>
+<to-view-id>/pages/xhtml/myNewLogin1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>bookshopdashboard3</from-outcome>
+<to-view-id>/pages/xhtml/dashboard3.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>staffdashboard3</from-outcome>
+<to-view-id>/pages/xhtml/dashboard5.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+ 
+ <navigation-rule>
+<navigation-case>
+<from-outcome>libdashboard4</from-outcome>
+<to-view-id>/pages/xhtml/dashboard4.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<managed-bean>
+<managed-bean-name>LibrarianDataBean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.LibrarianDataBean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>librarianMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.LibrarianMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>librarianDataBean</property-name>
+<value>#{LibrarianDataBean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/LibrarianRegistration.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome</from-outcome>
+<to-view-id>/pages/xhtml/dashboard1.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<managed-bean>
+<managed-bean-name>librarianViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.LibrarianViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>librarianDataBean</property-name>
+<value>#{LibrarianDataBean}</value>
+</managed-property>
+</managed-bean>
+
+ <navigation-rule>
+<navigation-case>
+<from-outcome>LibrarianviewPageLoad</from-outcome>
+<to-view-id>/pages/xhtml/librarianInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>staffAboutpage</from-outcome>
+<to-view-id>/pages/xhtml/staffAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>bookshopAboutpage</from-outcome>
+<to-view-id>/pages/xhtml/bookshopAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>librarianAboutpage</from-outcome>
+<to-view-id>/pages/xhtml/librarianAboutMe.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/librarianInfo.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>editPageLoad1</from-outcome>
+<to-view-id>/pages/xhtml/librarianEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>  
+
+<application>
+<resource-bundle>
+   <base-name>com.sms.text</base-name>
+   <var>text</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>com.sms.paths</base-name>
+   <var>paths</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>com.sms.database</base-name>
+   <var>database</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>com.sms.report</base-name>
+   <var>report</var>
+  </resource-bundle>
+   <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+ <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+ <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+  <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+  </application>
+  <factory>
+<exception-handler-factory>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
+</factory>
+  
+  
+<managed-bean>
+<managed-bean-name>homeWorkMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.HomeWorkMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>homeworkDatabean</property-name>
+<value>#{HomeworkDatabean}</value>
+</managed-property> 
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>HomeworkDatabean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.HomeworkDatabean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>createTimeTables</from-outcome>
+<to-view-id>/pages/xhtml/createTimeTable.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>  
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Booksalesorder.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome5</from-outcome>
+<to-view-id>/pages/xhtml/dashboard2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<managed-bean>
+<managed-bean-name>feesPaymentViewMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.FeesPaymentViewMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>paymentDatabean</property-name>
+<value>#{PaymentDatabean}</value>
+</managed-property>
+</managed-bean>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>paymentInfo</from-outcome>
+<to-view-id>/pages/xhtml/payment.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+<navigation-rule>
+<navigation-case>
+<from-outcome>feesPaymentPar</from-outcome>
+<to-view-id>/pages/xhtml/feesPayment.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<managed-bean>
+<managed-bean-name>paymentMB</managed-bean-name>
+<managed-bean-class>com.stumosys.managedBean.PaymentMB</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+<managed-property>
+<property-name>paymentDatabean</property-name>
+<value>#{PaymentDatabean}</value>
+</managed-property>
+</managed-bean>
+
+<managed-bean>
+<managed-bean-name>PaymentDatabean</managed-bean-name>
+<managed-bean-class>com.stumosys.domain.PaymentDatabean</managed-bean-class>
+<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>paymentEdit</from-outcome>
+<to-view-id>/pages/xhtml/paymentEditPage.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Booksalesview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>SuccessHome10</from-outcome>
+<to-view-id>/pages/xhtml/dashboard2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>pages/xhtml/Booksalesview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>booksaleEditpage</from-outcome>
+<to-view-id>/pages/xhtml/BooksalesorderEdit.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>/pages/xhtml/BooksalesorderEdit.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>redirectView</from-outcome>
+<to-view-id>pages/xhtml/dashboard2.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>success</from-outcome>
+<to-view-id>/pages/xhtml/ClassSubjectRegistration.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<from-view-id>/pages/xhtml/studentview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>redirectstudentview</from-outcome>
+<to-view-id>pages/xhtml/studentRegistrationView.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+<navigation-case>
+<from-outcome>studentinfopageload</from-outcome>
+<to-view-id>/pages/xhtml/StudentInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/studentview.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>studentInfopage</from-outcome>
+<to-view-id>/pages/xhtml/StudentInfo.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<navigation-rule>
+<from-view-id>pages/xhtml/backofficehomepage.xhtml</from-view-id>
+<navigation-case>
+<from-outcome>gotoviewUserdetails</from-outcome>
+<to-view-id>/pages/xhtml/viewUserdetails.xhtml</to-view-id>
+<redirect />
+</navigation-case>
+</navigation-rule> 
+
+<application>
+<resource-bundle>
+   <base-name>com.sms.paths</base-name>
+   <var>paths</var>
+  </resource-bundle>
+   <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+ <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+ <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+  <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+  </application>
+ </faces-config>

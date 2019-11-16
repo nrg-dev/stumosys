@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:nrg="http://richfaces.org/a4j">
+	<f:view contentType="text/html" locale="en">
+		<pe:head title="Student Monitoring System">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta name="viewport"
+				content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<f:facet name="first">
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<meta http-equiv="pragma" content="no-cache" />
+				<meta http-equiv="cache-control" content="no-cache" />
+				<meta http-equiv="expires" content="0" />
+			</f:facet>
+			
+			
+			<link rel="SHORTCUT ICON" href="../../images/nrg2.png"></link>
+			<link type="text/css" rel="stylesheet" href="../../css/home1.css"></link>
+			<link type="text/css" rel="stylesheet"
+				href="../../css/customStyleSheet.css"></link>
+			<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+			
+			<link type="text/css" rel="stylesheet" href="../../css/stumosysdashboard.css"> </link>
+
+			<link href="../../css/bootstrap.min.css" rel="stylesheet"
+				type="text/css" />
+			<link rel="stylesheet" href="../../css/css.css"></link>
+			<link rel="shortcut icon" type="image/x-icon"
+				href="../../images/nrg.jpg" />
+			<link rel="stylesheet" type="text/css" href="../../css/css.css"></link>
+			<link rel="stylesheet" type="text/css" href="../../css/bgload.css"></link>
+
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<!-- <link rel="stylesheet" media="screen" href="../../css/bootstrap.min.css" type="text/css"/> -->
+			<link rel="stylesheet" media="screen" href="../../css/custom.css"
+				type="text/css" />
+			<link rel="stylesheet" media="screen"
+				href="../../css/jquery.mCustomScrollbar.css" type="text/css" />
+			<link rel="stylesheet" media="screen" href="../../css/style.css"
+				type="text/css" />
+			<script type="text/javascript" src="../../js/mystyle.js"></script>
+
+
+			<script src="../../js/modernizr.js" type="text/javascript"></script>
+			<script src="../../js/twitterFetcher_v10_min.js"
+				type="text/javascript"></script>
+
+			<style type="text/css">
+			
+			#autocomplete1 .ui-autocomplete-input{
+						   width: 250%;
+    						height: 35px;
+    						padding:10px;
+							font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+						    font-style: normal;
+						    font-weight: normal;
+						    text-decoration: inherit;
+						}	
+		#autocomplete{
+		font-size: 15px;
+		}
+.myclass .fc-event,
+.myclass a,
+.myclass .fc-event-inner{
+   background-color: red;
+   border-color: red;
+   color: white;
+}
+.fc-time {
+	display: none;
+}
+
+.ui-layout-west {
+	background: #F6F8F8;
+}
+
+.ui-layout-center {
+	background: #ffffff;
+}
+
+.ui-layout-north, .ui-layout-south {
+	background: #{loginMB.background};
+	border: solid 1px #0b4170;
+	
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+	display: block;
+	padding: .5em .5em .5em 2.2em;
+	font-size: 13px !important;
+	font-family: Book Antiqua;
+}
+
+.ui-icon.teacher-icon {
+	background: url('../../images/excel.png') no-repeat;
+	height: 25px;
+	width: 25px;
+}
+
+.ui-layout-north, .ui-layout-south {
+	overflow-y: hidden ! important;
+	overflow-x: hidden ! important;
+}
+
+.ui-panelmenu .ui-menuitem-link {
+	font-size: 12px ! important;
+	font-family: Book Antiqua;
+}
+
+.goog-logo-link {
+	display: none !important;
+}
+
+.goog-te-gadget {
+	color: transparent !important;
+}
+
+.ui-menu .ui-menuitem-text {
+	font-size: 12px;
+	font-family: book Antiqua;
+}
+
+​
+.ui-timepicker-table td a {
+	width: 1.8em ! important;
+}
+.input-group-addon {
+    color: #222;
+    border: 0;
+    background-color:#fff;
+    border-radius: 3px 0 0 3px;
+}
+.input_login{
+	    width: 111px;
+    color: white;
+    font-size: 10px;
+        margin-bottom: 0px !important;
+}
+label {
+    display: inline-block;
+        margin-bottom: -1px;
+}
+.command_logo{
+	font-size: 25px;
+    color: white ! important;
+    font-weight: 700;
+    width:120px;
+    text-align:center;
+    padding-left: 10%;
+   
+}
+
+.image-cropper {
+    width: 70px;
+    height: 70px;
+    margin-top:-5px;
+    position: relative;
+    overflow: hidden;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+.imgro {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+}
+</style>
+
+			<script type="text/javascript">
+				function googleTranslateElementInit() {
+					new google.translate.TranslateElement({
+						pageLanguage : 'en',
+						multilanguagePage : true
+					}, 'google_translate_element');
+				}
+			</script>
+		</pe:head>
+
+
+		<h:body>
+			<div id="overlay">
+
+				<div class="mouse"></div>
+				<p>Loading</p>
+			</div>
+
+			<pe:layout fullPage="true" id="homelayout">
+
+				<pe:layoutPane id="tt" position="north" closable="false"
+					resizable="false" size="12%">
+					<h:form>
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-1" >
+									<p:commandLink ajax="false" action="#{loginMB.redirect}" value="STUMOSYS" styleClass="command_logo">
+									</p:commandLink>
+								</div>
+								<div class="ui-grid-col-3" style="text-align: center;" id="autocomplete1">
+									<p:autoComplete  id="autocomplete" placeholder="Search For Information" completeMethod="#{loginMB.searchvalue}" 
+									style="font-size: 15px;" scrollHeight="250" 
+									itemLabel="#{global.lableValue}" 
+									itemValue="#{global.value1}/#{global.moduleName}/#{global.p_id}/#{global.personID}/#{global.value2}" var="global">
+									<p:ajax event="itemSelect" listener="#{loginMB.selectListener}"></p:ajax>
+									</p:autoComplete>
+								</div>
+								<div class="ui-grid-col-3" align="right" >
+											<div id="google_translate_element"></div>
+								</div>
+								<div class="ui-grid-col-2" align="center">
+										<h:panelGrid columns="3" >
+										<h:outputLabel value="USER NAME" styleClass="input_login" style=" font-size: 12px; width: auto;"></h:outputLabel>
+										<h:outputLabel value=":" style="color:white;"></h:outputLabel>
+										<h:outputLabel value="#{loginMB.loginaccess.username}" styleClass="input_login" style=" font-size: 12px; width: auto;"></h:outputLabel>
+										
+										<h:outputLabel value="USER ROLE" styleClass="input_login" style=" margin-top: 6px;font-size: 12px;"></h:outputLabel>
+										<h:outputLabel value=":" style="color:white;margin-top: 6px;"></h:outputLabel>
+										<h:outputLabel value="#{loginMB.loginaccess.user_rolles}" styleClass="input_login" style=" margin-top: 6px;font-size: 12px; width: auto;"></h:outputLabel>
+										
+											
+										</h:panelGrid>
+								</div>
+									<div class="ui-grid-col-2" align="left">
+									<h:panelGrid columns="3">
+										
+											<h:outputText value="SCHOOL ID"  styleClass="input_login" style=" font-size: 12px; width: auto;"></h:outputText>
+											<h:outputLabel value=":" style="color:white;"></h:outputLabel>
+											<h:outputLabel value="#{loginMB.loginaccess.schoolID}" style=" font-size: 12px; width: auto;" styleClass="input_login"></h:outputLabel>
+											<h:outputLabel value="SUPPORT NUMBER" style="margin-top: 6px; font-size: 12px; width: auto;" styleClass="input_login"></h:outputLabel>
+											<h:outputLabel value=":" style="color:white;margin-top: 6px;"></h:outputLabel>
+											<h:outputLabel value="#{loginMB.loginaccess.supportNumber}" style="margin-top: 6px;font-size: 12px; width: auto;" styleClass="input_login"></h:outputLabel>
+										</h:panelGrid>
+								</div>
+								
+								<div class="ui-grid-col-1" style="margin-top: -8px;" align="center">
+								<div class="image-cropper">
+											<p:commandLink id="dynaButton" >
+												<p:graphicImage value="#{loginMB.logos}" rendered="#{loginMB.oldlogoflag}" styleClass="imgro"/> 
+												<nrg:mediaOutput  styleClass="imgro"
+												element="img" cacheable="false" session="true" rendered="#{loginMB.newlogoflag}"
+												createContent="#{loginMB.imageview1}" mimeType="image/png" />
+											</p:commandLink>
+								</div>
+											<!-- <p:commandButton id="dynaButton" type="button"
+												icon="fa fa-user" /> -->
+											<p:slideMenu overlay="true" trigger="dynaButton"
+												my="left top" at="right bottom">
+												<p:menuitem value="About Me" icon="fa fa-info-circle"
+													action="#{loginMB.aboutMe}" ajax="false">
+													<f:setPropertyActionListener
+														value="#{StudentDataBean.stuRollNo}"
+														target="#{studentViewMB.studentDataBean.stuRollNo}"></f:setPropertyActionListener>
+												</p:menuitem>
+												<p:menuitem value="Logout" action="#{loginMB.logout}"
+													icon="fa fa-sign-out" ajax="false" />
+
+												<p:separator />
+												<p:menuitem value="Dashboard" action="#{loginMB.dashboard}"
+													icon="fa fa-home" ajax="false" />
+											</p:slideMenu>
+								</div>
+									
+
+							</div>
+
+						</div>
+					</h:form>
+
+				</pe:layoutPane>
+
+				<pe:layoutPane header="Dashboard" position="west" size="20%"
+					resizable="true">
+					<f:facet name="header">  
+                        Main Menu  
+                    </f:facet>
+					<h:form>
+						<ui:include src="../../pages/xhtml/menu.xhtml" />
+						<!--  <p:contextMenu>
+        <p:menuitem value="Neotural" url="http://neotural.com" />
+       
+        </p:contextMenu> -->
+					</h:form>
+				</pe:layoutPane>
+
+
+				<pe:layoutPane position="center" size="80%" resizable="true"
+					id="centerIDContent" closable="false">
+					<h:form enctype="multipart/form-data" id="XX">
+						<ui:insert name="content"></ui:insert>
+					</h:form>
+
+				</pe:layoutPane>
+
+				<pe:layoutPane position="south" closable="false" resizable="false"
+					size="4%">
+					<center>
+						<h:outputLabel
+							value="Copyright © 2016 PT. Neotural Era Graha. All Rights Reserved."
+							style="font-size:80% ; color:white; font-family: book antiqua !important;">
+						</h:outputLabel>
+					</center>
+				</pe:layoutPane>
+			</pe:layout>
+			
+			<p:blockUI widgetVar="blockUI" block="homelayout">
+			<h:panelGrid id="blockUIContent" columns="2"
+				style="table-layout:auto;">
+				<p:graphicImage value="../../images/ajax-loader1.gif" />
+				<h:outputText value="Please wait, data is being processed..."
+					style="white-space: nowrap;" />
+			</h:panelGrid>
+		</p:blockUI>
+		
+			<p:idleMonitor timeout="1200000">
+				<p:ajax event="idle" listener="#{dashBoardMB.onIdle}"></p:ajax>
+			</p:idleMonitor>
+	
+			<script type="text/javascript">
+				PrimeFaces.locales['tr'] = {
+					closeText : 'kapat',
+					prevText : 'geri',
+					nextText : 'ileri',
+					currentText : 'bugün',
+					monthNames : [ 'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs',
+							'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim',
+							'Kasım', 'Aralık' ],
+					monthNamesShort : [ 'Oca', 'Şub', 'Mar', 'Nis', 'May',
+							'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara' ],
+					dayNames : [ 'Pazar', 'Pazartesi', 'Salı', 'Çarşamba',
+							'Perşembe', 'Cuma', 'Cumartesi' ],
+					dayNamesShort : [ 'Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct' ],
+					dayNamesMin : [ 'Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct' ],
+					weekHeader : 'Hf',
+					firstDay : 1,
+					isRTL : false,
+					showMonthAfterYear : false,
+					yearSuffix : '',
+					month : 'Ay',
+					week : 'Hafta',
+					day : 'Gün',
+					allDayText : 'Tüm Gün'
+				};
+			</script>
+			<style type="text/css">
+.value {
+	width: 1000px;
+}
+</style>
+			<script type="text/javascript"
+				src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+			<script>
+				$(window).load(function() {
+					$('#overlay').fadeOut(2000, function() {
+						$('#centerIDContent').fadeIn(1000);
+					});
+				});
+			</script>
+			
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		     <h:panelGrid  columns="2"
+		    style="table-layout:auto;">
+		    <p:graphicImage value="../../images/ajax-loader1.gif" />
+		    <h:outputText value="Please wait, data is being processed..."
+		     style="white-space: nowrap;" />
+		   </h:panelGrid>
+		    </p:dialog>
+		</h:body>
+	</f:view>
+</ui:composition>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	<link type="text/css" rel="stylesheet" href="../../css/customStyleSheet.css"></link>
+	
+	<ui:define name="content">	
+	<p:panel style="min-height:100%;width:100%" header="Class and Subject Registration" toggleable="false"  >
+	<p:tabView >
+	  <p:ajax event="tabChange" listener="#{librarianMB.onTabChange}" update=":XX"/>
+	<p:tab title="Class Registration">	
+	<table>
+	<tr>
+		<th>
+			<h:outputText value="Class Name" styleClass="labelTxt" style="margin-left: 0px;"></h:outputText>
+		</th>
+		<th>
+			<h:outputText value="Class Section" styleClass="labelTxt"></h:outputText>
+		</th>
+	</tr>
+	<tr>
+		<th>
+			<h:inputText value="#{librarianMB.librarianDataBean.classname}" id="name" styleClass="inputTxt" tabindex="2" maxlength="25" style="width:208px;font-size:10px;height:25px"/>
+		</th>
+		<th>
+			<h:inputText value="#{librarianMB.librarianDataBean.classsection}" id="section" styleClass="inputTxt" tabindex="2" maxlength="25" style="width:208px;font-size:10px;margin-left:38px;height:25px"/>
+		</th>
+		<th>
+				<p:commandButton value="Add" action="#{librarianMB.addclass}" update="XX addclass" style="margin-left:73px;font-size: 13px;">
+				<p:collector value="#{librarianMB.librarianDataBean}" addTo="#{librarianMB.classlist}" unique="true"/>
+				</p:commandButton>
+		</th>
+	</tr>
+	<tr>
+		<th>
+			<h:message for="name" style="color:red;font-size:10px;"></h:message>
+		</th>
+		<th>
+			<h:message for="section" style="color:red;font-size:10px;margin-left: 37px;"></h:message>
+		</th>	
+	</tr>	
+	</table>	
+	<p:outputPanel id="addclass" style="margin-top: 14px;">
+	<p:dataTable var="cla" value="#{librarianMB.classlist}" paginator="true" paginatorPosition="bottom" pageLinks="5" paginatorAlwaysVisible="false" rows="5" >
+	<p:column headerText="Class Name" style="font-size: 10px;">
+	<h:outputText value="#{cla.classname}"></h:outputText>
+	</p:column>
+	<p:column headerText="Class Section" style="font-size: 10px;">
+	<h:outputText value="#{cla.classsection}"></h:outputText>
+	</p:column>
+	<p:column headerText="Action" width="18%" style="font-size: 10px;">
+           <p:commandButton icon="fa fa-times" update="@form" process="@this">
+              <p:collector value="#{cla}" removeFrom="#{librarianMB.classlist}" unique="true"/>
+                </p:commandButton>
+            </p:column>
+	</p:dataTable>
+	</p:outputPanel>
+	<br></br>
+	<center>
+	<p:commandButton value="Save" action="#{librarianMB.classinsert}" ajax="false"></p:commandButton>
+	</center>
+	</p:tab>
+	
+	<p:tab title="Subject Registration">
+	<table>
+		<tr>
+			<th>
+				<h:outputText value="Class" styleClass="labelTxt" style="margin-left: 0px;"></h:outputText>
+			</th>
+			<th>
+				<h:outputText value="Subject Name" styleClass="labelTxt"></h:outputText>
+			</th>
+			<th>
+				<h:outputText value="Subject Code" styleClass="labelTxt"></h:outputText>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<h:selectOneMenu value="#{librarianMB.librarianDataBean.name}" id="classsection" styleClass="inputTxt" style="border-radius:0px;height: 25px;width:208px;font-size: 10px;">	
+					<f:selectItem itemLabel=" Select the Class" itemValue="" noSelectionOption="true"></f:selectItem>
+					<f:selectItems value="#{librarianMB.clasSectionList}"></f:selectItems>		
+				</h:selectOneMenu>			
+			</th>
+			<th>
+				<h:inputText value="#{librarianMB.librarianDataBean.subjectname}" id="sname" styleClass="inputTxt" tabindex="2" maxlength="25" style="width:208px;font-size:10px;height:25px;margin-left:38px"/>
+			</th>
+			<th>
+				<h:inputText value="#{librarianMB.librarianDataBean.subjectcode}" id="code" styleClass="inputTxt" tabindex="2" maxlength="25" style="width:208px;font-size:10px;height:25px;margin-left:38px"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<h:message for="classsection" style="color:red;font-size:10px;"></h:message>
+			</th>
+			<th>
+				<h:message for="sname" style="color:red;font-size:10px;margin-left: 36px;"></h:message>
+			</th>
+			<th>
+				<h:message for="code" style="color:red;font-size:10px;margin-left: 36px;"></h:message>
+			</th>
+	</tr>		
+	</table>
+	<table>
+		<tr>
+			<th>
+				<p:commandButton value="Add" action="#{librarianMB.addsubject}" update="XX addsubject" style="margin-left: 335px;margin-top: 13px;font-size: 13px;">
+				<p:collector value="#{librarianMB.librarianDataBean}" addTo="#{librarianMB.sublectlist}" unique="true"/>
+				</p:commandButton>
+			</th>
+		</tr>
+	</table>
+	<p:outputPanel id="addsubject">
+	<p:dataTable var="sub" value="#{librarianMB.sublectlist}" paginator="true" paginatorPosition="bottom" pageLinks="5" paginatorAlwaysVisible="false" rows="5" style="margin-top: 10px;">
+	<p:column headerText="Class" style="font-size:10px">
+	<h:outputText value="#{sub.name}"></h:outputText>
+	</p:column>
+	<p:column headerText="Subject Name" style="font-size:10px">
+	<h:outputText value="#{sub.subjectname}"></h:outputText>
+	</p:column>
+	<p:column headerText="Subject Code" style="font-size:10px">
+	<h:outputText value="#{sub.subjectcode}"></h:outputText>
+	</p:column>
+	<p:column headerText="Action" width="18%" style="font-size:10px">
+           <p:commandButton icon="fa fa-times" update="@form" process="@this">
+              <p:collector value="#{sub}" removeFrom="#{librarianMB.sublectlist}" unique="true"/>
+                </p:commandButton>
+            </p:column>
+	</p:dataTable>
+	</p:outputPanel>
+	<p:commandButton value="Save" ajax="false" action="#{librarianMB.subjectinsert}" style="margin-left: 335px;margin-top: 13px;font-size: 13px;"></p:commandButton>
+	
+	</p:tab>
+	</p:tabView>
+	</p:panel>
+	<p:dialog widgetVar="confirm" header="Conformation" height="120px" width="30%" modal="true" appendTo="@(body)"
+  position="center" resizable="false" draggable="true">
+  <h:form>			
+  	<center>
+		<h:outputText value="Successfully Saved" style="font-size: 16px"> </h:outputText>
+		<br></br><br></br>
+		<p:commandButton value="OK" oncomplete="PF('confirm').hide()" action="#{librarianMB.classsubjectpage}" process="@this" immediate="true" update=":XX"></p:commandButton>
+	</center>
+	</h:form>	
+</p:dialog>	
+	</ui:define>
+	</ui:composition>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="../../pages/xhtml/home.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<link type="text/css" rel="stylesheet" href="../../css/myStyles.css"></link>
+	<link type="text/css" rel="stylesheet"
+		href="../../css/customStyleSheet.css"></link>
+	<ui:define name="content">
+		<p:panel toggleable="false" header="Librarian Information"
+			style="min-height:100%;">
+			<table width="100%">
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="Librarian ID" styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{librarianViewMB.librarianDataBean.libID}"
+							styleClass="inputTxt" /> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="First Name " styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							placeholder="First Name"
+							value="#{librarianViewMB.librarianDataBean.libFirstName}"
+							styleClass="inputTxt" /> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText value="Last Name "
+							styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							placeholder="Last Name"
+							value="#{librarianViewMB.librarianDataBean.libLastName}"
+							styleClass="inputTxt" /> <br></br></td>
+				</tr>
+				<tr>
+					<td width="25%"><br></br> <h:outputText value="Gender"
+							styleClass="labelTxt"></h:outputText></td>
+					<td width="75%"><br></br> <h:outputText
+							value="#{librarianViewMB.librarianDataBean.libGender}"
+							styleClass="labelTxt">
+
+						</h:outputText></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><br></br> <h:outputText
+							value="E-mail " styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><br></br> <h:outputText
+							value="#{librarianViewMB.librarianDataBean.libEmail}"
+							styleClass="inputTxt" /></td>
+				</tr>
+				<tr>
+					<td width="25%" height="50px"><h:outputText
+							value="Phone Number " styleClass="labelTxt"></h:outputText></td>
+					<td width="75%" height="50px"><h:outputText
+							value="#{librarianViewMB.librarianDataBean.libPhoneNo}"
+							styleClass="inputTxt" /> <br></br></td>
+				</tr>
+				<tr>
+					<td><h:outputText value="Librarian Photo" styleClass="labelTxt" />
+					</td>
+					<td><a4j:mediaOutput style="width:200px;height:200px;"
+							element="img" cacheable="false" session="true"
+							createContent="#{librarianViewMB.imageview}" mimeType="image/png" /></td>
+				</tr>
+
+
+			</table>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
